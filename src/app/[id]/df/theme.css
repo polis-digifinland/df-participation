@@ -1,0 +1,40 @@
+/* DigiFinland Theme colors and fonts */
+:root{
+--text-primary: var(--df_blue);
+--text-placeholder: var(--gray);
+--text-invert: var(--white);
+--surface-primary: var(--white);
+--surface-brand: var(--df_blue);
+--surface-card-1: var(--df_light_blue);
+--surface-card-2: var(--df_green);
+--surface-card-3: var(--df_pink);
+--surface-card-4: var(--df_gray);
+--surface-graph-primary: var(--df_light_blue);
+--surface-graph-secondary: var(--df_pink);
+--border-primary: var(--df_blue);
+--logo-primary: var(--df_blue);
+--logo-secondary: var(--df_light_blue);
+.font-primary{@apply font-tthoves;}
+.font-secondary{@apply font-tthoves;}
+}
+/* Dark Theme colors and fonts */
+/*
+@media (prefers-color-scheme: dark) {
+:root{
+--text-primary: var(--dark_white);
+--text-placeholder: var(--dark_gray);
+--text-invert: var(--dark_black);
+--surface-primary: var(--dark_black);
+--surface-brand: var(--dark_white);
+--surface-card-1: var(--dark_green1);
+--surface-card-2: var(--dark_brown);
+--surface-card-3: var(--dark_blue);
+--surface-card-4: var(--dark_green2);
+--surface-graph-primary: var(--dark_green1);
+--surface-graph-secondary: var(--dark_brown);
+--border-primary: var(--dark_white);
+--logo-primary: var(--dark_black);
+--logo-secondary: var(--dark_white);
+}
+}
+*/

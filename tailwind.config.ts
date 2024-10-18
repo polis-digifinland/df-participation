@@ -32,6 +32,8 @@ const config: Config = {
         'theme-surface-graph-primary': "var(--surface-graph-primary)",
         'theme-surface-graph-secondary': "var(--surface-graph-secondary)",
         'theme-border-primary': "var(--border-primary)",
+        'theme-logo-primary': "var(--logo-primary)",
+        'theme-logo-secondary': "var(--logo-secondary)",
       },
     },
   },

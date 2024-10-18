@@ -13,7 +13,7 @@ const Thumb = ({ color = 'currentColor', width = 43, height = 43, rotate = 0 }) 
           cy="21.5"
           r="20.75"
           stroke={color}
-          stroke-width="1.5"
+          strokeWidth="1.5"
         />
         <g id="Peukku_2">
           <path

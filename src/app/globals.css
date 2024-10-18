@@ -7,14 +7,14 @@
 --white: #ffffff;
 --gray: #919191;
 
-/* DigiFinland colors */
+/* DigiFinland theme colors */
 --df_blue: #003F71;
 --df_light_blue: #E7F3FA;
 --df_green: #DFF3F1;
 --df_pink: #F1EEF9;
 --df_gray: #EFEFEF;
 
-/* Whitelabel basic colors */
+/* Whitelabel basic theme colors */
 --wl_black: #100F0F;
 --wl_gray: #959092;
 --wl_blue: #DEE4E6;
@@ -23,7 +23,7 @@
 --wl_yellow: #E6E6E2;
 --wl_orange: #E5CAB8;
 
-/* Dark colors */
+/* Dark theme colors */
 --dark_white: #DEDCDC;
 --dark_gray: #767575;
 --dark_black: #0D0D0D;
@@ -33,7 +33,9 @@
 --dark_green2: #313D40;
 }
 
+
 /* DigiFinland Theme colors and fonts */
+/*
 :root[data-theme="df"] {
 --text-primary: var(--df_blue);
 --text-placeholder: var(--gray);
@@ -47,11 +49,14 @@
 --surface-graph-primary: var(--df_light_blue);
 --surface-graph-secondary: var(--df_pink);
 --border-primary: var(--df_blue);
+--logo-primary: var(--df_blue);
+--logo-secondary: var(--df_light_blue);
 .font-primary{@apply font-tthoves;}
 .font-secondary{@apply font-tthoves;}
 }
-
+*/
 /* Whitelabel Basic Theme colors and fonts */
+/*
 :root[data-theme="basic"] {
 --text-primary: var(--wl_black);
 --text-placeholder: var(--wl_gray);
@@ -65,10 +70,12 @@
 --surface-graph-primary: var(--wl_yellow);
 --surface-graph-secondary: var(--wl_orange);
 --border-primary: var(--wl_black);
+--logo-primary: var(--white);
+--logo-secondary: var(--wl_black);
 .font-primary{@apply font-dmserif;}
 .font-secondary{@apply font-raleway;}
 }
-
+*/
 /* Dark Theme colors and fonts */
 /*
 @media (prefers-color-scheme: dark) {
@@ -86,6 +93,8 @@
 --surface-graph-primary: var(--dark_green1);
 --surface-graph-secondary: var(--dark_brown);
 --border-primary: var(--dark_white);
+--logo-primary: var(--dark_black);
+--logo-secondary: var(--dark_white);
 }
 }
 */

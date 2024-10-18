@@ -4,14 +4,14 @@ import { useState } from 'react';
 
 export default function Suggestions() {
 
-const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
     console.log('inputValue: ', { inputValue });
   };
   
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission behavior
 
     // Process the form data (e.g., send it to an API)

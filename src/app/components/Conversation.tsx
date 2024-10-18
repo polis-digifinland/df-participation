@@ -1,27 +1,40 @@
-//'use client'
+//import Chevron from '../icons/Chevron';
 
-//import Link from "next/link"
-//import { usePathname } from 'next/navigation'
-import Chevron from '../icons/Chevron';
+/* 
+<Chevron rotate={270} />
+*/
 
-export default function Conversation() {
-  //const pathname = usePathname()
-	return (
-		<>
-			<div id="Conversation" className="text-primary select-none mt-10 ">
-                <h1 className="font-primary text-3xl font-bold ">
-                    Anna mielipiteesi demokratian toteutumisesta
+interface ConversationProps {
+    topic: string;
+    description: string;
+}
+
+export default function Conversation({ topic, description }: ConversationProps) {
+
+    const slicecut = 160;
+
+    return (
+        <>
+            <div id="Conversation" className="text-primary select-none mt-10">
+                <h1 className="font-primary text-3xl font-bold">
+                    {topic}
                 </h1>
-                <p className="font-secondary mt-5">
-                    Haluamme selvittää, kuinka hyvin demokratia, digitalisaatio ja yhdenvertaisuus toteutuu mielestäsi päätöksenteossa.
-                </p>
-                <div className="flex flex-row items-center">
-                    <p className="font-secondary mr-2">
-                        Lue lisää
+                {description.length > slicecut ? (
+                    <>
+                        <p className="font-secondary mt-5">
+                            {description.slice(0, slicecut)}...
+                        </p>
+                        <details>
+                            <summary className="font-secondary mt-5">Lue lisää</summary>
+                            <p className="font-secondary mt-2">{description.slice(slicecut)}</p>
+                        </details>
+                    </>
+                ) : (
+                    <p className="font-secondary mt-5">
+                        {description}
                     </p>
-                    <Chevron rotate="270"/>
-                </div>
+                    )}
             </div>
-		</>
-	)
+        </>
+    );
 }

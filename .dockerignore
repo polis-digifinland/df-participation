@@ -1,4 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# add git-ignore syntax here of things you don't want copied into docker image
+
+.git
+*Dockerfile*
 
 # dependencies
 /node_modules

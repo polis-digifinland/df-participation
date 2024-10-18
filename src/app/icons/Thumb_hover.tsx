@@ -14,7 +14,7 @@ const Thumb_hover = ({ color = 'currentColor', width = 43, height = 43, rotate =
           r="20.75"
           fill={color}
           stroke={color}
-          stroke-width="1.5"
+          strokeWidth="1.5"
         />
         <g id="Peukku_2">
           <path

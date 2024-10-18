@@ -1,14 +1,9 @@
-import type { Metadata } from "next";
 import { DM_Serif_Text, Raleway } from 'next/font/google'
 import localFont from "next/font/local";
+import type { Metadata } from "next";
+import { Suspense } from 'react';
+
 import "./globals.css";
-import Header from "./components/Header"
-import Conversation from "./components/Conversation"
-import ProgressBar from "./components/ProgressBar"
-import Cards from "./components/Cards"
-import Suggestions from "./components/Suggestions"
-import Results from "./components/Results"
-import Footer from "./components/Footer"
 
 const dm_serif = DM_Serif_Text({
   subsets: ['latin'],
@@ -66,18 +61,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="df">
+    <html lang="fi">
       <body className={`${tt_hoves.variable} ${dm_serif.variable} ${raleway.variable} antialiased mx-auto text-left px-6 py-14 max-w-screen-sm`}>
-        {children}
-        <Header />
-        <main>
-            <Conversation />
-            <ProgressBar />
-            <Cards />
-            <Suggestions />
-            <Results />
-        </main>
-        <Footer />
+        <Suspense fallback={<p>laddar</p>}>
+          {children}
+        </Suspense>
       </body>
     </html>
   );
