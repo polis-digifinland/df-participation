@@ -14,11 +14,11 @@
 --border-primary: var(--wl_black);
 --logo-primary: var(--white);
 --logo-secondary: var(--wl_black);
+--footer-background: var(--wl_black);
 .font-primary{@apply font-dmserif;}
 .font-secondary{@apply font-raleway;}
 }
 /* Dark Theme colors and fonts */
-/*
 @media (prefers-color-scheme: dark) {
 :root{
 --text-primary: var(--dark_white);
@@ -35,6 +35,7 @@
 --border-primary: var(--dark_white);
 --logo-primary: var(--dark_black);
 --logo-secondary: var(--dark_white);
+--footer-background: var(--dark_brown);
 }
 }
-*/
+

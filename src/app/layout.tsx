@@ -62,11 +62,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fi">
-      <body className={`${tt_hoves.variable} ${dm_serif.variable} ${raleway.variable} antialiased mx-auto text-left px-6 py-14 max-w-screen-sm`}>
-        <Suspense fallback={<p>laddar</p>}>
-          {children}
-        </Suspense>
+      <body className={`bg-theme-surface-primary ${tt_hoves.variable} ${dm_serif.variable} ${raleway.variable} antialiased text-left`}>
+        <div className="mx-auto px-6 py-xl max-w-screen-sm">
+          <Suspense fallback={<h1 className="text-primary text-3xl font-primary font-bold">Ladataan sovellusta.</h1>}>
+            {children}
+          </Suspense>
+        </div>
       </body>
     </html>
   );
 }
+

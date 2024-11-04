@@ -1,21 +1,27 @@
-'use client'
-
 import User from '../icons/User';
 
-export default function Results() {
-  return (
+interface ResultsProps {
+    is_active: boolean;
+    vis_type: boolean;
+}
+
+export default function Results({ is_active, vis_type }: ResultsProps) {
+
+if (!is_active || !vis_type) {return (<></>)}else{
+
+return (
     <>
-<div id="Results" className="text-primary font-primary mt-10 flex flex-col gap-[23px]">
-  <div className="font-bold text-3xl">Tutustu tuloksiin</div>
-  <div className="font-bold">“Ihmisen luovuus ja kyky kehittää innovaatioita ovat keskeisiä tekijöitä teknologisen kehityksen kannalta.”</div>
-  <div className="flex"><User/> Vastasit: Samaa mieltä</div>
+<div id="Results" className="text-primary font-primary mt-xl flex flex-col gap-[23px] select-none">
+<div className="font-bold text-3xl">Tutustu tuloksiin</div>
+<div className="font-bold">“Tämä toiminnallisuus ei ole vielä toimiva.”</div>
+<div className="flex"><User/> Vastasit: Samaa mieltä</div>
 
-
+{/*
 <div className="h-9 flex-row justify-end items-end gap-5 inline-flex">
-<div className="">1</div>
-<div className="font-bold ">2</div>
+<div className="font-bold">1</div>
+<div className="">2</div>
 </div>
-
+*/}
 
 
 <div className="h-[218px] px-4 justify-start items-end gap-6 inline-flex">
@@ -48,5 +54,7 @@ export default function Results() {
 
 </div>
     </>
-  )
+)
 }
+}
+

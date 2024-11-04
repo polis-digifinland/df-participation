@@ -14,27 +14,8 @@
 --border-primary: var(--df_blue);
 --logo-primary: var(--df_blue);
 --logo-secondary: var(--df_light_blue);
+--footer-background: var(--df_blue);
 .font-primary{@apply font-tthoves;}
 .font-secondary{@apply font-tthoves;}
 }
-/* Dark Theme colors and fonts */
-/*
-@media (prefers-color-scheme: dark) {
-:root{
---text-primary: var(--dark_white);
---text-placeholder: var(--dark_gray);
---text-invert: var(--dark_black);
---surface-primary: var(--dark_black);
---surface-brand: var(--dark_white);
---surface-card-1: var(--dark_green1);
---surface-card-2: var(--dark_brown);
---surface-card-3: var(--dark_blue);
---surface-card-4: var(--dark_green2);
---surface-graph-primary: var(--dark_green1);
---surface-graph-secondary: var(--dark_brown);
---border-primary: var(--dark_white);
---logo-primary: var(--dark_black);
---logo-secondary: var(--dark_white);
-}
-}
-*/
+

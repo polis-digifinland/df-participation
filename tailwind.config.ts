@@ -19,6 +19,14 @@ const config: Config = {
         dmserif: ['var(--font-dm-serif)'],
         raleway: ['var(--font-raleway)'],
       },
+      spacing: {
+        xl: '40px',
+        lg: '32px',
+        md: '24px',
+        sm: '16px',
+        xs: '12px',
+        xxs: '8px',
+      },
       colors: {
         'primary': "var(--text-primary)",
         'placeholder': "var(--text-placeholder)",
@@ -34,6 +42,7 @@ const config: Config = {
         'theme-border-primary': "var(--border-primary)",
         'theme-logo-primary': "var(--logo-primary)",
         'theme-logo-secondary': "var(--logo-secondary)",
+        'theme-footer-background': "var(--footer-background)",
       },
     },
   },

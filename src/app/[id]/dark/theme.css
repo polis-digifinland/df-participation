@@ -14,4 +14,8 @@
 --border-primary: var(--dark_white);
 --logo-primary: var(--dark_black);
 --logo-secondary: var(--dark_white);
+--footer-background: var(--dark_brown);
+.font-primary{@apply font-dmserif;}
+.font-secondary{@apply font-raleway;}
 }
+

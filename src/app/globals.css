@@ -98,9 +98,6 @@
 }
 }
 */
-:root{
-background: var(--surface-primary);
-}
 
 /* Highlight parts without theme being applied to them */
 body {
@@ -112,4 +109,56 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+p {
+  margin-bottom:8px;
+}
+
+a {
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
+
+a::after {
+  content: url('./icons/open_in_new.svg');
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+#svg-button {
+  height: 66px;
+  width: 66px;
+  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+}
+
+#svg-button:hover {
+  height: 70px;
+  width: 70px;
+  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+}
+
+#suggest-button {
+  height: 44px;
+  width: 107px;
+  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+}
+
+#suggest-button:hover {
+  height: 48px;
+  width: 111px;
+  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+}
+
+.details-icon {
+transform: rotate(270deg);
+transition: transform 0.5s;
+}
+
+details[open] .details-icon {
+transform: rotate(90deg);
+transition: transform 0.5s;
 }

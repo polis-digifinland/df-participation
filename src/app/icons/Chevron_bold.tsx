@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Chevron_bold = ({ color = 'currentColor', width = 14, height = 14, rotate = 270 }) => {
+const Chevron_bold = ({ color = 'currentColor', width = 14, height = 14, rotate = 0 }) => {
 
   const viewBox = "0 0 14 14";
 
