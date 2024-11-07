@@ -26,6 +26,7 @@ const config: Config = {
         sm: '16px',
         xs: '12px',
         xxs: '8px',
+        xxxs:'4px',
       },
       colors: {
         'primary': "var(--text-primary)",

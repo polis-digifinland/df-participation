@@ -121,10 +121,11 @@ export default async function Page({ params }: { params: { id: string, theme: st
       <Header />
       <main>
         <Conversation
-          topic={data ? data.conversation.topic : 'Topic failed to load'}
-          description={data ? data.conversation.description : 'Description failed to load'}
+          topic={data ? data.conversation.topic : 'Keskustelun latauksessa tapahtui virhe.'}
+          description={data ? data.conversation.description : 'Kokeile ladata sivu uudelleen.'}
         />
         <Voting
+          failed_to_load={data ? false : true}
           is_active={data ? data.conversation.is_active : false}
           tid={data ? data.nextComment.tid : null}
           pid={-1} // Participant id will always be unknown at SSR, real value will be set at client side

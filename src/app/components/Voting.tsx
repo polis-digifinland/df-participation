@@ -7,6 +7,7 @@ import Pass from '../icons/Pass';
 import useSWRImmutable from 'swr/immutable'
 
 interface VotingProps {
+  failed_to_load: boolean;
   is_active: boolean;
   tid: number;
   pid: number;
@@ -24,7 +25,7 @@ const fetcher = (url: string) => fetch(url, { credentials: 'include' }).then(res
   return res.json();
 });
 
-export default function Voting({ is_active, tid: initialTid, pid, txt: initialTxt, conversation_id, InitialTotal, remaining }: VotingProps) {
+export default function Voting({ failed_to_load, is_active, tid: initialTid, pid, txt: initialTxt, conversation_id, InitialTotal, remaining }: VotingProps) {
   const InitialCurrent = InitialTotal - remaining + 1
   const progresspercentage = InitialCurrent / InitialTotal * 100;
   const initialCompletedStatus = false;
@@ -56,8 +57,8 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
       if (!participationData.nextComment.txt){setCompleted(true);}
       setTid(participationData.nextComment.tid);
       setTotal(participationData.nextComment.total || 0);
-      setCurrent(participationData.nextComment.total - participationData.nextComment.remaining + 1 || 0);
-      setProgress((participationData.nextComment.total - participationData.nextComment.remaining + 1) / participationData.nextComment.total * 100);
+      setCurrent(participationData.nextComment.total - participationData.nextComment.remaining || 0);
+      setProgress((participationData.nextComment.total - participationData.nextComment.remaining) / participationData.nextComment.total * 100);
     }
   }, [participationData, participationError]);
 
@@ -92,12 +93,12 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
         setTxt(data.nextComment.txt);
         setTid(data.nextComment.tid);
         setTotal(data.nextComment.total);
-        setCurrent(data.nextComment.total - data.nextComment.remaining + 1);
-        setProgress((data.nextComment.total - data.nextComment.remaining + 1) / data.nextComment.total * 100);
+        setCurrent(data.nextComment.total - data.nextComment.remaining);
+        setProgress((data.nextComment.total - data.nextComment.remaining) / data.nextComment.total * 100);
         console.log(`Vote by ${data.currentPid} submitted successfully:`, data);
       } else if (data.nextComment == null) {
         setTxt('Olet äänestänyt kaikkia väitteitä.');
-        //setCurrent(data.nextComment.total);
+        setCurrent(total);
         setProgress(100);
         setCompleted(true);
         console.log('No more comments to vote on');
@@ -107,7 +108,11 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
     }
   };
 
-  if (!is_active) {
+
+
+  if (failed_to_load) {
+    return (<></>) // If the data failed to load, don't render anything here, Conversation component will handle the error
+}else if (!is_active) {
     return (
       <>
         <h1 className="text-primary text-3xl font-primary font-bold select-none">Keskustelu on suljettu.</h1>
@@ -134,7 +139,7 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
         </div>
       </div>
 
-      <div id="cards" className="text-primary font-secondary select-none min-w-full mt-sm bg-theme-surface-card-1 rounded-[40px] flex-col justify-center items-center inline-flex">
+      <div id="cards" className="text-primary font-secondary select-none min-w-full mt-sm px-lg bg-theme-surface-card-1 rounded-[40px] flex-col justify-center items-center inline-flex">
         <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">{txt}</div>
         {!completedStatus && (
         <div className="w-full my-md flex flex-wrap justify-around">
@@ -148,7 +153,7 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
               setHoveredThumb(null);
             }}
             >
-            {hoveredThumb === 'disagree' ? <Thumb rotate={180} /> : <Thumb rotate={180} />}
+            <Thumb fg="var(--surface-brand)" bg="var(--surface-primary)" rotate={180} />
             <p className={hoveredThumb === 'disagree' ? 'font-semibold' : 'font-normal'}>Eri mieltä</p>
             </button>
           <button
@@ -161,7 +166,7 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
               setHoveredThumb(null);
             }}
           >
-            {hoveredThumb === 'pass' ? <Pass /> : <Pass />}
+            <Pass fg="var(--surface-brand)" bg="var(--surface-primary)" />
             <p className={hoveredThumb === 'pass' ? 'font-semibold' : 'font-normal'}>
               Ohita/<span className="block sm:hidden">neutraali</span><span className="hidden sm:inline">neutraali</span>
             </p>
@@ -176,7 +181,7 @@ export default function Voting({ is_active, tid: initialTid, pid, txt: initialTx
               setHoveredThumb(null);
             }}
           >
-            {hoveredThumb === 'agree' ? <Thumb /> : <Thumb />}
+            <Thumb fg="var(--surface-brand)" bg="var(--surface-primary)" />
             <p className={hoveredThumb === 'agree' ? 'font-semibold' : 'font-normal'}>
             Samaa <span className="block sm:hidden">mieltä</span><span className="hidden sm:inline">mieltä</span>
               </p>

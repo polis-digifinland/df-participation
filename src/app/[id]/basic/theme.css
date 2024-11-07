@@ -18,6 +18,12 @@
 .font-primary{@apply font-dmserif;}
 .font-secondary{@apply font-raleway;}
 }
+a::after {
+content: url('./../../icons/open_in_new_basic.svg');
+display: inline-block;
+margin-left: 8px;
+vertical-align: middle;
+}
 /* Dark Theme colors and fonts */
 @media (prefers-color-scheme: dark) {
 :root{
@@ -36,6 +42,12 @@
 --logo-primary: var(--dark_black);
 --logo-secondary: var(--dark_white);
 --footer-background: var(--dark_brown);
+}
+a::after {
+content: url('./../../icons/open_in_new_dark.svg');
+display: inline-block;
+margin-left: 8px;
+vertical-align: middle;
 }
 }
 

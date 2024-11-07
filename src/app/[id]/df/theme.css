@@ -1,7 +1,7 @@
 /* DigiFinland Theme colors and fonts */
 :root{
 --text-primary: var(--df_blue);
---text-placeholder: var(--gray);
+--text-placeholder: var(--df_blue); /* --gray */
 --text-invert: var(--white);
 --surface-primary: var(--white);
 --surface-brand: var(--df_blue);
@@ -18,4 +18,9 @@
 .font-primary{@apply font-tthoves;}
 .font-secondary{@apply font-tthoves;}
 }
-
+a::after {
+content: url('./../../icons/open_in_new_df.svg');
+display: inline-block;
+margin-left: 8px;
+vertical-align: middle;
+}

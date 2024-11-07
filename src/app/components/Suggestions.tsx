@@ -13,7 +13,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [inputValue, setInputValue] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(event.target.value);
     setIsSubmitted(false); // Reset submission status when input changes
   };
@@ -79,12 +79,13 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
         <div className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</div>
         <p className="mt-md mb-0">Ehdota kyselyyn omaa väittämääsi</p>
         <form onSubmit={handleSubmit} className="flex flex-col">
-          <input
-            type="text"
-            className="text-placeholder rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border border-theme-border-primary"
+          <textarea
+            className="placeholder-placeholder bg-theme-surface-primary rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border border-theme-border-primary"
             value={inputValue}
             onChange={handleChange}
             placeholder="Kirjoita tähän"
+            rows={1}
+            maxLength={140}
           />
           <div className="text-right">{140 - inputValue.length} merkkiä jäljellä</div>
           <button id='suggest-button' type="submit" className="px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl font-semibold">

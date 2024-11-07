@@ -22,7 +22,7 @@ const Logo = ({ fg = 'white', bg = 'black', width = 64, height = 70 }) => {
             />
         </g>
       </g>
-    </svg>  
+    </svg>
   );
 };
 

@@ -11,8 +11,19 @@ export default function Conversation({ topic, description }: ConversationProps) 
     const slicecut = 160;
 
     const shouldSlice = description.length > slicecut;
-    const slicedDescription = shouldSlice ? description.slice(0, description.lastIndexOf(' ', slicecut)) : description;
-    const remainingDescription = shouldSlice ? description.slice(slicecut) : '';
+    const sliceAtEndOfSentence = (text: string, limit: number) => {
+        const regex = /[.?!]\s/g;
+        let match;
+        let lastIndex = -1;
+        while ((match = regex.exec(text)) !== null) {
+            if (match.index > limit) break;
+            lastIndex = match.index + 1;
+        }
+        return lastIndex === -1 ? text.slice(0, limit) : text.slice(0, lastIndex);
+    };
+
+    const slicedDescription = shouldSlice ? sliceAtEndOfSentence(description, slicecut) : description;
+    const remainingDescription = shouldSlice ? description.slice(slicedDescription.length) : '';
 
     return (
         <>
@@ -27,10 +38,10 @@ export default function Conversation({ topic, description }: ConversationProps) 
                         </div>
                         <details>
                             <summary className="font-secondary mt-xxs flex items-center">
-                                <span className="hover:underline">Lue lisää</span>
+                                <span className="hover:underline mr-xxxs">Lue lisää</span>
                                 <div className="details-icon"><Chevron /></div>
                             </summary>
-                            <div className="font-secondary mt-2 transition-max-height duration-500 ease-in-out overflow-hidden">
+                            <div className="font-secondary mt-2">
                                 <ReactMarkdown>{remainingDescription}</ReactMarkdown>
                             </div>
                         </details>
