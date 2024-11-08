@@ -24,3 +24,9 @@ display: inline-block;
 margin-left: 8px;
 vertical-align: middle;
 }
+footer a::after {
+content: url('./../../icons/open_in_new_df_footer.svg');
+display: inline-block;
+margin-left: 8px;
+vertical-align: middle;
+}
