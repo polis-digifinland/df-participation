@@ -128,8 +128,8 @@ export default function Voting({ failed_to_load, is_active, tid: initialTid, pid
             style={{ width: `${firstBarWidth}%` }}
           />
         </div>
-        <div className="text-xl mx-5 w-[42px] text-center font-bold leading-tight">
-          {current}/{total}
+        <div className="text-xl mx-5 text-center font-bold leading-tight">
+          <p>{`${current}/${total}`}</p>
         </div>
         <div className="bg-theme-surface-card-1 my-auto w-full h-1.5 rounded">
           <div

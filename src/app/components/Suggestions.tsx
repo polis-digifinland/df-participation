@@ -13,9 +13,15 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [inputValue, setInputValue] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const autoResizeTextarea = (textarea: HTMLTextAreaElement) => {
+    textarea.style.height = 'auto'; // Reset height to auto
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set height to scrollHeight
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(event.target.value);
     setIsSubmitted(false); // Reset submission status when input changes
+    autoResizeTextarea(event.target);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -86,6 +92,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             placeholder="Kirjoita tähän"
             rows={1}
             maxLength={140}
+            style={{ overflow: 'hidden', resize: 'none', height: "51px" }} // Ensure the textarea can grow
           />
           <div className="text-right">{140 - inputValue.length} merkkiä jäljellä</div>
           <button id='suggest-button' type="submit" className="px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl font-semibold">
@@ -98,3 +105,4 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   )
 }
 }
+

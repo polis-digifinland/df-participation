@@ -156,15 +156,3 @@ transform: rotate(90deg);
 transition: transform 0.5s;
 }
 
-#Suggestions textarea {
-  height: 50px;
-  line-height: 50px; /* Set line-height to match the initial height */
-  padding: 0 10px; /* Add horizontal padding if needed */
-  transition: height 0.3s ease-in-out, line-height 0.3s ease-in-out;
-}
-
-#Suggestions textarea:focus {
-  height: 100px;
-  line-height: 50px; /* Keep line-height the same to keep text at the top */
-  transition: height 0.3s ease-in-out, line-height 0.3s ease-in-out;
-}
