@@ -8,7 +8,7 @@ interface ConversationProps {
 
 export default function Conversation({ topic, description }: ConversationProps) {
 
-    const slicecut = 160;
+    const slicecut = 320; // 160 was originally
 
     const shouldSlice = description.length > slicecut;
     const sliceAtEndOfSentence = (text: string, limit: number) => {
