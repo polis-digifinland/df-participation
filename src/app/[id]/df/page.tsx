@@ -1,10 +1,11 @@
-import Cookies from "./../../components/Cookies"
+import CookiesAndData from "../../components/CookiesAndData"
 import Header from "./../../components/Header"
 import Conversation from "./../../components/Conversation"
 import Voting from "../../components/Voting"
 import Suggestions from "./../../components/Suggestions"
 import Results from "./../../components/Results"
 import Footer from "./../../components/Footer"
+import { notFound } from 'next/navigation';
 //import { cookies } from 'next/headers'
 //import { useState } from "react";
 
@@ -28,56 +29,10 @@ export default async function Page({ params }: { params: { id: string, theme: st
   const baseUrl = process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL;
   let data = null;
 
-  // Cookie test, old version
-  /*
-  try {
-    const response = await fetch('https://localhost:3000/api/ct', {
-      method: "GET",
-      credentials: 'include', // This will include cookies in the request
-    });
-    if (response.ok) {
-      const responseCookies = response.headers.get('set-cookie');
-      if (responseCookies) {
-        console.log(responseCookies);
-      }
-    } else {
-      console.error('Failed to set cookie');
-    }
-  } catch (error) {
-    console.error('Error setting cookie:', error);
+  if (params.id === undefined || params.id === null || params.id === 'sitemap.xml') {
+    //return notFound();
   }
-    */
 
-/*
-    const cookieStore = await cookies()
-    async function createCookie() {
-      "use server";
-      cookieStore.set({
-        name: 'ct',
-        value: '1',
-        domain: '.polis.local',
-    });
-
-    }
-
-    try {
-      const CookieTest = cookieStore.get('ct')
-
-
-      if (CookieTest?.value === "1") {
-          console.log("Cookies already tested")
-      } else {
-        console.log("Cookies tested")
-        createCookie()
-      }
-    } catch (error) {
-      console.error('Error setting cookie:', error);
-    }*/
-  //document.cookie = 'ct=true; Path=/;';
-
-
-  //const CookieTest = cookies().get('ct') !== undefined;
-  //console.log(CookieTest)
 
   // Participation initial data at server side
   try {
@@ -107,6 +62,7 @@ export default async function Page({ params }: { params: { id: string, theme: st
       throw new Error("Received non-JSON response");
     }
   } catch (error) {
+    return notFound();
     console.error("Error fetching participation initial data:", error);
   }
 
@@ -115,7 +71,7 @@ export default async function Page({ params }: { params: { id: string, theme: st
 
   return (
     <>
-      <Cookies
+      <CookiesAndData
         conversation_id={params.id ? params.id : 'Conv id failed to load'}
       />
       <Header />

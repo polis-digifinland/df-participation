@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface SuggestionsProps {
   is_active: boolean;
@@ -12,6 +12,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
 
   const [inputValue, setInputValue] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const autoResizeTextarea = (textarea: HTMLTextAreaElement) => {
     textarea.style.height = 'auto'; // Reset height to auto
@@ -62,6 +63,9 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
 
       setInputValue(''); // Reset the form after submission
       setIsSubmitted(true); // Set submission status to true
+      if (textareaRef.current) {
+        textareaRef.current.style.height = '51px'; // Reset height to initial value
+      }
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -86,6 +90,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
         <p className="mt-md mb-0">Ehdota kyselyyn omaa väittämääsi</p>
         <form onSubmit={handleSubmit} className="flex flex-col">
           <textarea
+            ref={textareaRef}
             className="placeholder-placeholder bg-theme-surface-primary rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border border-theme-border-primary"
             value={inputValue}
             onChange={handleChange}
@@ -95,8 +100,8 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             style={{ overflow: 'hidden', resize: 'none', height: "51px" }} // Ensure the textarea can grow
           />
           <div className="text-right">{140 - inputValue.length} merkkiä jäljellä</div>
-          <button id='suggest-button' type="submit" className="px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl font-semibold">
-            Ehdota
+          <button id='suggest-button' type="submit" className="h-[44px] w-[107px] px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out hover:scale-105">
+              Ehdota
           </button>
           <div>{isSubmitted && ("Väittämäsi on lähetetty!")}</div>
         </form>

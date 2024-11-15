@@ -51,7 +51,7 @@ const tt_hoves = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "DigiFinland participation",
+  title: "DigiFinland Polis",
   description: "DigiFinland custom built UI for Polis participation",
 };
 

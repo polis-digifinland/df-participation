@@ -3,7 +3,9 @@
 --text-primary: var(--dark_white);
 --text-placeholder: var(--dark_gray);
 --text-invert: var(--dark_black);
+--text-error: var(--dark_error);
 --surface-primary: var(--dark_black);
+--surface-secondary: var(--dark_off_black);
 --surface-brand: var(--dark_white);
 --surface-card-1: var(--dark_green1);
 --surface-card-2: var(--dark_brown);

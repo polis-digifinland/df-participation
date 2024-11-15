@@ -1,6 +1,6 @@
 'use client';
 
-//import useSWR from 'swr';
+import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable'
 import { useEffect } from 'react';
 
@@ -22,9 +22,15 @@ export default function Cookies({ conversation_id }: CookieProps) {
     }
 
     const { data: cookieTestData, error: cookieTestError } = useSWRImmutable('/api/ct', fetcher);
-    const { data: participationData, error: participationError } = useSWRImmutable(
+    const { data: participationData, error: participationError } = useSWR(
         `${apiUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=acceptLang`,
-        fetcher
+        fetcher,
+        {
+            //refreshInterval: 60000, // Refresh every 60 seconds
+            revalidateIfStale: true,
+            revalidateOnFocus: true,
+            revalidateOnReconnect: true
+        }
     );
 
     // There is no need to render anything, just log the data

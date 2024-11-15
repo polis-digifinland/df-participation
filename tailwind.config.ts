@@ -2,7 +2,6 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -32,7 +31,9 @@ const config: Config = {
         'primary': "var(--text-primary)",
         'placeholder': "var(--text-placeholder)",
         'invert': "var(--text-invert)",
+        'error': "var(--text-error)",
         'theme-surface-primary': "var(--surface-primary)",
+        'theme-surface-secondary': "var(--surface-secondary)",
         'theme-surface-brand': "var(--surface-brand)",
         'theme-surface-card-1': "var(--surface-card-1)",
         'theme-surface-card-2': "var(--surface-card-2)",

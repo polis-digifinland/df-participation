@@ -1,9 +1,11 @@
 /* DigiFinland Theme colors and fonts */
 :root{
 --text-primary: var(--df_blue);
---text-placeholder: var(--df_blue); /* --gray */
+--text-placeholder: var(--gray);
 --text-invert: var(--white);
+--text-error: var(--error);
 --surface-primary: var(--white);
+--surface-secondary: var(--df_off_white);
 --surface-brand: var(--df_blue);
 --surface-card-1: var(--df_light_blue);
 --surface-card-2: var(--df_green);

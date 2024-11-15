@@ -5,7 +5,8 @@
 :root{
 /* General colors */
 --white: #ffffff;
---gray: #919191;
+--gray: #6E6E6E;
+--error: #A30F0F;
 
 /* DigiFinland theme colors */
 --df_blue: #003F71;
@@ -13,91 +14,29 @@
 --df_green: #DFF3F1;
 --df_pink: #F1EEF9;
 --df_gray: #EFEFEF;
+--df_off_white: #FAFAFA;
 
 /* Whitelabel basic theme colors */
 --wl_black: #100F0F;
---wl_gray: #959092;
+--wl_gray: #726E6F;
 --wl_blue: #DEE4E6;
 --wl_beige: #E0D6CF;
 --wl_brown: #CFC9C5;
 --wl_yellow: #E6E6E2;
 --wl_orange: #E5CAB8;
+--wl_off_white: #F7F7F6;
 
 /* Dark theme colors */
 --dark_white: #DEDCDC;
---dark_gray: #767575;
+--dark_gray: #808080;
 --dark_black: #0D0D0D;
+--dark_off_black: #1B1B1C;
 --dark_brown: #393939;
 --dark_blue: #20273B;
 --dark_green1: #242D30;
 --dark_green2: #313D40;
+--dark_error: #F34F4F;
 }
-
-
-/* DigiFinland Theme colors and fonts */
-/*
-:root[data-theme="df"] {
---text-primary: var(--df_blue);
---text-placeholder: var(--gray);
---text-invert: var(--white);
---surface-primary: var(--white);
---surface-brand: var(--df_blue);
---surface-card-1: var(--df_light_blue);
---surface-card-2: var(--df_green);
---surface-card-3: var(--df_pink);
---surface-card-4: var(--df_gray);
---surface-graph-primary: var(--df_light_blue);
---surface-graph-secondary: var(--df_pink);
---border-primary: var(--df_blue);
---logo-primary: var(--df_blue);
---logo-secondary: var(--df_light_blue);
-.font-primary{@apply font-tthoves;}
-.font-secondary{@apply font-tthoves;}
-}
-*/
-/* Whitelabel Basic Theme colors and fonts */
-/*
-:root[data-theme="basic"] {
---text-primary: var(--wl_black);
---text-placeholder: var(--wl_gray);
---text-invert: var(--white);
---surface-primary: var(--white);
---surface-brand: var(--wl_black);
---surface-card-1: var(--wl_blue);
---surface-card-2: var(--wl_beige);
---surface-card-3: var(--wl_brown);
---surface-card-4: var(--wl_yellow);
---surface-graph-primary: var(--wl_yellow);
---surface-graph-secondary: var(--wl_orange);
---border-primary: var(--wl_black);
---logo-primary: var(--white);
---logo-secondary: var(--wl_black);
-.font-primary{@apply font-dmserif;}
-.font-secondary{@apply font-raleway;}
-}
-*/
-/* Dark Theme colors and fonts */
-/*
-@media (prefers-color-scheme: dark) {
-:root[data-theme="df"],
-:root[data-theme="basic"] {
---text-primary: var(--dark_white);
---text-placeholder: var(--dark_gray);
---text-invert: var(--dark_black);
---surface-primary: var(--dark_black);
---surface-brand: var(--dark_white);
---surface-card-1: var(--dark_green1);
---surface-card-2: var(--dark_brown);
---surface-card-3: var(--dark_blue);
---surface-card-4: var(--dark_green2);
---surface-graph-primary: var(--dark_green1);
---surface-graph-secondary: var(--dark_brown);
---border-primary: var(--dark_white);
---logo-primary: var(--dark_black);
---logo-secondary: var(--dark_white);
-}
-}
-*/
 
 /* Highlight parts without theme being applied to them */
 body {
@@ -122,37 +61,28 @@ a:hover {
   text-decoration: none;
 }
 
-#svg-button {
-  height: 66px;
-  width: 66px;
-  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
-}
-
-#svg-button:hover {
-  height: 70px;
-  width: 70px;
-  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
-}
-
-#suggest-button {
-  height: 44px;
-  width: 107px;
-  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
-}
-
-#suggest-button:hover {
-  height: 48px;
-  width: 111px;
-  transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
-}
-
 .details-icon {
 transform: rotate(270deg);
 transition: transform 0.5s;
 }
 
-details[open] .details-icon {
-transform: rotate(90deg);
-transition: transform 0.5s;
+.details-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.card.throw {
+  transform: translateX(-100%);
+  opacity: 0;
 }
 
