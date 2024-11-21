@@ -67,22 +67,41 @@ transition: transform 0.5s;
 }
 
 .details-icon {
-  transition: transform 0.3s ease-in-out;
+transition: transform 0.3s ease-in-out;
 }
 
 .rotate-90 {
   transform: rotate(90deg);
 }
 
-.card {
-  display: flex;
+
+
+/* Voting card throw animations */
+#previousCard {
   align-items: center;
   justify-content: center;
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  display: none;
 }
-
-.card.throw {
-  transform: translateX(-100%);
+#previousCard.throw-reset-left {
+  transform: translateX(-50%);
   opacity: 0;
+  transition: transform 0s, opacity 0s;
+  display: flex;
+}
+#previousCard.throw-reset-center {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0s, opacity 0s;
+  display: flex;
+}
+#previousCard.throw-center-to-left {
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in;
+  transform: translateX(-50%);
+  opacity: 0;
+}
+#previousCard.throw-left-to-center {
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in;
+  transform: translateX(0%);
+  opacity: 1;
 }
 

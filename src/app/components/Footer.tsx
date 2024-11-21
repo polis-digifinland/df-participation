@@ -4,7 +4,7 @@ import dflogo from '../dflogo_valkoinen.png'
 export default function Footer() {
   return (
     <>
-      <footer className="text-white font-secondary bg-theme-footer-background mt-xl py-12 px-6 sm:px-[120px] absolute left-0 w-full select-none">
+      <footer className="text-white font-secondary bg-theme-footer-background w-full mt-xl py-12 px-6 sm:px-[120px] left-0 select-none">
         <div className="mx-auto  max-w-screen-xl flex flex-wrap justify-evenly items-start text-white text-sm relative bottom-0 py-5">
           <div className="flex flex-col w-full sm:w-1/3 min-w-[300px]">
             <h2 className="text-2xl font-bold">Polis</h2>

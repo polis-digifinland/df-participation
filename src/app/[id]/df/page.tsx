@@ -75,7 +75,7 @@ export default async function Page({ params }: { params: { id: string, theme: st
         conversation_id={params.id ? params.id : 'Conv id failed to load'}
       />
       <Header />
-      <main>
+      <main className="mx-auto px-md max-w-screen-sm flex-1">
         <Conversation
           topic={data ? data.conversation.topic : 'Keskustelun latauksessa tapahtui virhe.'}
           description={data ? data.conversation.description : 'Kokeile ladata sivu uudelleen.'}
@@ -104,3 +104,4 @@ export default async function Page({ params }: { params: { id: string, theme: st
     </>
   );
 }
+
