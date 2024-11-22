@@ -83,12 +83,8 @@ export default async function Page({ params }: { params: { id: string, theme: st
         <Voting
           failed_to_load={data ? false : true}
           is_active={data ? data.conversation.is_active : false}
-          tid={data ? data.nextComment.tid : null}
-          pid={-1} // Participant id will always be unknown at SSR, real value will be set at client side
-          txt={data ? data.nextComment.txt : 'Comment failed to load'}
           conversation_id={params.id ? params.id : 'Conv id failed to load'}
           InitialTotal={data ? data.nextComment.total : 0}
-          remaining={data ? data.nextComment.remaining : 0}
         />
         <Suggestions
           is_active={data ? data.conversation.is_active : false}

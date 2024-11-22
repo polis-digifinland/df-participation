@@ -77,31 +77,27 @@ transition: transform 0.3s ease-in-out;
 
 
 /* Voting card throw animations */
-#previousCard {
-  align-items: center;
-  justify-content: center;
-  display: none;
+#previousCard{display:none;}
+
+@keyframes throwCenterToLeft {
+  from { transform: translateX(0); opacity: 1;}
+  to { transform: translateX(-50%); opacity: 0;}
 }
-#previousCard.throw-reset-left {
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: transform 0s, opacity 0s;
+
+@keyframes throwLeftToCenter {
+  from { transform: translateX(-50%); opacity: 0;}
+  to { transform: translateX(0); opacity: 1;}
+}
+
+#previousCard.card-animate-center-to-left {
   display: flex;
+  animation: throwCenterToLeft 0.400s forwards;
+  animation-timing-function: ease-in-out;
 }
-#previousCard.throw-reset-center {
-  transform: translateX(0);
-  opacity: 1;
-  transition: transform 0s, opacity 0s;
+
+#previousCard.card-animate-left-to-center {
   display: flex;
-}
-#previousCard.throw-center-to-left {
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in;
-  transform: translateX(-50%);
-  opacity: 0;
-}
-#previousCard.throw-left-to-center {
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in;
-  transform: translateX(0%);
-  opacity: 1;
+  animation: throwLeftToCenter 0.400s forwards;
+  animation-timing-function: ease-in-out;
 }
 
