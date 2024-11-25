@@ -107,6 +107,7 @@ export default function Voting({
         setCurrentBg(previousBg);
         setCurrentTxt(previousTxt);
         setCurrentTid(previousTid);
+        setProgressCompleted(false);
       }, 420);
     }
     return () => {
