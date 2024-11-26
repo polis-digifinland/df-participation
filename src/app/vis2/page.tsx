@@ -14,9 +14,9 @@ function Visualization() {
     `https://polis.local/api/v3/math/pca2?conversation_id=${conversation_id}`,
     fetcher,
     {
-      refreshInterval: 5000, // Refresh every 5 seconds
-      revalidateIfStale: true,
-      revalidateOnFocus: true,
+      //refreshInterval: 5000, // Refresh every 5 seconds
+      //revalidateIfStale: true,
+      //revalidateOnFocus: true,
       revalidateOnReconnect: true
   }
   );

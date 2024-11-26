@@ -27,11 +27,14 @@ class Graph extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    console.log("Graph did mount");
 
     window.addEventListener("resize", () => {
       this.setState({browserDimensions: window.innerWidth})
+      console.log("Window resize", window.innerWidth);
     })
+
 
     // document.getElementById("helpTextGroups").style.display = "none";
     // document.getElementById("visualization_div").style.display = "none";
@@ -39,7 +42,8 @@ class Graph extends React.Component {
     // document.getElementById("groupSelectionViewContainer").style.display = "none";
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    console.log("Graph will receive props");
 
     if (!nextProps.math) {
       return;
@@ -152,6 +156,8 @@ class Graph extends React.Component {
     }
     let svgNegativeMargin = globals.svgHeightWithPadding * (svgScale - 1);
 
+    //console.log(this.state.hulls);
+
     return (
       <div>
         <svg width={globals.sideWithPadding} height={globals.svgHeightWithPadding} style={{
@@ -242,7 +248,7 @@ class Graph extends React.Component {
           math={this.props.math || window.preload.firstMath}
           onVoteClicked={this.props.onVoteClicked}
           Strings={this.props.Strings}
-          comments={this.props.comment}/>
+          comments={this.props.comments}/>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import * as globals from "../components/globals";
 import _ from "lodash";
-import createHull from "../components/hull.js";
+import createHull from "hull.js";
 //import * as d3 from "../3rdparty/d3.v4.min.js";
 import * as d3 from "d3";
 
@@ -282,21 +282,22 @@ const graphUtil = (comments, math, badTids, ptptois) => {
 
     const hulls = [];
 
+    //console.log('pointsForHullGeneration', pointsForHullGeneration)
+
     _.each(pointsForHullGeneration, (group) => {
-      const pairs = group.map((g) => { /* create an array of arrays */
+      const pairs = group.map((g) => {
         return [g.x, g.y]
       })
-      //const hull = createHull(
-      //  pairs,
-      //  400 
-      //)
-      const hull = new createHull({
-        points: pairs,
-        padding: 400,
-      })
+      //console.log('pairs', pairs) // looks ok
+      const hull = createHull(
+        pairs,
+        400
+      )
+
+      //console.log('hull', hull)
       hulls.push({
-        group,
-        hull,
+        group: group,
+        hull: hull,
       })
     })
 
