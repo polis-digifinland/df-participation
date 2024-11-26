@@ -1,4 +1,4 @@
-export default function (pathNode, point) {
+export default function closestPointOnPath(pathNode, point) {
   let pathLength = pathNode.getTotalLength();
   let precision = 8;
   let best;

@@ -42,17 +42,17 @@ class Root extends React.Component{
         maxTid = comments[i].tid;
       }
     }
-    var tidWidth = ("" + maxTid).length
+    //var tidWidth = ("" + maxTid).length
 
     function pad(n, width, z) {
       z = z || '0';
       n = n + '';
       return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
     }
-    //function formatTid(tid) {
-    //  let padded = "" + tid;
-    //  return '#' + pad(""+tid, tidWidth);
-    //}
+    function formatTid(tid) {
+      let padded = "" + tid;
+      return '#' + pad(""+tid, tidWidth);
+    }
 
 
     let mathResult = math_main;
@@ -77,14 +77,14 @@ class Root extends React.Component{
     comments = comments.filter((c) => {
       return !c.is_meta;
     });
-    //console.log(this.props.math_main);
+    console.log(this.props.math_main);
     return (this.props.math_main && this.props.math_main.n >= globals.minParticipantsForVis) ? (
       <div id="vis2_root">
         <Graph
           comments={comments}
           groupNames={{}}
           badTids={badTids}
-          //formatTid={formatTid}
+          formatTid={formatTid}
           tidsToShow={this.props.tidsToShow || []}
           ptptois={this.props.ptptois || []}
           repfulAgreeTidsByGroup={repfulAgreeTidsByGroup}
@@ -112,7 +112,15 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
 */
 
-
+import { createRoot } from 'react-dom/client';
+if (typeof window !== 'undefined') {
+  window.renderVis = function(rootEl, props) {
+    const root = createRoot(rootEl);
+    root.render(
+      React.createElement(Root, props, null)
+    );
+  }
+}
 /*
 window.renderVis = function(rootEl, props) {
   ReactDOM.render(

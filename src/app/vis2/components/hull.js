@@ -1,7 +1,8 @@
 import React from "react";
 import * as globals from "./globals";
 import {VictoryAnimation} from "victory-core";
-import * as d3 from "../3rdparty/d3.v4.min.js";
+//import * as d3 from "../3rdparty/d3.v4.min.js";
+import * as d3 from "d3";
 
 class Hull extends React.Component {
   render () {
@@ -26,11 +27,11 @@ class Hulls extends React.Component {
     return (
       <g id="hullit">
         {
-          this.props.hulls ? this.props.hulls.map((curhull) => {
+          this.props.hulls ? this.props.hulls.map((hull) => {
             //console.log(this.props.hulls);
-            let gid = curhull.group[0].gid;
+            let gid = hull.group[0].gid;
             //console.log(gid);
-            const pathString = line(curhull.hull);
+            const pathString = line(hull.hull);
             //console.log(line(hull.hull));
             //console.log(hull.hull);
             //console.log(hull);
@@ -48,7 +49,7 @@ class Hulls extends React.Component {
                     pathString={tweenedProps.tweenPath}
                     getHullElems={this.props.getHullElems}
                     handleClick={this.props.handleClick}
-                    hull={curhull}/>
+                    hull={hull}/>
                 }}
               </VictoryAnimation>
             )
