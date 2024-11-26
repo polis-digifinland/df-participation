@@ -71,30 +71,66 @@ class Root extends React.Component{
         });
       });
     }
+    //console.log(repfulAgreeTidsByGroup);
+    //console.log(repfulDisageeTidsByGroup);
+
 
     let badTids = _.keyBy(this.props.math_main['mod-out']);
+    //console.log(badTids);
 
     comments = comments.filter((c) => {
       return !c.is_meta;
     });
-    console.log(this.props.math_main);
+    //console.log(comments);
+
+
+
+
+
+    // This was brought here from the render function in participation.js
+    var curationType = this.curationType || "majority"; // Default to "majority" if undefined
+    var tidsToShow = []; //that.serverClient.getVotedOnTids();
+    if (_.isNull(this.curationType)) {
+
+    } else if (curationType === "majority") {
+      tidsToShow = [];
+      tidsToShow.push(...mathResult.consensus.agree.map(c => c.tid));
+      tidsToShow.push(...mathResult.consensus.disagree.map(c => c.tid));
+    } else if (curationType === "differences") {
+
+    } else if (_.isNumber(curationType)) {
+      tidsToShow = [];
+      var gid = curationType;
+      tidsToShow.push(...mathResult.repness[gid].map(c => c.tid));
+    } else {
+      console.error("unknown curationType:", curationType);
+    }
+    //console.log(tidsToShow);
+
+
+
+
+
+
+    //console.log(this.props.math_main);
     return (this.props.math_main && this.props.math_main.n >= globals.minParticipantsForVis) ? (
       <div id="vis2_root">
         <Graph
-          comments={comments}
-          groupNames={{}}
-          badTids={badTids}
-          formatTid={formatTid}
-          tidsToShow={this.props.tidsToShow || []}
+          comments={comments}                             // DONE
+          groupNames={{}}                                 // DONE
+          badTids={badTids}                               // DONE
+          formatTid={formatTid}                           // DONE
+          tidsToShow={this.props.tidsToShow}              // DONE
           ptptois={this.props.ptptois || []}
-          repfulAgreeTidsByGroup={repfulAgreeTidsByGroup}
-          math={this.props.math_main}
-          renderHeading={false}
+          repfulAgreeTidsByGroup={repfulAgreeTidsByGroup} // DONE
+          math={this.props.math_main}                     // DONE
+          renderHeading={false}                           // DONE
           votesByMe={this.props.votesByMe || []}
           onVoteClicked={this.props.onVoteClicked}
           onCurationChange={this.props.onCurationChange}
-          Strings={Strings}
-          report={{}}/>
+          Strings={Strings}                               // DONE
+          report={{}}                                     // DONE
+          />
       </div>
     ) : null;
   }
@@ -113,14 +149,26 @@ injectTapEventPlugin();
 */
 
 import { createRoot } from 'react-dom/client';
+
+let root;
+
 if (typeof window !== 'undefined') {
   window.renderVis = function(rootEl, props) {
-    const root = createRoot(rootEl);
-    root.render(
-      React.createElement(Root, props, null)
-    );
+    if (rootEl) {
+      if (!root) {
+        root = createRoot(rootEl);
+      }
+      root.render(
+        React.createElement(Root, props, null)
+      );
+    } else {
+      //console.error("Target container is not a DOM element.");
+    }
   }
 }
+
+
+
 /*
 window.renderVis = function(rootEl, props) {
   ReactDOM.render(
