@@ -26,7 +26,7 @@ function Visualization() {
   if (pcaLoading || commentsLoading) return null;
 
   return (
-    <div id="visualization_parent_div">
+    <div id="visualization_parent_div" className="flex justify-center items-center">
       <Root math_main={pcaData} comments={commentsData} />
     </div>
   );
