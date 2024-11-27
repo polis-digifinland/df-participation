@@ -100,7 +100,7 @@ export default function Voting({
     if (cardAnimateCenterToLeft) {
       resetTimeout = setTimeout(() => {
         setCardAnimateCenterToLeft(false);
-      }, 420);
+      }, 820);
     } else if (cardAnimateLeftToCenter) {
       resetTimeout = setTimeout(() => {
         setCardAnimateLeftToCenter(false);
@@ -108,7 +108,7 @@ export default function Voting({
         setCurrentTxt(previousTxt);
         setCurrentTid(previousTid);
         setProgressCompleted(false);
-      }, 420);
+      }, 820);
     }
     return () => {
       if (resetTimeout) clearTimeout(resetTimeout);
