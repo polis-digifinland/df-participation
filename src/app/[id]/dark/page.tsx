@@ -7,6 +7,8 @@ import Results from "@/components/Results"
 import Footer from "@/components/Footer"
 import { notFound } from 'next/navigation';
 
+// Import here the CSS file for the theme that is in the same folder as this file
+// This will allow Next.js to include the CSS file in the build and use SSR.
 import "./theme.css";
 
 

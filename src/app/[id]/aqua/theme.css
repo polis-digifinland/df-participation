@@ -1,0 +1,57 @@
+/* Whitelabel Aqua Theme colors and fonts */
+:root{
+  --text-primary: var(--wl_black);
+  --text-placeholder: var(--wl_gray);
+  --text-invert: var(--white);
+  --text-error: var(--error);
+  --surface-primary: var(--white);
+  --surface-secondary: var(--aq_off_white);
+  --surface-brand: var(--wl_black);
+  --surface-card-1: var(--aq_1);
+  --surface-card-2: var(--aq_2);
+  --surface-card-3: var(--aq_3);
+  --surface-card-4: var(--aq_4);
+  --surface-graph-primary: var(--aq_3);
+  --surface-graph-secondary: var(--aq_1);
+  --border-primary: var(--wl_black);
+  --logo-primary: var(--white);
+  --logo-secondary: var(--wl_black);
+  --footer-background: var(--wl_black);
+  .font-primary{@apply font-dmserif;}
+  .font-secondary{@apply font-raleway;}
+  }
+  a::after {
+  content: url('./../../icons/open_in_new_basic.svg');
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+  }
+  /* Dark Theme colors and fonts */
+  @media (prefers-color-scheme: dark) {
+  :root{
+  --text-primary: var(--dark_white);
+  --text-placeholder: var(--dark_gray);
+  --text-invert: var(--dark_black);
+  --text-error: var(--dark_error);
+  --surface-primary: var(--dark_black);
+  --surface-secondary: var(--dark_off_black);
+  --surface-brand: var(--dark_white);
+  --surface-card-1: var(--dark_green1);
+  --surface-card-2: var(--dark_brown);
+  --surface-card-3: var(--dark_blue);
+  --surface-card-4: var(--dark_green2);
+  --surface-graph-primary: var(--dark_green1);
+  --surface-graph-secondary: var(--dark_brown);
+  --border-primary: var(--dark_white);
+  --logo-primary: var(--dark_black);
+  --logo-secondary: var(--dark_white);
+  --footer-background: var(--dark_brown);
+  }
+  a::after {
+  content: url('./../../icons/open_in_new_dark.svg');
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+  }
+  }
+

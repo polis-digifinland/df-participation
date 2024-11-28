@@ -36,6 +36,18 @@
 --dark_green1: #242D30;
 --dark_green2: #313D40;
 --dark_error: #F34F4F;
+
+/* Aqua theme colors */
+--aq_1: #CFEEEE;
+--aq_2: #EAF4F4;
+--aq_3: #E8E8E8;
+--aq_4: #EEFBFF;
+--aq_off_white: #FAFAFA;
+
+/* Cappuccino theme colors */
+--cp_1: #E2D2C4;
+--cp_2: #E8E8E8;
+--cp_3: #EDD4BF;
 }
 
 /* Highlight parts without theme being applied to them */
@@ -62,12 +74,12 @@ a:hover {
 }
 
 .details-icon {
-transform: rotate(270deg);
-transition: transform 0.5s;
+  transform: rotate(270deg);
+  transition: transform 0.5s;
 }
 
 .details-icon {
-transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .rotate-90 {
@@ -77,24 +89,22 @@ transition: transform 0.3s ease-in-out;
 
 
 /* Voting card throw animations */
-#previousCard{display:none;}
-
 @keyframes throwCenterToLeft {
   from { transform: translateX(0);}
   to { transform: translateX(-110%);}
 }
-
 @keyframes throwLeftToCenter {
   from { transform: translateX(-110%);}
   to { transform: translateX(0);}
 }
+
+#previousCard{display:none;}
 
 #previousCard.card-animate-center-to-left {
   display: flex;
   animation: throwCenterToLeft 0.800s forwards;
   animation-timing-function: cubic-bezier(0.47, 0.01, 0.58, 1);
 }
-
 #previousCard.card-animate-left-to-center {
   display: flex;
   animation: throwLeftToCenter 0.900s forwards;
