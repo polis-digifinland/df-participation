@@ -97,7 +97,7 @@ transition: transform 0.3s ease-in-out;
 
 #previousCard.card-animate-left-to-center {
   display: flex;
-  animation: throwLeftToCenter 0.800s forwards;
+  animation: throwLeftToCenter 0.900s forwards;
   animation-timing-function: cubic-bezier(0.53, 0.01, 0.25, 1.15);
 }
 

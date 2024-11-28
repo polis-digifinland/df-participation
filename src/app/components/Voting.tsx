@@ -108,7 +108,7 @@ export default function Voting({
         setCurrentTxt(previousTxt);
         setCurrentTid(previousTid);
         setProgressCompleted(false);
-      }, 820);
+      }, 920);
     }
     return () => {
       if (resetTimeout) clearTimeout(resetTimeout);
@@ -224,6 +224,10 @@ export default function Voting({
         </div>
 
         <div id="cards" className="relative">
+
+          <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_10px_10px] left-[-107%;] min-h-full min-w-full mt-xxs absolute select-none z-50 bg-theme-surface-primary"></div>
+
+
           <div
             id="previousCard"
             className={`
@@ -242,7 +246,7 @@ export default function Voting({
               <span>Takaisin</span>
             </button>
 
-            <div className="text-xl mt-lg my-auto min-h-[150px] break-all flex justify-center items-center">
+            <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
               {previousTxt}
             </div>
 
@@ -333,7 +337,7 @@ export default function Voting({
               <span>Takaisin</span>
             </button>
 
-            <div className="text-xl mt-lg my-auto min-h-[150px] break-all flex justify-center items-center">
+            <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
               {currentTxt}
             </div>
 
