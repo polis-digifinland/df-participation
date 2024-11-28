@@ -223,6 +223,12 @@ export default function Voting({
           <div className="bg-theme-surface-card-4"></div>
         </div>
 
+
+
+
+
+
+
         <div id="cards" className="relative">
 
           <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_10px_10px] left-[-107%;] min-h-full min-w-full mt-xxs absolute select-none z-50 bg-theme-surface-primary"></div>
@@ -231,7 +237,7 @@ export default function Voting({
           <div
             id="previousCard"
             className={`
-          absolute z-10 text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex
+          absolute z-10 text-primary font-secondary select-none pointer-events-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex
           bg-theme-surface-card-${previousBg}
           ${cardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''}
           ${cardAnimateLeftToCenter ? 'card-animate-left-to-center' : ''}
@@ -322,12 +328,24 @@ export default function Voting({
             )}
           </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
           <div
             id="currentCard"
-            className={`bg-theme-surface-card-${currentBg} text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
+            className={`bg-theme-surface-card-${currentBg} relative text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
           >
             <button
-              className="w-full flex items-center justify-start gap-1 hover:underline mt-md ml-md disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-start gap-1 lg:hover:underline active:underline mt-md ml-md disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={() => {
                 animateCardThrowLeftToCenter();
               }}
@@ -345,7 +363,7 @@ export default function Voting({
               <div className="w-full my-md flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className="flex flex-col justify-start items-center text-center gap-3.5  font-normal hover:font-semibold"
+                    className="flex flex-col justify-start items-center text-center gap-3.5 font-normal lg:hover:font-semibold active:font-semibold"
                     disabled={cardAnimateCenterToLeft}
                     onClick={() => {
                       handleVote(1);
@@ -353,7 +371,7 @@ export default function Voting({
                   >
                     <svg
                       id="svg-button"
-                      className="h-[66px] w-[66px] hover:scale-110 transition-transform duration-300 ease-in-out transform"
+                      className="h-[66px] w-[66px] lg:hover:scale-110 active:scale-110 transition-transform duration-300 ease-in-out transform"
                       viewBox="0 0 66 66"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -379,13 +397,13 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className="flex flex-col items-center text-center gap-3.5  font-normal hover:font-semibold"
+                    className="flex flex-col items-center text-center gap-3.5  font-normal lg:hover:font-semibold active:font-semibold"
                     disabled={cardAnimateCenterToLeft}
                     onClick={() => {
                       handleVote(0);
                     }}
                   >
-                    <div className="h-[66px] w-[66px] hover:scale-110 transition-transform duration-300 ease-in-out transform">
+                    <div className="h-[66px] w-[66px] lg:hover:scale-110 active:scale-110 transition-transform duration-300 ease-in-out transform">
                       <Pass
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
@@ -400,13 +418,13 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className="flex flex-col items-center text-center gap-3.5  font-normal hover:font-semibold"
+                    className="flex flex-col items-center text-center gap-3.5  font-normal lg:hover:font-semibold active:font-semibold"
                     disabled={cardAnimateCenterToLeft}
                     onClick={() => {
                       handleVote(-1);
                     }}
                   >
-                    <div className="h-[66px] w-[66px] hover:scale-110 transition-transform duration-300 ease-in-out transform">
+                    <div className="h-[66px] w-[66px] lg:hover:scale-110 active:scale-110 transition-transform duration-300 ease-in-out transform">
                       <Thumb
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
