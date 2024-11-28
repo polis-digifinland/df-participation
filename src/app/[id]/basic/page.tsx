@@ -1,13 +1,11 @@
-import CookiesAndData from "../../components/CookiesAndData"
-import Header from "./../../components/Header"
-import Conversation from "./../../components/Conversation"
-import Voting from "../../components/Voting"
-import Suggestions from "./../../components/Suggestions"
-import Results from "./../../components/Results"
-import Footer from "./../../components/Footer"
+import CookiesAndData from "@/components/CookiesAndData"
+import Header from "@/components/Header"
+import Conversation from "@/components/Conversation"
+import Voting from "@/components/Voting"
+import Suggestions from "@/components/Suggestions"
+import Results from "@/components/Results"
+import Footer from "@/components/Footer"
 import { notFound } from 'next/navigation';
-//import { cookies } from 'next/headers'
-//import { useState } from "react";
 
 import "./theme.css";
 

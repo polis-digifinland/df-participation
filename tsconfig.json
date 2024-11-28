@@ -21,10 +21,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": "src/app/",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["*"]
     }
   },
   "include": [
