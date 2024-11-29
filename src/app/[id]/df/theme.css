@@ -4,6 +4,7 @@
 --text-placeholder: var(--gray);
 --text-invert: var(--white);
 --text-error: var(--error);
+--text-footer: var(--white);
 --surface-primary: var(--white);
 --surface-secondary: var(--df_off_white);
 --surface-brand: var(--df_blue);
@@ -14,9 +15,13 @@
 --surface-graph-primary: var(--df_light_blue);
 --surface-graph-secondary: var(--df_pink);
 --border-primary: var(--df_blue);
+--border-error: var(--error);
 --logo-primary: var(--df_blue);
 --logo-secondary: var(--df_light_blue);
 --footer-background: var(--df_blue);
+--progress-bar: var(--df_blue);
+--progress-background: var(--df_light_blue);
+--modal-background: var(--white);
 .font-primary{@apply font-tthoves;}
 .font-secondary{@apply font-tthoves;}
 }

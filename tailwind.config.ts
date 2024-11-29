@@ -32,6 +32,7 @@ const config: Config = {
         'placeholder': "var(--text-placeholder)",
         'invert': "var(--text-invert)",
         'error': "var(--text-error)",
+        'footer': "var(--text-footer)",
         'theme-surface-primary': "var(--surface-primary)",
         'theme-surface-secondary': "var(--surface-secondary)",
         'theme-surface-brand': "var(--surface-brand)",
@@ -42,12 +43,17 @@ const config: Config = {
         'theme-surface-graph-primary': "var(--surface-graph-primary)",
         'theme-surface-graph-secondary': "var(--surface-graph-secondary)",
         'theme-border-primary': "var(--border-primary)",
+        'theme-border-error': "var(--border-error)",
         'theme-logo-primary': "var(--logo-primary)",
         'theme-logo-secondary': "var(--logo-secondary)",
         'theme-footer-background': "var(--footer-background)",
+        'theme-progress-bar': "var(--progress-bar)",
+        'theme-progress-background': "var(--progress-background)",
+        'theme-modal-background': "var(--modal-background)",
       },
     },
   },
   plugins: [],
 };
 export default config;
+

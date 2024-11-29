@@ -4,6 +4,7 @@
 --text-placeholder: var(--dark_gray);
 --text-invert: var(--dark_black);
 --text-error: var(--dark_error);
+--text-footer: var(--dark_white);
 --surface-primary: var(--dark_black);
 --surface-secondary: var(--dark_off_black);
 --surface-brand: var(--dark_white);
@@ -14,9 +15,13 @@
 --surface-graph-primary: var(--dark_green1);
 --surface-graph-secondary: var(--dark_brown);
 --border-primary: var(--dark_white);
+--border-error: var(--dark_error);
 --logo-primary: var(--dark_black);
 --logo-secondary: var(--dark_white);
 --footer-background: var(--dark_brown);
+--progress-bar: var(--dark_white);
+--progress-background: var(--dark_brown);
+--modal-background: var(--dark_green1);
 .font-primary{@apply font-dmserif;}
 .font-secondary{@apply font-raleway;}
 }
