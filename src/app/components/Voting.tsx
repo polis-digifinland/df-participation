@@ -60,7 +60,7 @@ export default function Voting({
       setCurrentTid(participationData.nextComment.tid);
       setCurrentTxt(
         participationData.nextComment.txt ||
-          'Olet äänestänyt kaikkia väitteitä.'
+        'Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!'
       );
       if (!participationData.nextComment.txt) {
         setProgressCompleted(true);
@@ -170,7 +170,7 @@ export default function Voting({
       } else if (data.nextComment == null) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
-        setCurrentTxt('Olet äänestänyt kaikkia väitteitä.');
+        setCurrentTxt('Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!');
         setProgressCurrent(progressTotal);
         setProgressPercentage(100);
         setProgressCompleted(true);
@@ -199,18 +199,18 @@ export default function Voting({
           id="ProgressBar"
           className="flex text-primary font-primary mt-md select-none"
         >
-          <div className="bg-theme-surface-card-1 my-auto w-full h-1.5 rounded">
+          <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
-              className="bg-theme-surface-brand h-1.5 rounded duration-200"
+              className="bg-theme-progress-bar h-1.5 rounded duration-200"
               style={{ width: `${firstBarWidth}%` }}
             />
           </div>
           <div className="text-base mx-5 text-center font-bold leading-tight">
             <p className="mb-0">{`${progressCurrent}/${progressTotal}`}</p>
           </div>
-          <div className="bg-theme-surface-card-1 my-auto w-full h-1.5 rounded">
+          <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
-              className="bg-theme-surface-brand h-1.5 rounded duration-200"
+              className="bg-theme-progress-bar h-1.5 rounded duration-200"
               style={{ width: `${secondBarWidth}%` }}
             />
           </div>
@@ -256,7 +256,6 @@ export default function Voting({
               {previousTxt}
             </div>
 
-            {!progressCompletedStatus && (
               <div className="w-full my-md flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
@@ -325,7 +324,6 @@ export default function Voting({
                   </button>
                 </div>
               </div>
-            )}
           </div>
 
 
@@ -354,24 +352,34 @@ export default function Voting({
               <Chevron />
               <span>Takaisin</span>
             </button>
-
-            <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
-              {currentTxt}
-            </div>
-
+            {progressCompletedStatus && (
+              <div>
+                <div className="text-xl font-primary font-semibold mt-md my-auto flex justify-center items-center">
+                  Kiitos osallistumisestasi!
+                </div>
+                <div className="text-base font-secondary mt-sm my-auto flex justify-center items-center text-center">
+                  Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!
+                </div>
+              </div>
+            )}
             {!progressCompletedStatus && (
+              <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
+                {currentTxt}
+              </div>
+            )}
+
               <div className="w-full my-md flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className="flex flex-col justify-start items-center text-center gap-3.5 font-normal lg:hover:font-semibold active:font-semibold"
-                    disabled={cardAnimateCenterToLeft}
+                    className={`flex flex-col items-center text-center gap-3.5 font-normal enabled:lg:hover:font-semibold enabled:active:font-semibold disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus}
                     onClick={() => {
                       handleVote(1);
                     }}
                   >
                     <svg
                       id="svg-button"
-                      className="h-[66px] w-[66px] lg:hover:scale-110 active:scale-110 transition-transform duration-300 ease-in-out transform"
+                      className="h-[66px] w-[66px] enabled:lg:hover:scale-110 enabled:active:scale-110 transition-transform duration-300 ease-in-out transform"
                       viewBox="0 0 66 66"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -397,13 +405,13 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className="flex flex-col items-center text-center gap-3.5  font-normal lg:hover:font-semibold active:font-semibold"
-                    disabled={cardAnimateCenterToLeft}
+                    className={`flex flex-col items-center text-center gap-3.5 font-normal enabled:lg:hover:font-semibold enabled:active:font-semibold disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus}
                     onClick={() => {
                       handleVote(0);
                     }}
                   >
-                    <div className="h-[66px] w-[66px] lg:hover:scale-110 active:scale-110 transition-transform duration-300 ease-in-out transform">
+                    <div className="h-[66px] w-[66px] enabled:lg:hover:scale-110 enabled:active:scale-110 transition-transform duration-300 ease-in-out transform">
                       <Pass
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
@@ -418,13 +426,13 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className="flex flex-col items-center text-center gap-3.5  font-normal lg:hover:font-semibold active:font-semibold"
-                    disabled={cardAnimateCenterToLeft}
+                    className={`flex flex-col items-center text-center gap-3.5 font-normal enabled:lg:hover:font-semibold enabled:active:font-semibold disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus}
                     onClick={() => {
                       handleVote(-1);
                     }}
-                  >
-                    <div className="h-[66px] w-[66px] lg:hover:scale-110 active:scale-110 transition-transform duration-300 ease-in-out transform">
+                    >
+                    <div className="h-[66px] w-[66px] enabled:lg:hover:scale-110 enabled:active:scale-110 transition-transform duration-300 ease-in-out transform">
                       <Thumb
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
@@ -437,10 +445,10 @@ export default function Voting({
                   </button>
                 </div>
               </div>
-            )}
           </div>
         </div>
       </>
     );
   }
 }
+
