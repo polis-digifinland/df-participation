@@ -5,12 +5,12 @@
   "scripts": {
     "copy": "./scripts/copy-pages.sh",
     "dev": "npm run copy && next dev --hostname polis.local --experimental-https",
-    "build": "npm run copy && next build",
-    "start": "npm run copy && next start",
+    "build": "next build",
+    "start": "next start",
     "lint": "npm run copy && next lint"
   },
   "dependencies": {
-    "next": "^14.2.13",
+    "next": "^14.2.18",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
@@ -22,7 +22,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.12",
+    "eslint-config-next": "14.2.18",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

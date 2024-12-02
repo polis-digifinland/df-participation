@@ -10,8 +10,12 @@ interface SuggestionsProps {
 
 export default function Suggestions({ is_active, write_type, conversation_id }: SuggestionsProps) {
 
-  const [inputValue, setInputValue] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
+  const [hasQuestionMark, setHasQuestionMark] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const autoResizeTextarea = (textarea: HTMLTextAreaElement) => {
@@ -20,15 +24,25 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(event.target.value);
+    setHasError(false);
+    const value = event.target.value;
+    setInputValue(value);
+    setHasQuestionMark(value.includes('?'));
+    setHasError(value.includes('?'));
     setIsSubmitted(false); // Reset submission status when input changes
+    setIsEmpty(false); // Reset status when form is submitted
+    setIsDuplicate(false); // Reset status when form is submitted
     autoResizeTextarea(event.target);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission behavior
+    setIsEmpty(false); // Reset status when form is submitted
+    setIsDuplicate(false); // Reset status when form is submitted
 
     if (inputValue.trim() === '') {
+      setIsEmpty(true);
+      setHasError(true);
       console.log('Input is empty. Submission not allowed.');
       return;
     }
@@ -52,6 +66,8 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
 
       if (!response.ok) {
         if (response.status === 409) {
+          setIsDuplicate(true);
+          setHasError(true);
           console.error('Error submitting vote: Duplicate comment');
           return;
         }
@@ -63,6 +79,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
 
       setInputValue(''); // Reset the form after submission
       setIsSubmitted(true); // Set submission status to true
+      setHasError(false); // Reset status when form is submitted
       if (textareaRef.current) {
         textareaRef.current.style.height = '51px'; // Reset height to initial value
       }
@@ -91,7 +108,9 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
         <form onSubmit={handleSubmit} className="flex flex-col">
           <textarea
             ref={textareaRef}
-            className="placeholder-placeholder bg-theme-surface-primary rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border border-theme-border-primary"
+            className={`placeholder-placeholder bg-theme-surface-primary rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border
+            ${hasError ? 'border-theme-border-error' : 'border-theme-border-primary'}
+            `}
             value={inputValue}
             onChange={handleChange}
             placeholder="Kirjoita tähän"
@@ -99,11 +118,22 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             maxLength={140}
             style={{ overflow: 'hidden', resize: 'none', height: "51px" }} // Ensure the textarea can grow
           />
-          <div className="text-right">{140 - inputValue.length} merkkiä jäljellä</div>
-          <button id='suggest-button' type="submit" className="h-[44px] w-[107px] px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out hover:scale-105">
-              Ehdota
-          </button>
-          <div>{isSubmitted && ("Väittämäsi on lähetetty!")}</div>
+          <div className='flex flex-row justify-between mt-md'>
+            <button
+              id='suggest-button'
+              type="submit"
+              className="h-[44px] w-[107px] px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105">
+                Ehdota
+            </button>
+            <div className={`text-right ${hasError ? 'text-error' : ''}
+            `}>
+              {!hasError && !isSubmitted && <div>{140 - inputValue.length} merkkiä jäljellä</div>}
+              {isSubmitted && <div>Väittämäsi on lähetetty!</div>}
+              {hasQuestionMark && <div>Vältä kysymysmerkkiä</div>}
+              {isEmpty && <div>Tyhjää väittämää ei voi lähettää</div>}
+              {isDuplicate && <div>Sama väite on jo lisätty keskusteluun</div>}
+            </div>
+          </div>
         </form>
       </div>
     </>
