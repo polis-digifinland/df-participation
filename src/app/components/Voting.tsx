@@ -231,7 +231,7 @@ export default function Voting({
 
         <div id="cards" className="relative">
 
-          <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_8px_8px] left-[-107%;] min-h-full min-w-full mt-xxs absolute select-none z-50 bg-theme-surface-primary"></div>
+          <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_8px_8px] left-[-116%;] min-h-full min-w-[110%;] mt-xxs absolute select-none z-50 bg-theme-surface-primary"></div>
 
 
           <div
@@ -353,8 +353,8 @@ export default function Voting({
               <span>Takaisin</span>
             </button>
             {progressCompletedStatus && (
-              <div>
-                <div className="text-xl font-primary font-semibold mt-md my-auto flex justify-center items-center">
+              <div className="mt-md min-h-[150px]">
+                <div className="text-xl font-primary font-semibold my-auto flex justify-center items-center">
                   Kiitos osallistumisestasi!
                 </div>
                 <div className="text-base font-secondary mt-sm my-auto flex justify-center items-center text-center">
