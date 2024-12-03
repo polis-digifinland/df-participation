@@ -34,6 +34,7 @@ export default function Voting({
   const [previousTxt, setPreviousTxt] = useState<string>(currentTxt);
   const [previousTid, setPreviousTid] = useState<number>(currentTid);
   const [disablePreviousButton, setDisablePreviousButton] = useState<boolean>(true);
+  const [disableVotingButton, setDisableVotingButton] = useState<boolean>(false);
 
   const [progressTotal, setProgressTotal] = useState<number>(InitialTotal);
   const [progressCurrent, setProgressCurrent] = useState<number>(0);
@@ -88,7 +89,6 @@ export default function Voting({
   };
 
   const animateCardThrowCenterToLeft = () => {
-    setDisablePreviousButton(false);
     setPreviousBg(currentBg);
     setCurrentBg(currentBg === 4 ? 1 : currentBg + 1);
     setCardAnimateCenterToLeft(true);
@@ -100,6 +100,8 @@ export default function Voting({
     if (cardAnimateCenterToLeft) {
       resetTimeout = setTimeout(() => {
         setCardAnimateCenterToLeft(false);
+        setDisableVotingButton(false);
+        setDisablePreviousButton(false);
       }, 820);
     } else if (cardAnimateLeftToCenter) {
       resetTimeout = setTimeout(() => {
@@ -108,6 +110,7 @@ export default function Voting({
         setCurrentTxt(previousTxt);
         setCurrentTid(previousTid);
         setProgressCompleted(false);
+        setDisableVotingButton(false);
       }, 920);
     }
     return () => {
@@ -262,28 +265,13 @@ export default function Voting({
                     className="flex flex-col justify-start items-center text-center gap-3.5  font-normal"
                     disabled
                   >
-                    <svg
-                      id="svg-button"
-                      className="h-[66px] w-[66px]"
-                      viewBox="0 0 66 66"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="Peukku" transform="rotate(180 33 33)">
-                        <path
-                          d="M66 33C66 51.2254 51.2254 66 33 66C14.7746 66 0 51.2254 0 33C0 14.7746 14.7746 0 33 0C51.2254 0 66 14.7746 66 33Z"
-                          fill="var(--surface-brand)"
-                        />
-                        <path
-                          d="M42.6333 28.3271H37.5201C36.4892 28.3271 35.6536 27.4914 35.6536 26.4606V23.2379C35.6536 20.5409 33.9144 20.268 33.0088 20.3087C32.7024 20.3222 32.4482 20.5488 32.4012 20.852L32.242 21.8871C32.0661 23.0312 31.6934 24.1357 31.1406 25.1525L30.3326 26.6385C29.8613 27.506 29.6134 28.4774 29.6113 29.465L29.6113 40.8694C29.6113 41.4937 30.1171 41.9995 30.7413 41.9995H41.3607C42.4542 41.9995 43.3484 41.1053 43.3484 40.0123L44.6199 30.3137C44.6199 29.2212 43.7263 28.3271 42.6333 28.3271Z"
-                          fill="var(--surface-primary)"
-                        />
-                        <path
-                          d="M23.5849 41.9995H26.868C27.2785 41.9995 27.6113 41.6667 27.6113 41.2562L27.6113 29.0699C27.6113 28.6594 27.2785 28.3266 26.868 28.3266H23.5849C23.1744 28.3266 22.8416 28.6594 22.8416 29.0699L22.8416 41.2562C22.8416 41.6667 23.1744 41.9995 23.5849 41.9995Z"
-                          fill="var(--surface-primary)"
-                        />
-                      </g>
-                    </svg>
+                    <div className="h-[66px] w-[66px]">
+                      <Thumb
+                        fg="var(--surface-brand)"
+                        bg="var(--surface-primary)"
+                        rotate={180}
+                      />
+                    </div>
                     <div className="no-scale">Eri mieltä</div>
                   </button>
                 </div>
@@ -346,6 +334,7 @@ export default function Voting({
               className="w-full flex items-center justify-start gap-1 lg:hover:underline active:underline mt-md ml-md disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={() => {
                 animateCardThrowLeftToCenter();
+                setDisablePreviousButton(true);
               }}
               disabled={disablePreviousButton}
             >
@@ -353,7 +342,7 @@ export default function Voting({
               <span>Takaisin</span>
             </button>
             {progressCompletedStatus && (
-              <div className="mt-md min-h-[150px]">
+              <div className="mt-lg min-h-[150px]">
                 <div className="text-xl font-primary font-semibold my-auto flex justify-center items-center">
                   Kiitos osallistumisestasi!
                 </div>
@@ -371,53 +360,42 @@ export default function Voting({
               <div className="w-full my-md flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className={`flex flex-col items-center text-center gap-3.5 font-normal enabled:lg:hover:font-semibold enabled:active:font-semibold disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
-                    disabled={cardAnimateCenterToLeft || progressCompletedStatus}
+                    className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButton}
                     onClick={() => {
                       handleVote(1);
+                      setDisableVotingButton(true);
+                      setDisablePreviousButton(true);
                     }}
                   >
-                    <svg
-                      id="svg-button"
-                      className="h-[66px] w-[66px] enabled:lg:hover:scale-110 enabled:active:scale-110 transition-transform duration-300 ease-in-out transform"
-                      viewBox="0 0 66 66"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="Peukku" transform="rotate(180 33 33)">
-                        <path
-                          d="M66 33C66 51.2254 51.2254 66 33 66C14.7746 66 0 51.2254 0 33C0 14.7746 14.7746 0 33 0C51.2254 0 66 14.7746 66 33Z"
-                          fill="var(--surface-brand)"
-                        />
-                        <path
-                          d="M42.6333 28.3271H37.5201C36.4892 28.3271 35.6536 27.4914 35.6536 26.4606V23.2379C35.6536 20.5409 33.9144 20.268 33.0088 20.3087C32.7024 20.3222 32.4482 20.5488 32.4012 20.852L32.242 21.8871C32.0661 23.0312 31.6934 24.1357 31.1406 25.1525L30.3326 26.6385C29.8613 27.506 29.6134 28.4774 29.6113 29.465L29.6113 40.8694C29.6113 41.4937 30.1171 41.9995 30.7413 41.9995H41.3607C42.4542 41.9995 43.3484 41.1053 43.3484 40.0123L44.6199 30.3137C44.6199 29.2212 43.7263 28.3271 42.6333 28.3271Z"
-                          fill="var(--surface-primary)"
-                        />
-                        <path
-                          d="M23.5849 41.9995H26.868C27.2785 41.9995 27.6113 41.6667 27.6113 41.2562L27.6113 29.0699C27.6113 28.6594 27.2785 28.3266 26.868 28.3266H23.5849C23.1744 28.3266 22.8416 28.6594 22.8416 29.0699L22.8416 41.2562C22.8416 41.6667 23.1744 41.9995 23.5849 41.9995Z"
-                          fill="var(--surface-primary)"
-                        />
-                      </g>
-                    </svg>
-                    <div className="no-scale">Eri mieltä</div>
+                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButton ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
+                      <Thumb
+                        fg="var(--surface-brand)"
+                        bg="var(--surface-primary)"
+                        rotate={180}
+                      />
+                    </div>
+                    <div className="no-scale group-hover:lg:font-semibold group-active:font-semibold">Eri mieltä</div>
                   </button>
                 </div>
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className={`flex flex-col items-center text-center gap-3.5 font-normal enabled:lg:hover:font-semibold enabled:active:font-semibold disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
-                    disabled={cardAnimateCenterToLeft || progressCompletedStatus}
+                    className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButton}
                     onClick={() => {
                       handleVote(0);
+                      setDisableVotingButton(true);
+                      setDisablePreviousButton(true);
                     }}
                   >
-                    <div className="h-[66px] w-[66px] enabled:lg:hover:scale-110 enabled:active:scale-110 transition-transform duration-300 ease-in-out transform">
+                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButton ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Pass
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
                       />
                     </div>
-                    <div className="no-scale">
+                    <div className="no-scale group-hover:lg:font-semibold group-active:font-semibold">
                       Ohita/<span className="block sm:hidden">neutraali</span>
                       <span className="hidden sm:inline">neutraali</span>
                     </div>
@@ -426,19 +404,21 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className={`flex flex-col items-center text-center gap-3.5 font-normal enabled:lg:hover:font-semibold enabled:active:font-semibold disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
-                    disabled={cardAnimateCenterToLeft || progressCompletedStatus}
+                    className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButton}
                     onClick={() => {
                       handleVote(-1);
+                      setDisableVotingButton(true);
+                      setDisablePreviousButton(true);
                     }}
                     >
-                    <div className="h-[66px] w-[66px] enabled:lg:hover:scale-110 enabled:active:scale-110 transition-transform duration-300 ease-in-out transform">
+                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButton ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Thumb
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
                       />
                     </div>
-                    <div className="no-scale">
+                    <div className="no-scale group-hover:lg:font-semibold group-active:font-semibold">
                       Samaa <span className="block sm:hidden">mieltä</span>
                       <span className="hidden sm:inline">mieltä</span>
                     </div>
