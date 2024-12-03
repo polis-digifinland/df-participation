@@ -34,7 +34,7 @@ export default function Voting({
   const [previousTxt, setPreviousTxt] = useState<string>(currentTxt);
   const [previousTid, setPreviousTid] = useState<number>(currentTid);
   const [disablePreviousButton, setDisablePreviousButton] = useState<boolean>(true);
-  const [disableVotingButton, setDisableVotingButton] = useState<boolean>(false);
+  const [disableVotingButtons, setDisableVotingButtons] = useState<boolean>(false);
 
   const [progressTotal, setProgressTotal] = useState<number>(InitialTotal);
   const [progressCurrent, setProgressCurrent] = useState<number>(0);
@@ -65,8 +65,10 @@ export default function Voting({
       );
       if (!participationData.nextComment.txt) {
         setProgressCompleted(true);
+        setDisableVotingButtons(true);
       } else {
         setProgressCompleted(false);
+        setDisableVotingButtons(false);
       }
       setProgressTotal(participationData.nextComment.total || InitialTotal);
       setProgressCurrent(
@@ -100,7 +102,7 @@ export default function Voting({
     if (cardAnimateCenterToLeft) {
       resetTimeout = setTimeout(() => {
         setCardAnimateCenterToLeft(false);
-        setDisableVotingButton(false);
+        setDisableVotingButtons(false);
         setDisablePreviousButton(false);
       }, 820);
     } else if (cardAnimateLeftToCenter) {
@@ -110,7 +112,7 @@ export default function Voting({
         setCurrentTxt(previousTxt);
         setCurrentTid(previousTid);
         setProgressCompleted(false);
-        setDisableVotingButton(false);
+        setDisableVotingButtons(false);
       }, 920);
     }
     return () => {
@@ -177,6 +179,7 @@ export default function Voting({
         setProgressCurrent(progressTotal);
         setProgressPercentage(100);
         setProgressCompleted(true);
+        setDisableVotingButtons(true);
         animateCardThrowCenterToLeft();
         console.log('No more comments to vote on');
       }
@@ -361,41 +364,43 @@ export default function Voting({
                 <div className="w-[33%] flex justify-center">
                   <button
                     className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
-                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButton}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButtons}
                     onClick={() => {
                       handleVote(1);
-                      setDisableVotingButton(true);
+                      setDisableVotingButtons(true);
                       setDisablePreviousButton(true);
                     }}
                   >
-                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButton ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
+                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Thumb
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
                         rotate={180}
                       />
                     </div>
-                    <div className="no-scale group-hover:lg:font-semibold group-active:font-semibold">Eri mieltä</div>
+                    <div className={`no-scale ${!disableVotingButtons ? 'group-hover:lg:font-semibold group-active:font-semibold' : ''}`}>
+                      Eri mieltä
+                    </div>
                   </button>
                 </div>
 
                 <div className="w-[33%] flex justify-center">
                   <button
                     className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
-                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButton}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButtons}
                     onClick={() => {
                       handleVote(0);
-                      setDisableVotingButton(true);
+                      setDisableVotingButtons(true);
                       setDisablePreviousButton(true);
                     }}
                   >
-                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButton ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
+                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Pass
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
                       />
                     </div>
-                    <div className="no-scale group-hover:lg:font-semibold group-active:font-semibold">
+                    <div className={`no-scale ${!disableVotingButtons ? 'group-hover:lg:font-semibold group-active:font-semibold' : ''}`}>
                       Ohita/<span className="block sm:hidden">neutraali</span>
                       <span className="hidden sm:inline">neutraali</span>
                     </div>
@@ -405,20 +410,20 @@ export default function Voting({
                 <div className="w-[33%] flex justify-center">
                   <button
                     className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
-                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButton}
+                    disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButtons}
                     onClick={() => {
                       handleVote(-1);
-                      setDisableVotingButton(true);
+                      setDisableVotingButtons(true);
                       setDisablePreviousButton(true);
                     }}
                     >
-                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButton ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
+                    <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Thumb
                         fg="var(--surface-brand)"
                         bg="var(--surface-primary)"
                       />
                     </div>
-                    <div className="no-scale group-hover:lg:font-semibold group-active:font-semibold">
+                    <div className={`no-scale ${!disableVotingButtons ? 'group-hover:lg:font-semibold group-active:font-semibold' : ''}`}>
                       Samaa <span className="block sm:hidden">mieltä</span>
                       <span className="hidden sm:inline">mieltä</span>
                     </div>
