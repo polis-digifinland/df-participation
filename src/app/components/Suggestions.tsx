@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react';
+import ErrorIcon from '../icons/Error';
 
 interface SuggestionsProps {
   is_active: boolean;
@@ -110,7 +111,12 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
       <div id="Suggestions" className="text-primary font-secondary flex flex-col mt-lg select-none">
         <div className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</div>
         <p className="mt-md mb-0">Ehdota kyselyyn omaa väittämääsi</p>
-        <form onSubmit={handleSubmit} className="flex flex-col">
+        <form onSubmit={handleSubmit} className="flex flex-col relative">
+          {hasError &&
+            <div className="select-none absolute top-[25px] right-[12px]">
+            <ErrorIcon fg="var(--error)" />
+            </div>
+          }
           <textarea
             ref={textareaRef}
             className={`placeholder-placeholder bg-theme-surface-primary rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border
