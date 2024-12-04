@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useRef } from 'react';
+import Modal from "@/components/Modal";
+import InfoIcon from '../icons/Info';
 import ErrorIcon from '../icons/Error';
 
 interface SuggestionsProps {
@@ -19,6 +21,11 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [hasExclamationMark, setHasExclamationMark] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [showModal, setShowModal] = useState(false);
+  function toggleModal() {
+    setShowModal(!showModal);
+  }
 
   const autoResizeTextarea = (textarea: HTMLTextAreaElement) => {
     textarea.style.height = 'auto'; // Reset height to auto
@@ -110,7 +117,20 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
     <>
       <div id="Suggestions" className="text-primary font-secondary flex flex-col mt-lg select-none">
         <div className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</div>
-        <p className="mt-md mb-0">Ehdota kyselyyn omaa väittämääsi</p>
+        <div className="flex flex-row justify-between mt-md mb-0">
+          <p className="">Ehdota kyselyyn omaa väittämääsi</p>
+          <button onClick={toggleModal}><InfoIcon fg="var(--text-primary)" /></button>
+          <Modal header="Millainen on hyvä kannanotto?" open={showModal} onClose={toggleModal}>
+            <div>
+              <ul className='pl-6 list-disc '>
+                <li>Itsenäinen ajatus</li>
+                <li>Tuo esiin uusia näkökulmia tai kokemuksia</li>
+                <li>Selkeä ja ytimekäs (rajoitettu 140 merkkiin)</li>
+              </ul>
+              <p className='mt-sm'>Muistathan, että kannanotot näytetään satunnaisesti, etkä vastaa suoraan muiden osallistujien kannanottoihin.</p>
+            </div>
+          </Modal>
+        </div>
         <form onSubmit={handleSubmit} className="flex flex-col relative">
           {hasError &&
             <div className="select-none absolute top-[25px] right-[12px]">

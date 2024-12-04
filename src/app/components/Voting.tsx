@@ -237,7 +237,7 @@ export default function Voting({
 
         <div id="cards" className="relative">
 
-          <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_8px_8px] left-[-116%;] min-h-full min-w-[110%;] mt-xxs absolute select-none z-50 bg-theme-surface-primary"></div>
+          <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_8px_8px] left-[-116%;] min-h-full min-w-[110%;] mt-xxs absolute select-none z-30 bg-theme-surface-primary"></div>
 
 
           <div

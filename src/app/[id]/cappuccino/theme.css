@@ -22,6 +22,7 @@
 --progress-bar: var(--wl_black);
 --progress-background: var(--cp_2);
 --modal-background: var(--white);
+--modal-backdrop: var(--backdrop);
 .font-primary{@apply font-dmserif;}
 .font-secondary{@apply font-raleway;}
 }

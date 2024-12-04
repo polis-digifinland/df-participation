@@ -50,6 +50,7 @@ const config: Config = {
         'theme-progress-bar': "var(--progress-bar)",
         'theme-progress-background': "var(--progress-background)",
         'theme-modal-background': "var(--modal-background)",
+        'theme-modal-backdrop': "var(--modal-backdrop)",
       },
     },
   },
