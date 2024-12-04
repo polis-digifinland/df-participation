@@ -15,6 +15,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
   const [hasQuestionMark, setHasQuestionMark] = useState<boolean>(false);
+  const [hasExclamationMark, setHasExclamationMark] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -28,7 +29,8 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
     const value = event.target.value;
     setInputValue(value);
     setHasQuestionMark(value.includes('?'));
-    setHasError(value.includes('?'));
+    setHasExclamationMark(value.includes('!'));
+    setHasError(value.includes('?') || value.includes('!'));
     setIsSubmitted(false); // Reset submission status when input changes
     setIsEmpty(false); // Reset status when form is submitted
     setIsDuplicate(false); // Reset status when form is submitted
@@ -37,14 +39,18 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission behavior
-    setIsEmpty(false); // Reset status when form is submitted
+    setHasError(false); // Reset status when form is submitted
     setIsDuplicate(false); // Reset status when form is submitted
+    setHasQuestionMark(false); // Reset status when form is submitted
+    setHasExclamationMark(false); // Reset status when form is submitted
 
     if (inputValue.trim() === '') {
       setIsEmpty(true);
       setHasError(true);
       console.log('Input is empty. Submission not allowed.');
       return;
+    } else {
+      setIsEmpty(false); // Reset status when form is submitted
     }
 
     try {
@@ -79,7 +85,6 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
 
       setInputValue(''); // Reset the form after submission
       setIsSubmitted(true); // Set submission status to true
-      setHasError(false); // Reset status when form is submitted
       if (textareaRef.current) {
         textareaRef.current.style.height = '51px'; // Reset height to initial value
       }
@@ -130,6 +135,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
               {!hasError && !isSubmitted && <div>{140 - inputValue.length} merkkiä jäljellä</div>}
               {isSubmitted && <div>Väittämäsi on lähetetty!</div>}
               {hasQuestionMark && <div>Vältä kysymysmerkkiä</div>}
+              {hasExclamationMark && <div>Vältä huutomerkkiä</div>}
               {isEmpty && <div>Tyhjää väittämää ei voi lähettää</div>}
               {isDuplicate && <div>Sama väite on jo lisätty keskusteluun</div>}
             </div>
