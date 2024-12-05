@@ -65,7 +65,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                             >
                                 <ReactMarkdown>{remainingDescription}</ReactMarkdown>
                             </div>
-                            <div
+                            <button
                                 className="accordion-summary font-secondary mt-xxs flex items-center cursor-pointer"
                                 onClick={toggleAccordion}
                             >
@@ -75,7 +75,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                                 <div className={`details-icon ${isOpen ? 'rotate-90' : ''}`}>
                                     <Chevron />
                                 </div>
-                            </div>
+                            </button>
                         </div>
                     </>
                 ) : (
