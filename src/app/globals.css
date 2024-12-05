@@ -112,3 +112,13 @@ a:hover {
   animation-timing-function: cubic-bezier(0.53, 0.01, 0.25, 1.15);
 }
 
+
+/* Focus visible with high visibility as per accessibility requirements */
+:focus-visible,
+button:focus-visible,
+.focus-visible {
+  box-shadow: 0 0 0 .25rem white;
+  outline: .375rem double black;
+  /*border-radius: .125rem; Might be better to get border radius from the element itself*/
+}
+
