@@ -1,9 +1,18 @@
 'use client'
 
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Modal from "@/components/Modal";
-import InfoIcon from '../icons/Info';
-import ErrorIcon from '../icons/Error';
+import InfoIcon from '@/icons/Info';
+import ErrorIcon from '@/icons/Error';
+import useSWR from 'swr';
+
+const fetcher = (url: string) =>
+  fetch(url, { credentials: 'include' }).then((res) => {
+    if (!res.ok) {
+      throw new Error('Failed to fetch');
+    }
+    return res.json();
+  });
 
 interface SuggestionsProps {
   is_active: boolean;
@@ -21,6 +30,23 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [hasExclamationMark, setHasExclamationMark] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [conversationActive, setConversationActive] = useState<boolean>(is_active);
+  const [writeType, setWriteType] = useState<boolean>(write_type);
+
+  const { data: participationData, error: participationError } = useSWR(
+    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=acceptLang`,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (participationError) {
+      console.error('Error fetching init data:', participationError);
+    } else if (participationData) {
+      setConversationActive(participationData.conversation.is_active);
+      setWriteType(participationData.conversation.write_type);
+    }
+  }, [participationData, participationError]);
 
   const [showModal, setShowModal] = useState(false);
   function toggleModal() {
@@ -102,14 +128,15 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   };
 
 
-  if (!is_active) {
-    return (<></>)
-  } else if (!write_type) {
+  if (!conversationActive) {
+    return (<></>)  // If conversation is not active, don't render anything here, Voting component will handle it
+  } else if (!writeType) {
     return (
       <>
-        <h1 className="text-primary text-3xl font-primary font-bold select-none">
-          Uusien väittämien lähettäminen on suljettu.
-        </h1>
+        <div id="Suggestions" className="text-primary font-secondary font-semibold flex flex-row items-center gap-sm mt-lg select-none">
+          <InfoIcon fg="var(--text-primary)" width={32} height={32} />
+          <h1>Uusien väittämien lisääminen on suljettu.</h1>
+        </div>
       </>
     )
   } else {
