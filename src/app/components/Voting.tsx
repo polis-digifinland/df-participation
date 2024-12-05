@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Thumb from '../icons/Thumb';
-import Pass from '../icons/Pass';
-import Chevron from '../icons/Chevron';
+import Thumb from '@/icons/Thumb';
+import Pass from '@/icons/Pass';
+import Chevron from '@/icons/Chevron';
+import InfoIcon from '@/icons/Info';
 import useSWR from 'swr';
 
 const fetcher = (url: string) =>
@@ -27,6 +28,8 @@ export default function Voting({
   conversation_id,
   InitialTotal,
 }: VotingProps) {
+  const [conversationActive, setConversationActive] = useState<boolean>(is_active);
+
   const [currentTxt, setCurrentTxt] = useState<string>('');
   const [currentTid, setCurrentTid] = useState<number>(-1);
   const [currentBg, setCurrentBg] = useState<number>(1);
@@ -58,6 +61,7 @@ export default function Voting({
     if (participationError) {
       console.error('Error fetching vote data:', participationError);
     } else if (participationData) {
+      setConversationActive(participationData.conversation.is_active);
       setCurrentTid(participationData.nextComment.tid);
       setCurrentTxt(
         participationData.nextComment.txt ||
@@ -190,12 +194,13 @@ export default function Voting({
 
   if (failed_to_load) {
     return <></>; // If the data failed to load, don't render anything here, Conversation component will handle the error
-  } else if (!is_active) {
+  } else if (!conversationActive) {
     return (
       <>
-        <h1 className="text-primary text-3xl font-primary font-bold select-none">
-          Keskustelu on suljettu.
-        </h1>
+        <div id="Voting" className="text-primary font-secondary font-semibold flex flex-row items-center gap-sm mt-lg select-none">
+          <InfoIcon fg="var(--text-primary)" width={32} height={32} />
+          <h1>Keskustelu on sulkeutunut.</h1>
+        </div>
       </>
     );
   } else {
