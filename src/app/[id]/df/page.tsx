@@ -1,4 +1,4 @@
-import CookiesAndData from "@/components/CookiesAndData"
+import CookiesAndData from "@/lib/CookiesAndData"
 import Header from "@/components/Header"
 import Conversation from "@/components/Conversation"
 import Voting from "@/components/Voting"
