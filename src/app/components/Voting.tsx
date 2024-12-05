@@ -338,17 +338,19 @@ export default function Voting({
             id="currentCard"
             className={`bg-theme-surface-card-${currentBg} relative text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
           >
-            <button
-              className="w-full flex items-center justify-start gap-1 lg:hover:underline active:underline mt-md ml-md disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={() => {
-                animateCardThrowLeftToCenter();
-                setDisablePreviousButton(true);
-              }}
-              disabled={disablePreviousButton}
-            >
-              <Chevron />
-              <span>Takaisin</span>
-            </button>
+            <div className="w-full mt-md ml-md">
+              <button
+                className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  animateCardThrowLeftToCenter();
+                  setDisablePreviousButton(true);
+                }}
+                disabled={disablePreviousButton}
+              >
+                <Chevron />
+                <span>Takaisin</span>
+              </button>
+            </div>
             {progressCompletedStatus && (
               <div className="mt-lg min-h-[150px]">
                 <div className="text-xl font-primary font-semibold my-auto flex justify-center items-center">
@@ -368,7 +370,7 @@ export default function Voting({
               <div className="w-full my-md flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    className={`flex flex-col items-center text-center gap-3.5 rounded-md font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
                     disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButtons}
                     onClick={() => {
                       handleVote(1);
@@ -391,7 +393,7 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    className={`flex flex-col items-center text-center gap-3.5 rounded-md font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
                     disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButtons}
                     onClick={() => {
                       handleVote(0);
@@ -414,7 +416,7 @@ export default function Voting({
 
                 <div className="w-[33%] flex justify-center">
                   <button
-                    className={`flex flex-col items-center text-center gap-3.5 font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
+                    className={`flex flex-col items-center text-center gap-3.5 rounded-md font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}
                     disabled={cardAnimateCenterToLeft || progressCompletedStatus || disableVotingButtons}
                     onClick={() => {
                       handleVote(-1);

@@ -146,7 +146,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
         <div className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</div>
         <div className="flex flex-row justify-between mt-md mb-0">
           <p className="">Ehdota kyselyyn omaa väittämääsi</p>
-          <button onClick={toggleModal}><InfoIcon fg="var(--text-primary)" /></button>
+          <button onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110'><InfoIcon fg="var(--text-primary)" /></button>
           <Modal header="Millainen on hyvä kannanotto?" open={showModal} onClose={toggleModal}>
             <div>
               <ul className='pl-6 list-disc '>

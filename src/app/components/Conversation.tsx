@@ -66,7 +66,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                                 <ReactMarkdown>{remainingDescription}</ReactMarkdown>
                             </div>
                             <button
-                                className="accordion-summary font-secondary mt-xxs flex items-center cursor-pointer"
+                                className="accordion-summary font-secondary mt-xxs flex items-center cursor-pointer rounded-md"
                                 onClick={toggleAccordion}
                             >
                                 <span className="hover:underline mr-xxxs">
