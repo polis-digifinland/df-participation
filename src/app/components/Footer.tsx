@@ -28,7 +28,7 @@ export default function Footer() {
         <div className='flex justify-center'>
           <Image
             src={dflogo}
-            alt="DigiFinland Oy footer logo"
+            alt="DigiFinland Oy logo"
             width={129}
             height={41}
             priority

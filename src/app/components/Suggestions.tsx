@@ -143,10 +143,10 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   return (
     <>
       <div id="Suggestions" className="text-primary font-secondary flex flex-col mt-lg select-none">
-        <div className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</div>
+        <h2 className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</h2>
         <div className="flex flex-row justify-between mt-md mb-0">
-          <p className="">Ehdota kyselyyn omaa väittämääsi</p>
-          <button onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110'><InfoIcon fg="var(--text-primary)" /></button>
+          <label htmlFor="suggest-textarea" className="">Ehdota kyselyyn omaa väittämääsi</label>
+            <button onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Lisätietoa"><InfoIcon fg="var(--text-primary)" /></button>
           <Modal header="Millainen on hyvä kannanotto?" open={showModal} onClose={toggleModal}>
             <div>
               <ul className='pl-6 list-disc '>
@@ -165,6 +165,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             </div>
           }
           <textarea
+            id='suggest-textarea'
             ref={textareaRef}
             className={`placeholder-placeholder bg-theme-surface-primary rounded-2xl mt-xs px-4 pt-[13px] pb-3.5 border
             ${hasError ? 'border-theme-border-error' : 'border-theme-border-primary'}

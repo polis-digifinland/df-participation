@@ -1,11 +1,12 @@
 import React from 'react';
 
-const Logo = ({ fg = 'white', bg = 'black', width = 64, height = 70 }) => {
+const Logo = ({ fg = 'white', bg = 'black', width = 64, height = 70, alt = 'Polis logo'}) => {
 
   const viewBox = "0 0 64 70";
 
   return (
-    <svg width={width} height={height} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+      <title id="logoTitle">{alt}</title>
       <g id="logo_hexagon">
         <g id="Vector">
             <path
