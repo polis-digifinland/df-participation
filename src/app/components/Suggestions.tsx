@@ -48,6 +48,12 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
     }
   }, [participationData, participationError]);
 
+  useEffect(() => {
+    if (hasError && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [hasError]);
+
   const [showModal, setShowModal] = useState(false);
   function toggleModal() {
     setShowModal(!showModal);
@@ -176,6 +182,8 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             rows={1}
             maxLength={140}
             style={{ overflow: 'hidden', resize: 'none', height: "51px" }} // Ensure the textarea can grow
+            aria-invalid={hasError}
+            aria-describedby={hasError ? "error-message" : undefined}
           />
           <div className='flex flex-row justify-between mt-md'>
             <button
@@ -184,14 +192,14 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
               className="h-[44px] w-[107px] px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105">
                 Ehdota
             </button>
-            <div className={`text-right ${hasError ? 'text-error' : ''}
+            <div role="status" className={`text-right ${hasError ? 'text-error' : ''}
             `}>
-              {!hasError && !isSubmitted && <div>{140 - inputValue.length} merkkiä jäljellä</div>}
-              {isSubmitted && <div>Väittämäsi on lähetetty!</div>}
-              {hasQuestionMark && <div>Vältä kysymysmerkkiä</div>}
-              {hasExclamationMark && <div>Vältä huutomerkkiä</div>}
-              {isEmpty && <div>Tyhjää väittämää ei voi lähettää</div>}
-              {isDuplicate && <div>Sama väite on jo lisätty keskusteluun</div>}
+              {!hasError && !isSubmitted && <span aria-live="polite">{140 - inputValue.length} merkkiä jäljellä</span>}
+              {isSubmitted && <span>Väittämäsi on lähetetty!</span>}
+              {hasQuestionMark && <span>Vältä kysymysmerkkiä</span>}
+              {hasExclamationMark && <span>Vältä huutomerkkiä</span>}
+              {isEmpty && <span id="error-message">Tyhjää väittämää ei voi lähettää</span>}
+              {isDuplicate && <span id="error-message">Sama väite on jo lisätty keskusteluun</span>}
             </div>
           </div>
         </form>
