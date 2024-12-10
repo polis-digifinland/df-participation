@@ -1,4 +1,4 @@
-import { ReactElement, FC, useEffect } from 'react';
+import { ReactElement, FC, useEffect, useRef } from 'react';
 import Close from '@/icons/Close';
 
 interface ModalProps {
@@ -9,6 +9,8 @@ interface ModalProps {
 }
 
 export default function Modal({ open, onClose, header, children }: ModalProps): ReturnType<FC> {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -18,6 +20,7 @@ export default function Modal({ open, onClose, header, children }: ModalProps): 
 
     if (open) {
       document.addEventListener('keydown', handleKeyDown);
+      closeButtonRef.current?.focus();
     } else {
       document.removeEventListener('keydown', handleKeyDown);
     }
@@ -29,10 +32,10 @@ export default function Modal({ open, onClose, header, children }: ModalProps): 
 
   return (
     <div onClick={onClose} className={`${"fixed z-40 inset-0 w-full h-full bg-black/25 dark:bg-black/75"} ${open ? "block" : "hidden"}`}>
-      <div className="fixed z-50 p-lg bg-theme-modal-background w-[35rem] h-auto top-[40%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] flex flex-col items-center rounded-[20px]">
+      <div role="dialog" aria-modal="true" className="fixed z-50 p-lg bg-theme-modal-background w-[35rem] h-auto top-[40%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] flex flex-col items-center rounded-[20px]">
         <div className="flex flex-row w-full justify-between select-none">
           <h2 className="text-primary text-2xl font-primary font-bold ">{header}</h2>
-            <button onClick={onClose} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Sulje"><Close fg="var(--text-primary)" /></button>
+            <button ref={closeButtonRef} onClick={onClose} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Sulje"><Close fg="var(--text-primary)" /></button>
         </div>
         <div className='mt-sm font-secondary'>{children}</div>
       </div>

@@ -189,7 +189,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             <button
               id='suggest-button'
               type="submit"
-              className="h-[44px] w-[107px] px-5 py-2.5 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105">
+              className="px-5 py-3 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105">
                 Ehdota
             </button>
             <div role="status" className={`text-right ${hasError ? 'text-error' : ''}
