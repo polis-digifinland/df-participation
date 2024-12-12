@@ -1,0 +1,62 @@
+{
+  "file_desc": "Käännökset suomeksi",
+  "status": {
+    "loading": "Lataa ...",
+    "error": {
+      "topic": "Keskustelun latauksessa tapahtui virhe.",
+      "desc": "Kokeile ladata sivu uudelleen."
+    }
+  },
+  "readMore": "Lue lisää",
+  "readLess": "Lue vähemmän",
+  "suggestions": {
+    "closed": "Uusien väittämien lisääminen on suljettu.",
+    "title": "Puuttuuko kyselystä keskeinen väittämä?",
+    "label": "Ehdota kyselyyn omaa väittämääsi",
+    "placeholder": "Kirjoita tähän",
+    "submit": "Ehdota",
+    "status": {
+      "remaining": "merkkiä jäljellä",
+      "isSubmitted": "Väittämäsi on lähetetty!",
+      "hasQuestionMark": "Vältä kysymysmerkkiä",
+      "hasExclamationMark": "Vältä huutomerkkiä",
+      "isEmpty": "Tyhjää väittämää ei voi lähettää",
+      "isDuplicate": "Sama väite on jo lisätty keskusteluun"
+    },
+    "modal": {
+      "title": "Millainen on hyvä kannanotto?",
+      "li1": "Itsenäinen ajatus",
+      "li2": "Tuo esiin uusia näkökulmia tai kokemuksia",
+      "li3": "Selkeä ja ytimekäs (rajoitettu 140 merkkiin)",
+      "desc": "Muistathan, että kannanotot näytetään satunnaisesti, etkä vastaa suoraan muiden osallistujien kannanottoihin."
+    }
+  },
+  "voting": {
+    "closed": "Keskustelu on sulkeutunut.",
+    "buttons": {
+      "back": "Takaisin",
+      "disagree": "Eri mieltä",
+      "pass": "Ohita/neutraali",
+      "agree": "Samaa mieltä"
+    },
+    "thanks": {
+      "title": "Kiitos osallistumisestasi!",
+      "desc": "Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!"
+    }
+  },
+  "footer": {
+    "title": "Polis",
+    "desc": "DigiFinland ja Sitra ovat tuoneet Suomeen avoimeen lähdekoodiin perustuvan Polis-verkkoalustan. Poliksen tarkoituksena on mahdollistaa suurien ryhmien osallistuminen rakentavaan mielipiteiden vaihtoon, valitun aihepiirin ympärillä.",
+    "disclaimer": "Polis-verkkoalusta on kokeiluvaiheessa eikä vielä täytä kaikkia vaatimuksia saavutettavuuden ja käytettävyyden osalta.",
+    "links": {
+      "title": "Tietoa palvelusta",
+      "privacy": "Tietosuoja",
+      "info": "Lisätietoja",
+      "source": "Lähdekoodi"
+    },
+    "provider": "Palveluntuottaja",
+    "version": "Versio: ",
+    "released": "Julkaistu: "
+  }
+}
+

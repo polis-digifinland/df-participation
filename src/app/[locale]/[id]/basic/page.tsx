@@ -6,6 +6,8 @@ import Suggestions from "@/components/Suggestions"
 import Results from "@/components/Results"
 import Footer from "@/components/Footer"
 import { notFound } from 'next/navigation';
+import initTranslations from '@/i18n';
+import TranslationsProvider from '@/components/TranslationsProvider';
 
 // Import here the CSS file for the theme that is in the same folder as this file
 // This will allow Next.js to include the CSS file in the build and use SSR.
@@ -25,19 +27,22 @@ export const dynamicParams = true // or false, to 404 on unknown paths
 //  return [{ theme: 'df' }, { theme: 'basic' }, { theme: 'dark' }]
 //}
 
-export default async function Page({ params }: { params: { id: string, theme: string } }) {
+export default async function Page({ params }: { params: { locale: string, id: string, theme: string } }) {
+
+  const i18nNamespaces = ['common'];
+  const { t, resources } = await initTranslations(params.locale, i18nNamespaces);
+
   const baseUrl = process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL;
   let data = null;
 
-  if (params.id === undefined || params.id === null || params.id === 'sitemap.xml') {
-    //return notFound();
-  }
+  //if (params.id === undefined || params.id === null || params.id === 'sitemap.xml') {
+  //  return notFound();
+  //}
 
 
   // Participation initial data at server side
   try {
     // Construct absolute URL to API
-    //const url = `${baseUrl}/api/participationInit?conversation_id=${params.id}`;
     const url = `${baseUrl}/api/v3/participationInit?conversation_id=${params.id}`;
     //console.log(`participationInit API URL: ${url}`);
 
@@ -66,37 +71,40 @@ export default async function Page({ params }: { params: { id: string, theme: st
     console.error("Error fetching participation initial data:", error);
   }
 
-  //const [participationData, setparticipationData] = useState<object>({});
-  //const  [participantID, setParticipantID] = useState<number>(0);
-
   return (
     <>
+    {t('peruna')}
+    <TranslationsProvider
+      namespaces={i18nNamespaces}
+      locale={params.locale}
+      resources={resources}>
       <CookiesAndData
-        conversation_id={params.id ? params.id : 'Conv id failed to load'}
+        conversation_id={params.id ? params.id : t('status.error.topic')}
       />
       <Header />
       <main className="mx-auto px-md max-w-screen-sm flex-1">
         <Conversation
-          topic={data ? data.conversation.topic : 'Keskustelun latauksessa tapahtui virhe.'}
-          description={data ? data.conversation.description : 'Kokeile ladata sivu uudelleen.'}
+          topic={data ? data.conversation.topic : t('status.error.topic')}
+          description={data ? data.conversation.description : t('status.error.desc')}
         />
         <Voting
           failed_to_load={data ? false : true}
           is_active={data ? data.conversation.is_active : false}
-          conversation_id={params.id ? params.id : 'Conv id failed to load'}
+          conversation_id={params.id ? params.id : t('status.error.topic')}
           InitialTotal={data ? data.nextComment.total : 0}
         />
         <Suggestions
           is_active={data ? data.conversation.is_active : false}
           write_type={data ? data.conversation.write_type : 0}
-          conversation_id={params.id ? params.id : 'Conv id failed to load'}
+          conversation_id={params.id ? params.id : t('status.error.topic')}
         />
         <Results
           is_active={data ? data.conversation.is_active : false}
           vis_type={data ? data.conversation.vis_type : 0}
         />
       </main>
-      <Footer />
+      <Footer locale={params.locale} />
+    </TranslationsProvider>
     </>
   );
 }

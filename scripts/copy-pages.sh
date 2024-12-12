@@ -3,7 +3,7 @@
 # chmod +x ./scripts/copy-pages.sh
 # Usage: ./scripts/copy-pages.sh
 
-BASE_PATH="src/app/[id]"
+BASE_PATH="src/app/[locale]/[id]"
 BASE_THEME="$BASE_PATH/df/page.tsx"
 
 cp $BASE_THEME $BASE_PATH/aqua/page.tsx

@@ -27,13 +27,13 @@
 .font-secondary{@apply font-tthoves;}
 }
 a::after {
-content: url('./../../icons/open_in_new_df.svg');
+content: url('./../../../icons/open_in_new_df.svg');
 display: inline-block;
 margin-left: 8px;
 vertical-align: middle;
 }
 footer a::after {
-content: url('./../../icons/open_in_new_df_footer.svg');
+content: url('./../../../icons/open_in_new_df_footer.svg');
 display: inline-block;
 margin-left: 8px;
 vertical-align: middle;

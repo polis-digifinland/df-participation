@@ -1,0 +1,61 @@
+{
+  "file_desc": "Translations in English",
+  "status": {
+    "loading": "Loading ...",
+    "error": {
+      "topic": "There was an error loading the discussion.",
+      "desc": "Try reloading the page."
+    }
+  },
+  "readMore": "Read more",
+  "readLess": "Read less",
+  "suggestions": {
+    "closed": "Adding new statements is closed.",
+    "title": "Is a key statement missing from the query?",
+    "label": "Suggest your own statement to the query",
+    "placeholder": "Write here",
+    "submit": "Suggest",
+    "status": {
+      "remaining": "characters remaining",
+      "isSubmitted": "Your statement has been submitted!",
+      "hasQuestionMark": "Avoid question marks",
+      "hasExclamationMark": "Avoid exclamation marks",
+      "isEmpty": "You cannot submit an empty statement",
+      "isDuplicate": "The same statement has already been added to the discussion"
+    },
+    "modal": {
+      "title": "What is a good statement?",
+      "li1": "An independent thought",
+      "li2": "Brings out new perspectives or experiences",
+      "li3": "Clear and concise (limited to 140 characters)",
+      "desc": "Remember that the statements are displayed randomly and you do not respond directly to the statements of other participants."
+    }
+  },
+  "voting": {
+    "closed": "The discussion is closed.",
+    "buttons": {
+      "back": "Back",
+      "disagree": "Disagree",
+      "pass": "Skip/Neutral",
+      "agree": "Agree"
+    },
+    "thanks": {
+      "title": "Thank you for participating!",
+      "desc": "These were all the statements for this time. However, the discussion continues, so please come back later to respond to new statements!"
+    }
+  },
+  "footer": {
+    "title": "Polis",
+    "desc": "DigiFinland and Sitra have brought to Finland the open source Polis online platform. The purpose of Polis is to enable large groups to participate in a constructive exchange of views around a chosen topic.",
+    "disclaimer": "The Polis online platform is in beta and does not yet meet all the requirements for accessibility and usability.",
+    "links": {
+      "title": "About the service",
+      "privacy": "Privacy policy",
+      "info": "More information",
+      "source": "Source code"
+    },
+    "provider": "Service provider",
+    "version": "Version: ",
+    "released": "Released: "
+  }
+}

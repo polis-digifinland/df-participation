@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Chevron from '../icons/Chevron';
 import ReactMarkdown from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 
 interface ConversationProps {
     topic: string;
@@ -10,6 +11,8 @@ interface ConversationProps {
 }
 
 export default function Conversation({ topic, description }: ConversationProps) {
+    const { t } = useTranslation();
+
     const [isOpen, setIsOpen] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +76,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                                 aria-controls="accordion-content"
                             >
                                 <span className="hover:underline mr-xxxs">
-                                    {isOpen ? 'Lue vähemmän' : 'Lue lisää'}
+                                    {isOpen ? t('readLess') :  t('readMore')}
                                 </span>
                                 <div className={`details-icon ${isOpen ? 'rotate-90' : ''}`}>
                                     <Chevron />

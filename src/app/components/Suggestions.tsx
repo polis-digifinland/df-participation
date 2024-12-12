@@ -5,6 +5,7 @@ import Modal from "@/components/Modal";
 import InfoIcon from '@/icons/Info';
 import ErrorIcon from '@/icons/Error';
 import useSWR from 'swr';
+import { useTranslation } from 'react-i18next';
 
 const fetcher = (url: string) =>
   fetch(url, { credentials: 'include' }).then((res) => {
@@ -21,6 +22,8 @@ interface SuggestionsProps {
 }
 
 export default function Suggestions({ is_active, write_type, conversation_id }: SuggestionsProps) {
+
+  const { t } = useTranslation();
 
   const [inputValue, setInputValue] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -141,7 +144,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
       <>
         <div id="Suggestions" className="text-primary font-secondary font-semibold flex flex-row items-center gap-sm mt-lg select-none">
           <InfoIcon fg="var(--text-primary)" width={32} height={32} />
-          <h1>Uusien väittämien lisääminen on suljettu.</h1>
+          <h1>{t('suggestions.closed')}</h1>
         </div>
       </>
     )
@@ -149,18 +152,18 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   return (
     <>
       <div id="Suggestions" className="text-primary font-secondary flex flex-col mt-lg select-none">
-        <h2 className="text-xl font-bold font-primary">Puuttuuko kyselystä keskeinen väittämä?</h2>
+        <h2 className="text-xl font-bold font-primary">{t('suggestions.title')}</h2>
         <div className="flex flex-row justify-between mt-md mb-0">
-          <label htmlFor="suggest-textarea" className="">Ehdota kyselyyn omaa väittämääsi</label>
+          <label htmlFor="suggest-textarea" className="">{t('suggestions.label')}</label>
             <button onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Lisätietoa"><InfoIcon fg="var(--text-primary)" /></button>
-          <Modal header="Millainen on hyvä kannanotto?" open={showModal} onClose={toggleModal}>
+          <Modal header={t('suggestions.modal.title')} open={showModal} onClose={toggleModal}>
             <div>
               <ul className='pl-6 list-disc '>
-                <li>Itsenäinen ajatus</li>
-                <li>Tuo esiin uusia näkökulmia tai kokemuksia</li>
-                <li>Selkeä ja ytimekäs (rajoitettu 140 merkkiin)</li>
+                <li>{t('suggestions.modal.li1')}</li>
+                <li>{t('suggestions.modal.li2')}</li>
+                <li>{t('suggestions.modal.li3')}</li>
               </ul>
-              <p className='mt-sm'>Muistathan, että kannanotot näytetään satunnaisesti, etkä vastaa suoraan muiden osallistujien kannanottoihin.</p>
+              <p className='mt-sm'>{t('suggestions.modal.order')}</p>
             </div>
           </Modal>
         </div>
@@ -178,7 +181,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             `}
             value={inputValue}
             onChange={handleChange}
-            placeholder="Kirjoita tähän"
+            placeholder={t('suggestions.placeholder')}
             rows={1}
             maxLength={140}
             style={{ overflow: 'hidden', resize: 'none', height: "51px" }} // Ensure the textarea can grow
@@ -190,16 +193,16 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
               id='suggest-button'
               type="submit"
               className="px-5 py-3 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105">
-                Ehdota
+                {t('suggestions.submit')}
             </button>
             <div role="status" className={`text-right ${hasError ? 'text-error' : ''}
             `}>
-              {!hasError && !isSubmitted && <span aria-live="polite">{140 - inputValue.length} merkkiä jäljellä</span>}
-              {isSubmitted && <span>Väittämäsi on lähetetty!</span>}
-              {hasQuestionMark && <span>Vältä kysymysmerkkiä</span>}
-              {hasExclamationMark && <span>Vältä huutomerkkiä</span>}
-              {isEmpty && <span id="error-message">Tyhjää väittämää ei voi lähettää</span>}
-              {isDuplicate && <span id="error-message">Sama väite on jo lisätty keskusteluun</span>}
+              {!hasError && !isSubmitted && <span aria-live="polite">{140 - inputValue.length} {t('suggestions.status.remaining')}</span>}
+              {isSubmitted && <span>{t('suggestions.status.isSubmitted')}</span>}
+              {hasQuestionMark && <span>{t('suggestions.status.hasQuestionMark')}</span>}
+              {hasExclamationMark && <span>{t('suggestions.status.hasExclamationMark')}</span>}
+              {isEmpty && <span id="error-message">{t('suggestions.status.isEmpty')}</span>}
+              {isDuplicate && <span id="error-message">{t('suggestions.status.isDuplicate')}</span>}
             </div>
           </div>
         </form>

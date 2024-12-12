@@ -1,0 +1,61 @@
+{
+  "file_desc": "Översättningar till svenska",
+  "status": {
+    "loading": "Laddar ...",
+    "error": {
+      "topic": "Ett fel uppstod när diskussionen laddades.",
+      "desc": "Försök ladda om sidan."
+    }
+  },
+  "readMore": "Läs mer",
+  "readLess": "Läs mindre",
+  "suggestions": {
+    "closed": "Det är inte längre möjligt att lägga till nya påståenden.",
+    "title": "Saknas ett viktigt påstående i frågan?",
+    "label": "Föreslå ett eget påstående till frågan",
+    "placeholder": "Skriv här",
+    "submit": "Föreslå",
+    "status": {
+      "remaining": "tecken kvar",
+      "isSubmitted": "Ditt påstående har skickats!",
+      "hasQuestionMark": "Undvik frågetecken",
+      "hasExclamationMark": "Undvik utropstecken",
+      "isEmpty": "Du kan inte skicka ett tomt påstående",
+      "isDuplicate": "Samma påstående har redan lagts till i diskussionen"
+    },
+    "modal": {
+      "title": "Hur ser ett bra påstående ut?",
+      "li1": "En självständig tanke",
+      "li2": "Presenterar nya perspektiv eller erfarenheter",
+      "li3": "Tydlig och koncis (begränsad till 140 tecken)",
+      "desc": "Kom ihåg att påståendena visas slumpmässigt och att du inte svarar direkt på andra deltagares påståenden."
+    }
+  },
+  "voting": {
+    "closed": "Diskussionen är avslutad.",
+    "buttons": {
+      "back": "Tillbaka",
+      "disagree": "Instämmer inte",
+      "pass": "Hoppa över/neutral",
+      "agree": "Instämmer"
+    },
+    "thanks": {
+      "title": "Tack för din medverkan!",
+      "desc": "Det här var alla påståenden för den här gången. Diskussionen fortsätter dock, så kom tillbaka senare för att svara på nya påståenden!"
+    }
+  },
+  "footer": {
+    "title": "Polis",
+    "desc": "DigiFinland och Sitra har tagit till Finland Polis, en onlineplattform med öppen källkod. Syftet med Polis är att möjliggöra för stora grupper att delta i ett konstruktivt meningsutbyte kring ett valt ämne.",
+    "disclaimer": "Polis onlineplattform är i betafas och uppfyller ännu inte alla krav på tillgänglighet och användbarhet.",
+    "links": {
+      "title": "Information om tjänsten",
+      "privacy": "Integritetspolicy",
+      "info": "Mer information",
+      "source": "Källkod"
+    },
+    "provider": "Tjänsteleverantör",
+    "version": "Version: ",
+    "released": "Släppt: "
+  }
+}

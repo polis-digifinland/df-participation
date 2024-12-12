@@ -6,6 +6,7 @@ import Pass from '@/icons/Pass';
 import Chevron from '@/icons/Chevron';
 import InfoIcon from '@/icons/Info';
 import useSWR from 'swr';
+import { useTranslation } from 'react-i18next';
 
 const fetcher = (url: string) =>
   fetch(url, { credentials: 'include' }).then((res) => {
@@ -28,6 +29,8 @@ export default function Voting({
   conversation_id,
   InitialTotal,
 }: VotingProps) {
+  const { t } = useTranslation();
+
   const [conversationActive, setConversationActive] = useState<boolean>(is_active);
 
   const [currentTxt, setCurrentTxt] = useState<string>('');
@@ -199,7 +202,7 @@ export default function Voting({
       <>
         <div id="Voting" className="text-primary font-secondary font-semibold flex flex-row items-center gap-sm mt-lg select-none">
           <InfoIcon fg="var(--text-primary)" width={32} height={32} />
-          <h1>Keskustelu on sulkeutunut.</h1>
+          <h1>{t('voting.closed')}</h1>
         </div>
       </>
     );
@@ -260,7 +263,7 @@ export default function Voting({
               disabled
             >
               <Chevron />
-              <span>Takaisin</span>
+              <span>{t('voting.buttons.back')}</span>
             </button>
 
             <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
@@ -280,7 +283,7 @@ export default function Voting({
                         rotate={180}
                       />
                     </div>
-                    <div className="no-scale">Eri mieltä</div>
+                    <div className="no-scale">{t('voting.buttons.disagree')}</div>
                   </button>
                 </div>
 
@@ -296,8 +299,7 @@ export default function Voting({
                       />
                     </div>
                     <div>
-                      Ohita/<span className="block sm:hidden">neutraali</span>
-                      <span className="hidden sm:inline">neutraali</span>
+                      {t('voting.buttons.pass')}
                     </div>
                   </button>
                 </div>
@@ -314,8 +316,7 @@ export default function Voting({
                       />
                     </div>
                     <div>
-                      Samaa <span className="block sm:hidden">mieltä</span>
-                      <span className="hidden sm:inline">mieltä</span>
+                    {t('voting.buttons.agree')}
                     </div>
                   </button>
                 </div>
@@ -348,16 +349,16 @@ export default function Voting({
                 disabled={disablePreviousButton}
               >
                 <Chevron />
-                <span>Takaisin</span>
+                <span>{t('voting.buttons.back')}</span>
               </button>
             </div>
             {progressCompletedStatus && (
               <div className="mt-lg min-h-[150px]">
                 <div className="text-xl font-primary font-semibold my-auto flex justify-center items-center">
-                  Kiitos osallistumisestasi!
+                {t('voting.thanks.title')}
                 </div>
                 <div className="text-base font-secondary mt-sm my-auto flex justify-center items-center text-center">
-                  Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!
+                {t('voting.thanks.desc')}
                 </div>
               </div>
             )}
@@ -386,7 +387,7 @@ export default function Voting({
                       />
                     </div>
                     <div className={`no-scale ${!disableVotingButtons ? 'group-hover:lg:font-semibold group-active:font-semibold' : ''}`}>
-                      Eri mieltä
+                      {t('voting.buttons.disagree')}
                     </div>
                   </button>
                 </div>
@@ -408,8 +409,7 @@ export default function Voting({
                       />
                     </div>
                     <div className={`no-scale ${!disableVotingButtons ? 'group-hover:lg:font-semibold group-active:font-semibold' : ''}`}>
-                      Ohita/<span className="block sm:hidden">neutraali</span>
-                      <span className="hidden sm:inline">neutraali</span>
+                      {t('voting.buttons.pass')}
                     </div>
                   </button>
                 </div>
@@ -431,8 +431,7 @@ export default function Voting({
                       />
                     </div>
                     <div className={`no-scale ${!disableVotingButtons ? 'group-hover:lg:font-semibold group-active:font-semibold' : ''}`}>
-                      Samaa <span className="block sm:hidden">mieltä</span>
-                      <span className="hidden sm:inline">mieltä</span>
+                      {t('voting.buttons.agree')}
                     </div>
                   </button>
                 </div>
