@@ -2,7 +2,9 @@
   "file_desc": "Translations in English",
   "status": {
     "loading": "Loading ...",
-    "error": {
+    "error": "Error",
+    "notFound": "The requested resource was not found",
+    "loadError": {
       "topic": "There was an error loading the discussion.",
       "desc": "Try reloading the page."
     }

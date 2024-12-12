@@ -73,30 +73,29 @@ export default async function Page({ params }: { params: { locale: string, id: s
 
   return (
     <>
-    {t('peruna')}
     <TranslationsProvider
       namespaces={i18nNamespaces}
       locale={params.locale}
       resources={resources}>
       <CookiesAndData
-        conversation_id={params.id ? params.id : t('status.error.topic')}
+        conversation_id={params.id ? params.id : t('status.loadError.topic')}
       />
       <Header />
       <main className="mx-auto px-md max-w-screen-sm flex-1">
         <Conversation
-          topic={data ? data.conversation.topic : t('status.error.topic')}
-          description={data ? data.conversation.description : t('status.error.desc')}
+          topic={data ? data.conversation.topic : t('status.loadError.topic')}
+          description={data ? data.conversation.description : t('status.loadError.desc')}
         />
         <Voting
           failed_to_load={data ? false : true}
           is_active={data ? data.conversation.is_active : false}
-          conversation_id={params.id ? params.id : t('status.error.topic')}
+          conversation_id={params.id ? params.id : t('status.loadError.topic')}
           InitialTotal={data ? data.nextComment.total : 0}
         />
         <Suggestions
           is_active={data ? data.conversation.is_active : false}
           write_type={data ? data.conversation.write_type : 0}
-          conversation_id={params.id ? params.id : t('status.error.topic')}
+          conversation_id={params.id ? params.id : t('status.loadError.topic')}
         />
         <Results
           is_active={data ? data.conversation.is_active : false}

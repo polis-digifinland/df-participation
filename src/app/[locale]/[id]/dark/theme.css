@@ -27,7 +27,7 @@
 .font-secondary{@apply font-raleway;}
 }
 a::after {
-content: url('./../../icons/open_in_new_dark.svg');
+content: url('./../../../icons/open_in_new_dark.svg');
 display: inline-block;
 margin-left: 8px;
 vertical-align: middle;

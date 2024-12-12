@@ -2,7 +2,9 @@
   "file_desc": "Översättningar till svenska",
   "status": {
     "loading": "Laddar ...",
-    "error": {
+    "error": "Fel",
+    "notFound": "Den begärda resursen hittades inte",
+    "loadError": {
       "topic": "Ett fel uppstod när diskussionen laddades.",
       "desc": "Försök ladda om sidan."
     }

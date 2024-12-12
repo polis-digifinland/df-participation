@@ -28,6 +28,7 @@ export default async function initTranslations(
     resources,
     fallbackLng: i18nConfig.defaultLocale,
     supportedLngs: i18nConfig.locales,
+    lowerCaseLng: true,
     defaultNS: namespaces[0],
     fallbackNS: namespaces[0],
     ns: namespaces,

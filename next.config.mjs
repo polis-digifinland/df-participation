@@ -14,8 +14,8 @@ const nextConfig = {
     return [
       {
         // Rewrite URL without theme to DigiFinland theme
-        source: "/:zid",
-        destination: "/:zid/df",
+        source: "/:lang/:zid",
+        destination: "/:lang/:zid/df",
       },
     ];
   },

@@ -2,7 +2,9 @@
   "file_desc": "Käännökset suomeksi",
   "status": {
     "loading": "Lataa ...",
-    "error": {
+    "error": "Virhe",
+    "notFound": "Pyydettyä resurssia ei löytynyt",
+    "loadError": {
       "topic": "Keskustelun latauksessa tapahtui virhe.",
       "desc": "Kokeile ladata sivu uudelleen."
     }
