@@ -163,7 +163,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
                 <li>{t('suggestions.modal.li2')}</li>
                 <li>{t('suggestions.modal.li3')}</li>
               </ul>
-              <p className='mt-sm'>{t('suggestions.modal.order')}</p>
+              <p className='mt-sm'>{t('suggestions.modal.desc')}</p>
             </div>
           </Modal>
         </div>
