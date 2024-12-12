@@ -61,15 +61,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                             <ReactMarkdown>{slicedDescription}</ReactMarkdown>
                         </div>
                         <div className="accordion">
-                            <div
-                                id='accordion-content'
-                                ref={contentRef}
-                                className="font-secondary mt-2 overflow-hidden transition-height duration-300 ease-in-out"
-                                style={{ height: '0px' }}
-                            >
-                                <ReactMarkdown>{remainingDescription}</ReactMarkdown>
-                            </div>
-                            <button
+                        <button
                                 className="font-secondary mt-xxs flex items-center cursor-pointer rounded-md"
                                 onClick={toggleAccordion}
                                 aria-expanded={isOpen}
@@ -82,6 +74,16 @@ export default function Conversation({ topic, description }: ConversationProps) 
                                     <Chevron />
                                 </div>
                             </button>
+                            <div
+                                id='accordion-content'
+                                ref={contentRef}
+                                className="font-secondary mt-2 overflow-hidden transition-height duration-300 ease-in-out"
+                                style={{ height: '0px' }}
+                                tabIndex={-1}
+                                aria-disabled={isOpen ? "false" : "true"}
+                            >
+                                <ReactMarkdown>{remainingDescription}</ReactMarkdown>
+                            </div>
                         </div>
                     </>
                 ) : (
