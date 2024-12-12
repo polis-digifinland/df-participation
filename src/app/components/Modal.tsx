@@ -13,7 +13,7 @@ export default function Modal({ open, onClose, header, children }: ModalProps): 
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' || (event.key === 'Tab')) {
         onClose();
       }
     };
@@ -21,6 +21,7 @@ export default function Modal({ open, onClose, header, children }: ModalProps): 
     if (open) {
       document.addEventListener('keydown', handleKeyDown);
       closeButtonRef.current?.focus();
+      //closeButtonRef.current?.classList.add('focus-visible');
     } else {
       document.removeEventListener('keydown', handleKeyDown);
     }

@@ -33,6 +33,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [hasExclamationMark, setHasExclamationMark] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [conversationActive, setConversationActive] = useState<boolean>(is_active);
   const [writeType, setWriteType] = useState<boolean>(write_type);
@@ -60,7 +61,17 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [showModal, setShowModal] = useState(false);
   function toggleModal() {
     setShowModal(!showModal);
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
   }
+
+  const handleCloseModal = () => {
+    toggleModal();
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  };
 
   const autoResizeTextarea = (textarea: HTMLTextAreaElement) => {
     textarea.style.height = 'auto'; // Reset height to auto
@@ -155,8 +166,8 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
         <h2 className="text-xl font-bold font-primary">{t('suggestions.title')}</h2>
         <div className="flex flex-row justify-between mt-md mb-0">
           <label htmlFor="suggest-textarea" className="">{t('suggestions.label')}</label>
-            <button onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Lisätietoa"><InfoIcon fg="var(--text-primary)" /></button>
-          <Modal header={t('suggestions.modal.title')} open={showModal} onClose={toggleModal}>
+            <button ref={buttonRef} onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Lisätietoa"><InfoIcon fg="var(--text-primary)" /></button>
+          <Modal header={t('suggestions.modal.title')} open={showModal} onClose={handleCloseModal}>
             <div>
               <ul className='pl-6 list-disc '>
                 <li>{t('suggestions.modal.li1')}</li>
