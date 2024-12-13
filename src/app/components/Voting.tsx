@@ -212,6 +212,7 @@ export default function Voting({
         <div
           id="ProgressBar"
           className="flex text-primary font-primary mt-md select-none"
+          aria-label='Edistymisen tilanne'
         >
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
@@ -245,11 +246,12 @@ export default function Voting({
 
         <div id="cards" className="relative">
 
-          <div id="feather" className="shadow-theme-surface-primary shadow-[0px_0px_8px_8px] left-[-116%;] min-h-full min-w-[110%;] mt-xxs absolute select-none z-30 bg-theme-surface-primary"></div>
+          <div id="feather" aria-disabled="true" className="shadow-theme-surface-primary shadow-[0px_0px_8px_8px] left-[-116%;] min-h-full min-w-[110%;] mt-xxs absolute select-none z-30 bg-theme-surface-primary"></div>
 
 
           <div
             id="previousCard"
+            aria-disabled="true"
             className={`
           absolute z-10 text-primary font-secondary select-none pointer-events-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex
           bg-theme-surface-card-${previousBg}
@@ -363,7 +365,9 @@ export default function Voting({
               </div>
             )}
             {!progressCompletedStatus && (
-              <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
+              <div
+                lang="fi" // TODO proper language here, participationData.nextComment.lang seems always empty, https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html
+                className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
                 {currentTxt}
               </div>
             )}
