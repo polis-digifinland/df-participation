@@ -100,6 +100,7 @@ export default async function Page({ params }: { params: { locale: string, id: s
         <Results
           is_active={data ? data.conversation.is_active : false}
           vis_type={data ? data.conversation.vis_type : 0}
+          conversation_id={params.id ? params.id : t('status.loadError.topic')}
         />
       </main>
       <Footer locale={params.locale} />
