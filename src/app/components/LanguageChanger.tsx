@@ -22,7 +22,7 @@ export default function LanguageChanger() {
   };
 
   return (
-    <select onChange={handleChange} value={currentLocale} className="text-primary font-secondary">
+    <select onChange={handleChange} value={currentLocale} className="text-primary font-secondary hover:underline active:underline bg-theme-surface-primary">
       <option value="fi">Suomi</option>
       <option value="sv">Svenska</option>
       <option value="en">English</option>

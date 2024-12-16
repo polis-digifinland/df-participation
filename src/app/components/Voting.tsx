@@ -366,7 +366,7 @@ export default function Voting({
             )}
             {!progressCompletedStatus && (
               <div
-                lang="fi" // TODO proper language here, participationData.nextComment.lang seems always empty, https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html
+                //lang="fi" // TODO proper language here, participationData.nextComment.lang seems always empty, https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html
                 className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
                 {currentTxt}
               </div>
