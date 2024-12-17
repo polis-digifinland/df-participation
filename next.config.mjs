@@ -30,13 +30,12 @@ const nextConfig = {
     ];
   },
 
-  //compiler: {
-  //   //Remove `console.*` output except `console.error`
-  //   removeConsole: true,
-  //   removeConsole: {
-  //    exclude: ["error"],
-  //  },
-  //},
+  compiler: {
+    // Remove `console.*` output except `console.error` only in production
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ["error"],
+    } : false,
+  },
 };
 
 export default nextConfig;
