@@ -40,11 +40,21 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
 
   const { data: commentsData, error: commentsError } = useSWR(
     `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/comments?conversation_id=${conversation_id}&translate=true&moderation=true&mod_gt=0&include_voting_patterns=true`,
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 30000, // Refresh every 30 seconds
+      revalidateIfStale: true,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true
+    }
   );
   interface Comment {
     tid: number;
     txt: string;
+    agree_count: number;
+    disagree_count: number;
+    pass_count: number;
+    count: number;
   }
   const [commentsMap, setCommentsMap] = useState<Map<number, Comment>>(new Map());
   useEffect(() => {
@@ -68,11 +78,18 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
 
   const { data: votesData, error: votesError } = useSWR(
     `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/votes?conversation_id=${conversation_id}&pid=mypid`,
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 10000, // Refresh every 10 seconds
+      revalidateIfStale: true,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true
+    }
   );
   interface Vote {
     tid: number;
     vote: number;
+    modified: number;
   }
 
   const [votesMap, setVotesMap] = useState<Map<number, Vote>>(new Map());
@@ -81,13 +98,16 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
       console.error('Error fetching data:', votesError);
     } else if (votesData) {
       const newVotesMap = new Map();
+      //console.log('Before sorting:', votesData);
+      votesData.sort((a: Vote, b: Vote) => a.modified - b.modified);
+      //console.log('After sorting:', votesData);
       votesData.forEach((vote: Vote) => {
-      if (commentsMap.has(vote.tid)) {
-        newVotesMap.set(vote.tid, vote);
-      } else {
-        //console.log('Vote with tid', vote.tid, 'has no corresponding comment');
-      }
-      });
+          if (commentsMap.has(vote.tid)) {
+            newVotesMap.set(vote.tid, vote);
+          } else {
+            //console.log('Vote with tid', vote.tid, 'has no corresponding comment');
+          }
+        });
       setVotesMap(newVotesMap);
       console.log('votesData:', votesData);
       console.log('votesMap:', newVotesMap);
@@ -117,19 +137,20 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
   };
 
 //const [tid, setTid] = useState<string>('');
-const [comment, setComment] = useState<string>('');
-const [vote, setVote] = useState<string>('');
+const [comment, setComment] = useState<string>('Et ole vielä äänestänyt');
+const [vote, setVote] = useState<string>('Et ole vielä äänestänyt');
+const [voteValue, setVoteValue] = useState<number>(-2);
 const [voteFor, setVoteFor] = useState<number>(0);
 const [voteAgainst, setVoteAgainst] = useState<number>(0);
 const [voteSkip, setVoteSkip] = useState<number>(0);
-const [voteTotal, setVoteTotal] = useState<number>(0);
+const [voteTotal, setVoteTotal] = useState<number>(-1);
 
 useEffect(() => {
   //const tid = votesMap && votesMap.get(currentVoteIndex) ? votesMap.get(currentVoteIndex)?.tid : undefined;
   const tid = Array.from(votesMap.values())[currentVoteIndex]?.tid;
-  const comment = tid !== undefined ? commentsMap.get(tid)?.txt : '';
+  const comment = tid !== undefined ? commentsMap.get(tid)?.txt : 'Et ole vielä äänestänyt';
   const voteValue = tid !== undefined ? votesMap.get(tid)?.vote : undefined;
-  let vote = "";
+  let vote = "Et ole vielä äänestänyt";
 
   if (voteValue === 1) {
     vote = "Eri mieltä";
@@ -140,12 +161,13 @@ useEffect(() => {
   }
 
   //setTid(tid || ''); count
-  setVoteFor(tid !== undefined && commentsData && commentsData[currentVoteIndex] ? commentsData[currentVoteIndex].agree_count : 0);
-  setVoteAgainst(tid !== undefined && commentsData && commentsData[currentVoteIndex] ? commentsData[currentVoteIndex].disagree_count : 0);
-  setVoteSkip(tid !== undefined && commentsData && commentsData[currentVoteIndex] ? commentsData[currentVoteIndex].pass_count : 0);
-  setVoteTotal(tid !== undefined && commentsData && commentsData[currentVoteIndex] ? commentsData[currentVoteIndex].count : 0);
+  setVoteFor(tid !== undefined ? commentsMap.get(tid)?.agree_count ?? 0 : 0);
+  setVoteAgainst(tid !== undefined ? commentsMap.get(tid)?.disagree_count ?? 0 : 0);
+  setVoteSkip(tid !== undefined ? commentsMap.get(tid)?.pass_count ?? 0 : 0);
+  setVoteTotal(tid !== undefined ? commentsMap.get(tid)?.count ?? -1 : -1);
   setComment(comment || '');
   setVote(vote);
+  setVoteValue(voteValue ?? -2);
 
   console.log('voteFor:', voteFor);
   console.log('voteAgainst:', voteAgainst);
@@ -167,69 +189,65 @@ useEffect(() => {
       <>
         <div
           id="Results"
-          className="text-primary font-primary mt-xl flex flex-col gap-[23px] select-none"
+          className="text-primary font-primary mt-xl flex flex-col select-none"
         >
           <div className="font-bold text-3xl">Tutustu tuloksiin</div>
           <div className="font-bold min-h-[130px] flex items-center justify-start">
             <p>&quot;{comment}&quot;</p>
           </div>
-          <div className="flex">
-            <User /> Vastasit: {vote}
+          <div className="flex flex-col sm:flex-row justify-between">
+            <div className="flex flex-row">
+              <User /> Vastasit: {vote}
+            </div>
+            <div id='pagination' className="flex flex-row justify-end items-center gap-sm">
+              <button className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex - 1)} disabled={currentVoteIndex === 0}><Chevron /></button>
+              <div className='w-9 h-9  text-invert font-bold bg-primary rounded-full flex items-center justify-center'>{currentVoteIndex + 1}</div>
+              <div className={`w-9 h-9 flex justify-center items-center ${((currentVoteIndex + 1) === (votesMap.size ? votesMap.size : 1)) ? 'opacity-50' : ''}`}>{currentVoteIndex + 2}</div>
+              <button className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex + 1)} disabled={(currentVoteIndex + 1) === (votesMap.size ? votesMap.size : 1)}><Chevron rotate={180}/></button>
+            </div>
           </div>
 
-          <div id='pagination' className="flex flex-row justify-end items-center gap-sm">
-            <button className='disabled:opacity-50' onClick={() => handleVoteIndexChange(currentVoteIndex - 1)} disabled={currentVoteIndex === 0}><Chevron /></button>
-            <div className='font-bold bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center'>{currentVoteIndex + 1}</div>
-            <div className='font-light'>{currentVoteIndex + 2}</div>
-            <button className='disabled:opacity-50' onClick={() => handleVoteIndexChange(currentVoteIndex + 1)} disabled={(currentVoteIndex +1 ) === (votesMap ? votesMap.size : 0)}><Chevron rotate={180}/></button>
-          </div>
 
 
 
 
-
-
-          <div className="h-[218px] px-4 justify-start items-end gap-6 inline-flex">
-            <div className="grow shrink basis-0 flex-col justify-start items-center gap-1.5 inline-flex">
-              <div className="w-6 h-6 justify-center items-center inline-flex">
-              {vote === "Samaa mieltä" && <User />}
-              </div>
-                <div className="self-stretch px-5 py-3 bg-[#f1eef9] rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200" style={{ height: `${voteTotal > 0 ? ((voteFor / voteTotal) * 188) : 0}px` }}>
-                <div className="text-center text-[#003f71] text-base font-normal font-['TT Hoves'] leading-[20.88px]">
-                  {voteTotal > 0 ? ((voteFor / voteTotal) * 100).toFixed(2) : 0} %
+          <div className="text-center h-[218px] px-4 justify-start items-end gap-6 inline-flex">
+            <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
+                <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
+                {voteValue === -1 && <User />}
+                {voteTotal > 0 ? ((voteFor / voteTotal) * 100).toFixed(2) : 0} %
                 </div>
+                <div className={`self-stretch ${voteValue === -1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteFor / voteTotal) * 188) : 0}px` }}>
                 </div>
             </div>
             <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
-            <div className="w-6 h-6 justify-center items-center inline-flex">
-              {vote === "Eri mieltä" && <User />}
+            <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteAgainst / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
+            {voteValue === 1 && <User />}
+            {voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 100) : 0} %
               </div>
-              <div className="self-stretch h-[188px] px-5 py-3 bg-[#e6f3f9] rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200" style={{ height: `${voteTotal > 0 ? ((voteAgainst / voteTotal) * 188) : 0}px` }}>
-                <div className="text-center text-[#003f71] text-base font-normal font-['TT Hoves'] leading-[20.88px]">
-                {voteTotal > 0 ? ((voteAgainst / voteTotal) * 100).toFixed(2) : 0} %
-                </div>
+              <div className={`self-stretch ${voteValue === 1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteAgainst / voteTotal) * 188) : 0}px` }}>
               </div>
             </div>
             <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
-            <div className="w-6 h-6 justify-center items-center inline-flex">
-              {vote === "Ohita" && <User />}
+            <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteSkip / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
+            {voteValue === 0 && <User />}
+            {voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 100) : 0}%
               </div>
-              <div className="self-stretch h-[188px] px-5 py-3 bg-[#e6f3f9] rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200" style={{ height: `${voteTotal > 0 ? ((voteSkip / voteTotal) * 188) : 0}px` }}>
-                <div className="text-center text-[#003f71] text-base font-normal font-['TT Hoves'] leading-[20.88px]">
-                {voteTotal > 0 ? ((voteSkip / voteTotal) * 100).toFixed(2) : 0} %
-                </div>
+              <div className={`self-stretch ${voteValue === 0 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteSkip / voteTotal) * 188) : 0}px` }}>
               </div>
             </div>
           </div>
 
-          <div className="h-[38px] px-4 justify-start items-start gap-6 inline-flex">
-            <div className="grow shrink basis-0 text-center text-[#003f71] text-base font-light font-['TT Hoves'] leading-tight">
+          <div className="h-[5px] bg-primary rounded-[3px]" />
+
+          <div className="px-4 justify-start items-start gap-6 inline-flex">
+            <div className="grow shrink basis-0 text-center font-light">
               Samaa mieltä: {voteFor}
             </div>
-            <div className="grow shrink basis-0 text-center text-[#003f71] text-base font-light font-['TT Hoves'] leading-tight">
+            <div className="grow shrink basis-0 text-center font-light">
               Eri mieltä: {voteAgainst}
             </div>
-            <div className="grow shrink basis-0 text-center text-[#003f71] text-base font-light font-['TT Hoves'] leading-tight">
+            <div className="grow shrink basis-0 text-center font-light">
               Ohita: {voteSkip}
             </div>
           </div>
