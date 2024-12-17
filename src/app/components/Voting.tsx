@@ -231,7 +231,7 @@ export default function Voting({
           </div>
         </div>
 
-        <div id="css_variables_load" className="hidden">
+        <div id="css_variables_load" className="hidden" aria-disabled="true">
           <div className="bg-theme-surface-card-1"></div>
           <div className="bg-theme-surface-card-2"></div>
           <div className="bg-theme-surface-card-3"></div>

@@ -200,21 +200,21 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
             aria-describedby={hasError ? "error-message" : undefined}
           />
           <div className='flex flex-row justify-between mt-md'>
+            <div role="status" className={`${hasError ? 'text-error' : ''}
+            `}>
+              {!hasError && !isSubmitted && <div aria-live="polite">{140 - inputValue.length} {t('suggestions.status.remaining')}</div>}
+              {isSubmitted && <div>{t('suggestions.status.isSubmitted')}</div>}
+              {hasQuestionMark && <div>{t('suggestions.status.hasQuestionMark')}</div>}
+              {hasExclamationMark && <div>{t('suggestions.status.hasExclamationMark')}</div>}
+              {isEmpty && <div id="error-message">{t('suggestions.status.isEmpty')}</div>}
+              {isDuplicate && <div id="error-message">{t('suggestions.status.isDuplicate')}</div>}
+            </div>
             <button
               id='suggest-button'
               type="submit"
               className="px-5 py-3 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105">
                 {t('suggestions.submit')}
             </button>
-            <div role="status" className={`text-right ${hasError ? 'text-error' : ''}
-            `}>
-              {!hasError && !isSubmitted && <span aria-live="polite">{140 - inputValue.length} {t('suggestions.status.remaining')}</span>}
-              {isSubmitted && <span>{t('suggestions.status.isSubmitted')}</span>}
-              {hasQuestionMark && <span>{t('suggestions.status.hasQuestionMark')}</span>}
-              {hasExclamationMark && <span>{t('suggestions.status.hasExclamationMark')}</span>}
-              {isEmpty && <span id="error-message">{t('suggestions.status.isEmpty')}</span>}
-              {isDuplicate && <span id="error-message">{t('suggestions.status.isDuplicate')}</span>}
-            </div>
           </div>
         </form>
       </div>
