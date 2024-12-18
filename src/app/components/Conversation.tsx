@@ -44,9 +44,15 @@ export default function Conversation({ topic, description }: ConversationProps) 
     useEffect(() => {
         if (contentRef.current) {
             if (isOpen) {
+                contentRef.current.hidden = false;
                 contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
             } else {
                 contentRef.current.style.height = '0px';
+                setTimeout(() => {
+                    if (contentRef.current) {
+                        contentRef.current.hidden = true;
+                    }
+                }, 320);
             }
         }
     }, [isOpen]);
