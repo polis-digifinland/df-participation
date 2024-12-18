@@ -5,6 +5,7 @@ import Thumb from '@/icons/Thumb';
 import Pass from '@/icons/Pass';
 import Chevron from '@/icons/Chevron';
 import InfoIcon from '@/icons/Info';
+import Google from '@/icons/Google';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
 
@@ -21,6 +22,7 @@ interface VotingProps {
   is_active: boolean;
   conversation_id: string;
   InitialTotal: number;
+  locale: string;
 }
 
 export default function Voting({
@@ -28,16 +30,22 @@ export default function Voting({
   is_active,
   conversation_id,
   InitialTotal,
+  locale,
 }: VotingProps) {
   const { t } = useTranslation();
+  const [enableTranslations, setEnableTranslations] = useState<boolean>(false);
+  const [disableTranslationButton, setDisableTranslationButton] = useState<boolean>(false);
 
   const [conversationActive, setConversationActive] = useState<boolean>(is_active);
 
   const [currentTxt, setCurrentTxt] = useState<string>('');
+  const [currentTxtTranslated, setCurrentTxtTranslated] = useState<string>('');
   const [currentTid, setCurrentTid] = useState<number>(-1);
+  const [currentLang, setCurrentLang] = useState<string>('und');
   const [currentBg, setCurrentBg] = useState<number>(1);
   const [previousBg, setPreviousBg] = useState<number>(1);
   const [previousTxt, setPreviousTxt] = useState<string>(currentTxt);
+  const [previousTxtTranslated, setPreviousTxtTranslated] = useState<string>(currentTxtTranslated);
   const [previousTid, setPreviousTid] = useState<number>(currentTid);
   const [disablePreviousButton, setDisablePreviousButton] = useState<boolean>(true);
   const [disableVotingButtons, setDisableVotingButtons] = useState<boolean>(false);
@@ -53,10 +61,10 @@ export default function Voting({
   const firstBarWidth = Math.min(progressPercentage * 2, 100);
   const secondBarWidth = Math.max(0,Math.min((progressPercentage - 50) * 2, 100));
 
-  const externalApiUrl = `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/votes`;
+  const externalApiBaseUrl = `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}`;
 
   const { data: participationData, error: participationError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=acceptLang`,
+    `${externalApiBaseUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
     fetcher
   );
 
@@ -66,16 +74,18 @@ export default function Voting({
     } else if (participationData) {
       setConversationActive(participationData.conversation.is_active);
       setCurrentTid(participationData.nextComment.tid);
-      setCurrentTxt(
-        participationData.nextComment.txt ||
-        'Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!'
-      );
+      setCurrentLang(participationData.nextComment.lang || 'und');
+      setCurrentTxt(participationData.nextComment.txt || '');
+      setCurrentTxtTranslated(participationData.nextComment.translations?.find((translation: { lang: string; txt: string }) => translation.lang === locale)?.txt || participationData.nextComment.txt || '');
+
       if (!participationData.nextComment.txt) {
         setProgressCompleted(true);
         setDisableVotingButtons(true);
+        setDisableTranslationButton(true);
       } else {
         setProgressCompleted(false);
         setDisableVotingButtons(false);
+        setDisableTranslationButton(false);
       }
       setProgressTotal(participationData.nextComment.total || InitialTotal);
       setProgressCurrent(
@@ -89,7 +99,7 @@ export default function Voting({
           100
       );
     }
-  }, [participationData, participationError, InitialTotal]);
+  }, [participationData, participationError, InitialTotal, locale]);
 
   const animateCardThrowLeftToCenter = () => {
     setDisablePreviousButton(true);
@@ -110,6 +120,7 @@ export default function Voting({
       resetTimeout = setTimeout(() => {
         setCardAnimateCenterToLeft(false);
         setDisableVotingButtons(false);
+        setDisableTranslationButton(false);
         setDisablePreviousButton(false);
       }, 820);
     } else if (cardAnimateLeftToCenter) {
@@ -117,9 +128,11 @@ export default function Voting({
         setCardAnimateLeftToCenter(false);
         setCurrentBg(previousBg);
         setCurrentTxt(previousTxt);
+        setCurrentTxtTranslated(previousTxtTranslated);
         setCurrentTid(previousTid);
         setProgressCompleted(false);
         setDisableVotingButtons(false);
+        setDisableTranslationButton(false);
       }, 920);
     }
     return () => {
@@ -131,11 +144,12 @@ export default function Voting({
     previousBg,
     previousTid,
     previousTxt,
+    previousTxtTranslated,
   ]);
 
   const handleVote = async (voteValue: number) => {
     try {
-      const response = await fetch(externalApiUrl, {
+      const response = await fetch(`${externalApiBaseUrl}/api/v3/votes`, {
         method: 'POST',
         credentials: 'include', // This will include cookies in the request
         headers: {
@@ -148,8 +162,8 @@ export default function Voting({
           //starred: false, // Example value, replace as needed
           //weight: 0, // Example value, replace as needed
           //xid: 'your_xid', // Replace with actual xid
-          pid: 'mypid', // participant id, This seems not to be used but still needed. Check why here "mypid" is used instead of the real value.
-          lang: 'fi', // Example value, replace as needed
+          pid: 'mypid', // participant id, This seems not to be used but still needed. TODO Check why here "mypid" is used instead of the real value.
+          lang: locale, // Get current locale prop
           agid: 1, // Enable Auto Gen user ID
         }),
       });
@@ -165,8 +179,13 @@ export default function Voting({
       if (data.nextComment) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
-        setCurrentTxt(data.nextComment.txt);
+        setPreviousTxtTranslated(currentTxtTranslated);
         setCurrentTid(data.nextComment.tid);
+        setCurrentTxt(data.nextComment.txt || '');
+        setCurrentLang(data.nextComment.lang || 'und');
+        setCurrentTxtTranslated(data.nextComment.translations.find((translation: { lang: string; txt: string }) => translation.lang === locale)?.txt || data.nextComment.txt || '');
+
+
         setProgressTotal(data.nextComment.total || InitialTotal);
         setProgressCurrent(data.nextComment.total - data.nextComment.remaining);
         setProgressPercentage(
@@ -182,16 +201,47 @@ export default function Voting({
       } else if (data.nextComment == null) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
-        setCurrentTxt('Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!');
+        setCurrentTxt('');
+        setCurrentTxtTranslated('');
         setProgressCurrent(progressTotal);
         setProgressPercentage(100);
         setProgressCompleted(true);
         setDisableVotingButtons(true);
+        setDisableTranslationButton(true);
         animateCardThrowCenterToLeft();
         console.log('No more comments to vote on');
       }
     } catch (error) {
       console.error('Error submitting vote:', error);
+    }
+  };
+
+  const toggleTranslation = async (toggleValue: boolean) => {
+    try {
+    setEnableTranslations(toggleValue);
+    const response = await fetch(`${externalApiBaseUrl}/api/v3/participants_extended`, {
+      method: 'PUT',
+      credentials: 'include', // This will include cookies in the request
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        conversation_id: conversation_id, // the id from URL
+        show_translation_activated: toggleValue,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to PUT participants_extended: ${response.status}`
+      );
+    }
+
+    await response.json();
+
+    console.log('Translation toggle: ', toggleValue);
+    } catch (error) {
+      console.error('Error PUT participants_extended:', error);
     }
   };
 
@@ -260,16 +310,24 @@ export default function Voting({
 
           `}
           >
-            <button
-              className="w-full flex items-center justify-start gap-1 hover:underline mt-md ml-md disabled:opacity-50"
-              disabled
-            >
-              <Chevron />
-              <span>{t('voting.buttons.back')}</span>
-            </button>
-
+            <div className="flex justify-between w-full mt-md mx-md">
+              <button
+                className="flex items-center justify-start gap-1 disabled:opacity-50"
+                disabled
+              >
+                <Chevron />
+                <span>{t('voting.buttons.back')}</span>
+              </button>
+              <button
+                  className="flex items-center justify-start gap-1 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  <span>{enableTranslations ? t('voting.buttons.disableTranslate') : t('voting.buttons.enableTranslate') }</span>
+                  <Google />
+              </button>
+            </div>
             <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
-              {previousTxt}
+              {enableTranslations ? previousTxtTranslated : previousTxt }
             </div>
 
               <div className="w-full my-md flex flex-wrap justify-around">
@@ -341,7 +399,7 @@ export default function Voting({
             id="currentCard"
             className={`bg-theme-surface-card-${currentBg} relative text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
           >
-            <div className="w-full mt-md ml-md">
+            <div className="flex justify-between w-full mt-md mx-md">
               <button
                 className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => {
@@ -352,6 +410,17 @@ export default function Voting({
               >
                 <Chevron />
                 <span>{t('voting.buttons.back')}</span>
+              </button>
+              <button
+                className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  toggleTranslation(!enableTranslations);
+                }}
+                disabled={disableTranslationButton || locale == currentLang || currentLang === 'und'}
+              >
+                <span>{enableTranslations ? t('voting.buttons.disableTranslate') : t('voting.buttons.enableTranslate') }</span>
+                {enableTranslations ? currentLang : locale}
+                <Google />
               </button>
             </div>
             {progressCompletedStatus && (
@@ -366,9 +435,9 @@ export default function Voting({
             )}
             {!progressCompletedStatus && (
               <div
-                //lang="fi" // TODO proper language here, participationData.nextComment.lang seems always empty, https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html
+                lang={enableTranslations ? locale : currentLang}
                 className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
-                {currentTxt}
+                {enableTranslations ? currentTxtTranslated : currentTxt}
               </div>
             )}
 
@@ -381,6 +450,7 @@ export default function Voting({
                       handleVote(1);
                       setDisableVotingButtons(true);
                       setDisablePreviousButton(true);
+                      setDisableTranslationButton(true);
                     }}
                   >
                     <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
@@ -404,6 +474,7 @@ export default function Voting({
                       handleVote(0);
                       setDisableVotingButtons(true);
                       setDisablePreviousButton(true);
+                      setDisableTranslationButton(true);
                     }}
                   >
                     <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
@@ -426,6 +497,7 @@ export default function Voting({
                       handleVote(-1);
                       setDisableVotingButtons(true);
                       setDisablePreviousButton(true);
+                      setDisableTranslationButton(true);
                     }}
                     >
                     <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>

@@ -37,6 +37,8 @@
     "closed": "Keskustelu on sulkeutunut.",
     "buttons": {
       "back": "Takaisin",
+      "enableTranslate": "Käännä",
+      "disableTranslate": "Näytä alkuperäinen",
       "disagree": "Eri mieltä",
       "pass": "Ohita / neutraali",
       "agree": "Samaa mieltä"

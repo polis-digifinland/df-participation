@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 interface CookieProps {
     conversation_id: string;
+    locale: string;
 }
 
 const fetcher = (url: string) => fetch(url, { credentials: 'include' }).then(res => {
@@ -15,7 +16,7 @@ const fetcher = (url: string) => fetch(url, { credentials: 'include' }).then(res
     return res.json();
 });
 
-export default function Cookies({ conversation_id }: CookieProps) {
+export default function Cookies({ conversation_id, locale }: CookieProps) {
     const apiUrl = process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL;
     if (!apiUrl) {
         throw new Error('NEXT_PUBLIC_EXTERNAL_API_BASE_URL is not defined');
@@ -23,7 +24,7 @@ export default function Cookies({ conversation_id }: CookieProps) {
 
     const { data: cookieTestData, error: cookieTestError } = useSWRImmutable('/api/ct', fetcher);
     const { data: participationData, error: participationError } = useSWR(
-        `${apiUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=acceptLang`,
+        `${apiUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
         fetcher,
         {
             //refreshInterval: 60000, // Refresh every 60 seconds

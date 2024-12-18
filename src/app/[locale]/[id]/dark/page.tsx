@@ -79,6 +79,7 @@ export default async function Page({ params }: { params: { locale: string, id: s
       resources={resources}>
       <CookiesAndData
         conversation_id={params.id ? params.id : t('status.loadError.topic')}
+        locale={params.locale}
       />
       <Header />
       <main className="mx-auto px-md max-w-screen-sm flex-1">
@@ -91,16 +92,19 @@ export default async function Page({ params }: { params: { locale: string, id: s
           is_active={data ? data.conversation.is_active : false}
           conversation_id={params.id ? params.id : t('status.loadError.topic')}
           InitialTotal={data ? data.nextComment.total : 0}
+          locale={params.locale}
         />
         <Suggestions
           is_active={data ? data.conversation.is_active : false}
           write_type={data ? data.conversation.write_type : 0}
           conversation_id={params.id ? params.id : t('status.loadError.topic')}
+          locale={params.locale}
         />
         <Results
           is_active={data ? data.conversation.is_active : false}
           vis_type={data ? data.conversation.vis_type : 0}
           conversation_id={params.id ? params.id : t('status.loadError.topic')}
+          locale={params.locale}
         />
       </main>
       <Footer locale={params.locale} />

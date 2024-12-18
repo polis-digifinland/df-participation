@@ -37,6 +37,8 @@
     "closed": "The discussion is closed.",
     "buttons": {
       "back": "Back",
+      "enableTranslate": "Translate",
+      "disableTranslate": "Show original",
       "disagree": "Disagree",
       "pass": "Skip / Neutral",
       "agree": "Agree"

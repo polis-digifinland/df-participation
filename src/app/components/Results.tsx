@@ -17,16 +17,17 @@ interface ResultsProps {
   is_active: boolean;
   vis_type: boolean;
   conversation_id: string;
+  locale: string;
 }
 
-export default function Results({ is_active, vis_type, conversation_id }: ResultsProps) {
+export default function Results({ is_active, vis_type, conversation_id, locale }: ResultsProps) {
 
   const { t } = useTranslation();
 
   const [conversationActive, setConversationActive] = useState<boolean>(is_active);
   const [visualizationActive, setVisualizationActive] = useState<boolean>(vis_type);
   const { data: participationData, error: participationError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=acceptLang`,
+    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
     fetcher
   );
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
 
 
   const { data: commentsData, error: commentsError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/comments?conversation_id=${conversation_id}&translate=true&moderation=true&mod_gt=0&include_voting_patterns=true`,
+    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/comments?conversation_id=${conversation_id}&lang=${locale}&translate=true&moderation=true&mod_gt=0&include_voting_patterns=true`,
     fetcher,
     {
       refreshInterval: 30000, // Refresh every 30 seconds
@@ -55,6 +56,7 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
   interface Comment {
     tid: number;
     txt: string;
+    lang: string;
     agree_count: number;
     disagree_count: number;
     pass_count: number;
@@ -142,6 +144,7 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
 
 //const [tid, setTid] = useState<string>('');
 const [comment, setComment] = useState<string>(t('results.notYetVoted'));
+const [commentLang, setCommentLang] = useState<string>('und');
 const [vote, setVote] = useState<string>(t('results.notYetVoted'));
 const [voteValue, setVoteValue] = useState<number>(-2);
 const [voteFor, setVoteFor] = useState<number>(0);
@@ -170,6 +173,7 @@ useEffect(() => {
   setVoteSkip(tid !== undefined ? commentsMap.get(tid)?.pass_count ?? 0 : 0);
   setVoteTotal(tid !== undefined ? commentsMap.get(tid)?.count ?? -1 : -1);
   setComment(comment || '');
+  setCommentLang(tid !== undefined ? commentsMap.get(tid)?.lang ?? 'und' : 'und');
   setVote(vote);
   setVoteValue(voteValue ?? -2);
 
@@ -197,7 +201,7 @@ useEffect(() => {
         >
           <div className="font-bold text-3xl">{t('results.title')}</div>
           <div className="font-bold min-h-[130px] flex items-center justify-start">
-            <p>&quot;{comment}&quot;</p>
+            <p lang={commentLang}>&quot;{comment}&quot;</p>
           </div>
           <div className="flex flex-col sm:flex-row justify-between">
             <div className="flex flex-row">
@@ -219,7 +223,7 @@ useEffect(() => {
             <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
                 <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
                 {voteValue === -1 && <User />}
-                {voteTotal > 0 ? ((voteFor / voteTotal) * 100).toFixed(2) : 0} %
+                {voteTotal > 0 ? Math.round((voteFor / voteTotal) * 100) : 0} %
                 </div>
                 <div className={`self-stretch ${voteValue === -1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteFor / voteTotal) * 188) : 0}px` }}>
                 </div>

@@ -19,9 +19,10 @@ interface SuggestionsProps {
   is_active: boolean;
   write_type: boolean;
   conversation_id: string;
+  locale: string;
 }
 
-export default function Suggestions({ is_active, write_type, conversation_id }: SuggestionsProps) {
+export default function Suggestions({ is_active, write_type, conversation_id, locale }: SuggestionsProps) {
 
   const { t } = useTranslation();
 
@@ -39,7 +40,7 @@ export default function Suggestions({ is_active, write_type, conversation_id }: 
   const [writeType, setWriteType] = useState<boolean>(write_type);
 
   const { data: participationData, error: participationError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=acceptLang`,
+    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
     fetcher
   );
 

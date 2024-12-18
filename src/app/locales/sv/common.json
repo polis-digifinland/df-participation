@@ -37,6 +37,8 @@
     "closed": "Diskussionen är avslutad.",
     "buttons": {
       "back": "Tillbaka",
+      "enableTranslate": "Översätt",
+      "disableTranslate": "Visa original",
       "disagree": "Instämmer inte",
       "pass": "Hoppa över / neutral",
       "agree": "Instämmer"
