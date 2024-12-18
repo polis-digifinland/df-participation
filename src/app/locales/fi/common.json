@@ -46,6 +46,14 @@
       "desc": "Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!"
     }
   },
+  "results": {
+    "title": "Tutustu tuloksiin",
+    "notYetVoted": "Et ole vielä äänestänyt",
+    "your_vote": "Vastasit",
+    "agree": "Samaa mieltä",
+    "disagree": "Eri mieltä",
+    "pass": "Ohita"
+  },
   "footer": {
     "title": "Polis",
     "desc": "DigiFinland ja Sitra ovat tuoneet Suomeen avoimeen lähdekoodiin perustuvan Polis-verkkoalustan. Poliksen tarkoituksena on mahdollistaa suurien ryhmien osallistuminen rakentavaan mielipiteiden vaihtoon, valitun aihepiirin ympärillä.",

@@ -46,6 +46,14 @@
       "desc": "Det här var alla påståenden för den här gången. Diskussionen fortsätter dock, så kom tillbaka senare för att svara på nya påståenden!"
     }
   },
+  "results": {
+    "title": "Se resultaten",
+    "notYetVoted": "Du har inte röstat än",
+    "your_vote": "Du svarade",
+    "agree": "Håller med",
+    "disagree": "Håller inte med",
+    "pass": "Hoppa över"
+  },
   "footer": {
     "title": "Polis",
     "desc": "DigiFinland och Sitra har tagit till Finland Polis, en onlineplattform med öppen källkod. Syftet med Polis är att möjliggöra för stora grupper att delta i ett konstruktivt meningsutbyte kring ett valt ämne.",

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import User from '../icons/User';
 import Chevron from '../icons/Chevron';
 import useSWR from 'swr';
+import { useTranslation } from 'react-i18next';
 
 const fetcher = (url: string) => fetch(url, { credentials: 'include' }).then(res => {
   if (!res.ok) {
@@ -19,6 +20,9 @@ interface ResultsProps {
 }
 
 export default function Results({ is_active, vis_type, conversation_id }: ResultsProps) {
+
+  const { t } = useTranslation();
+
   const [conversationActive, setConversationActive] = useState<boolean>(is_active);
   const [visualizationActive, setVisualizationActive] = useState<boolean>(vis_type);
   const { data: participationData, error: participationError } = useSWR(
@@ -137,8 +141,8 @@ export default function Results({ is_active, vis_type, conversation_id }: Result
   };
 
 //const [tid, setTid] = useState<string>('');
-const [comment, setComment] = useState<string>('Et ole vielä äänestänyt');
-const [vote, setVote] = useState<string>('Et ole vielä äänestänyt');
+const [comment, setComment] = useState<string>(t('results.notYetVoted'));
+const [vote, setVote] = useState<string>(t('results.notYetVoted'));
 const [voteValue, setVoteValue] = useState<number>(-2);
 const [voteFor, setVoteFor] = useState<number>(0);
 const [voteAgainst, setVoteAgainst] = useState<number>(0);
@@ -148,16 +152,16 @@ const [voteTotal, setVoteTotal] = useState<number>(-1);
 useEffect(() => {
   //const tid = votesMap && votesMap.get(currentVoteIndex) ? votesMap.get(currentVoteIndex)?.tid : undefined;
   const tid = Array.from(votesMap.values())[currentVoteIndex]?.tid;
-  const comment = tid !== undefined ? commentsMap.get(tid)?.txt : 'Et ole vielä äänestänyt';
+  const comment = tid !== undefined ? commentsMap.get(tid)?.txt : t('results.notYetVoted');
   const voteValue = tid !== undefined ? votesMap.get(tid)?.vote : undefined;
-  let vote = "Et ole vielä äänestänyt";
+  let vote = t('results.notYetVoted');
 
   if (voteValue === 1) {
-    vote = "Eri mieltä";
+    vote = t('results.disagree');
   } else if (voteValue === -1) {
-    vote = "Samaa mieltä";
+    vote = t('results.agree');
   } else if (voteValue === 0) {
-    vote = "Ohita";
+    vote = t('results.pass');
   }
 
   //setTid(tid || ''); count
@@ -178,7 +182,7 @@ useEffect(() => {
   console.log('tid:', tid);
   console.log('comment:', comment);
   console.log('vote:', vote);
-}, [currentVoteIndex, commentsMap, votesData, votesMap, commentsData, voteAgainst, voteFor, voteSkip, voteTotal]);
+}, [currentVoteIndex, commentsMap, votesData, votesMap, commentsData, voteAgainst, voteFor, voteSkip, voteTotal, t]);
 
 
 
@@ -191,13 +195,13 @@ useEffect(() => {
           id="Results"
           className="text-primary font-primary mt-xl flex flex-col select-none"
         >
-          <div className="font-bold text-3xl">Tutustu tuloksiin</div>
+          <div className="font-bold text-3xl">{t('results.title')}</div>
           <div className="font-bold min-h-[130px] flex items-center justify-start">
             <p>&quot;{comment}&quot;</p>
           </div>
           <div className="flex flex-col sm:flex-row justify-between">
             <div className="flex flex-row">
-              <User /> Vastasit: {vote}
+              <User /> {t('results.your_vote')}: {vote}
             </div>
             <div id='pagination' className="flex flex-row justify-end items-center gap-sm">
               <button className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex - 1)} disabled={currentVoteIndex === 0}><Chevron /></button>
@@ -242,13 +246,13 @@ useEffect(() => {
 
           <div className="px-4 justify-start items-start gap-6 inline-flex">
             <div className="grow shrink basis-0 text-center font-light">
-              Samaa mieltä: {voteFor}
+              {t('results.agree')}: {voteFor}
             </div>
             <div className="grow shrink basis-0 text-center font-light">
-              Eri mieltä: {voteAgainst}
+              {t('results.disagree')}: {voteAgainst}
             </div>
             <div className="grow shrink basis-0 text-center font-light">
-              Ohita: {voteSkip}
+              {t('results.pass')}: {voteSkip}
             </div>
           </div>
         </div>

@@ -46,6 +46,14 @@
       "desc": "These were all the statements for this time. However, the discussion continues, so please come back later to respond to new statements!"
     }
   },
+  "results": {
+    "title": "See the results",
+    "notYetVoted": "You have not yet voted",
+    "your_vote": "You answered",
+    "agree": "Agree",
+    "disagree": "Disagree",
+    "pass": "Skip"
+  },
   "footer": {
     "title": "Polis",
     "desc": "DigiFinland and Sitra have brought to Finland the open source Polis online platform. The purpose of Polis is to enable large groups to participate in a constructive exchange of views around a chosen topic.",
