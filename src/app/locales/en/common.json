@@ -67,7 +67,7 @@
       "source": "Source code"
     },
     "provider": "Service provider",
-    "version": "Version: ",
-    "released": "Released: "
+    "version": "Version",
+    "released": "Released"
   }
 }

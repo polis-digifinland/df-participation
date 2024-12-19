@@ -43,9 +43,9 @@ export default async function Footer({ locale }: FooterProps) {
           />
         </div>
         <div className='flex justify-center text-sm flex-col sm:flex-row'>
-          <div className="sm:w-1/3 text-center sm:text-right">{t('footer.version')}{process.env.BUILD_VERSION}</div>
+          <div className="sm:w-1/3 text-center sm:text-right">{t('footer.version')}: {process.env.BUILD_VERSION}</div>
           <div className="mx-6 hidden sm:block"> | </div>
-          <div className="sm:w-1/3 text-center sm:text-left">{t('footer.released')}{process.env.BUILD_DATE}</div>
+          <div className="sm:w-1/3 text-center sm:text-left">{t('footer.released')}: {process.env.BUILD_DATE}</div>
         </div>
       </footer>
     </>

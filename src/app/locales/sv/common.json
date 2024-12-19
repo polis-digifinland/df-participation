@@ -67,7 +67,7 @@
       "source": "Källkod"
     },
     "provider": "Tjänsteleverantör",
-    "version": "Version: ",
-    "released": "Släppt: "
+    "version": "Version",
+    "released": "Släppt"
   }
 }
