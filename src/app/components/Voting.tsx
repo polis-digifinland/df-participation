@@ -198,6 +198,7 @@ export default function Voting({
             100
         );
         animateCardThrowCenterToLeft();
+        document.getElementById('ProgressBar')?.focus(); // For screen readers reset to context beginning
         console.log(
           `Vote by ${data.currentPid} for ${currentTid} submitted successfully:`,
           data
@@ -267,7 +268,7 @@ export default function Voting({
         <div
           id="ProgressBar"
           className="flex text-primary font-primary mt-md select-none"
-          aria-label='Edistymisen tilanne'
+          aria-label={t('voting.progress')}
         >
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div

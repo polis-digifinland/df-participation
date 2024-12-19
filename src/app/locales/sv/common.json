@@ -9,12 +9,14 @@
       "desc": "Försök ladda om sidan."
     }
   },
+  "languageSwitch": "Språkval",
   "readMore": "Läs mer",
   "readLess": "Läs mindre",
   "suggestions": {
     "closed": "Det är inte längre möjligt att lägga till nya påståenden.",
     "title": "Saknas ett viktigt påstående i frågan?",
     "label": "Föreslå ett eget påstående till frågan",
+    "moreInfo": "Mer information",
     "placeholder": "Skriv här",
     "submit": "Föreslå",
     "status": {
@@ -35,6 +37,7 @@
   },
   "voting": {
     "closed": "Diskussionen är avslutad.",
+    "progress": "Framstegsstatus",
     "buttons": {
       "back": "Tillbaka",
       "enableTranslate": "Översätt",
@@ -52,6 +55,8 @@
     "title": "Se resultaten",
     "notYetVoted": "Du har inte röstat än",
     "your_vote": "Du svarade",
+    "previous": "Föregående påstående",
+    "next": "Nästa påstående",
     "agree": "Håller med",
     "disagree": "Håller inte med",
     "pass": "Hoppa över"

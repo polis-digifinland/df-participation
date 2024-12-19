@@ -9,12 +9,14 @@
       "desc": "Try reloading the page."
     }
   },
+  "languageSwitch": "Language Selection",
   "readMore": "Read more",
   "readLess": "Read less",
   "suggestions": {
     "closed": "Adding new statements is closed.",
     "title": "Is a key statement missing from the discussion?",
     "label": "Suggest your own statement to the discussion",
+    "moreInfo": "More information",
     "placeholder": "Write here",
     "submit": "Suggest",
     "status": {
@@ -35,6 +37,7 @@
   },
   "voting": {
     "closed": "The discussion is closed.",
+    "progress": "Voting progress",
     "buttons": {
       "back": "Back",
       "enableTranslate": "Translate",
@@ -52,6 +55,8 @@
     "title": "See the results",
     "notYetVoted": "You have not yet voted",
     "your_vote": "You answered",
+    "previous": "Previous statement",
+    "next": "Next statement",
     "agree": "Agree",
     "disagree": "Disagree",
     "pass": "Skip"

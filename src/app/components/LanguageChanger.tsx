@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
 
 export default function LanguageChanger() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLocale = i18n.language;
   const router = useRouter();
   const currentPathname = usePathname();
@@ -22,7 +22,7 @@ export default function LanguageChanger() {
   };
 
   return (
-    <select onChange={handleChange} value={currentLocale} className="text-primary font-secondary hover:underline active:underline bg-theme-surface-primary">
+    <select aria-label={t('languageSwitch')} onChange={handleChange} value={currentLocale} className="text-primary font-secondary hover:underline active:underline bg-theme-surface-primary">
       <option value="fi">Suomi</option>
       <option value="sv">Svenska</option>
       <option value="en">English</option>

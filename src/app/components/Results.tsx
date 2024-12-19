@@ -208,10 +208,10 @@ useEffect(() => {
               <User /> {t('results.your_vote')}: {vote}
             </div>
             <div id='pagination' className="flex flex-row justify-end items-center gap-sm">
-              <button className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex - 1)} disabled={currentVoteIndex === 0}><Chevron /></button>
-              <div className='w-9 h-9  text-invert font-bold bg-primary rounded-full flex items-center justify-center'>{currentVoteIndex + 1}</div>
+              <button aria-label={t('results.previous')} className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex - 1)} disabled={currentVoteIndex === 0}><Chevron /></button>
+              <div aria-current="true" className='w-9 h-9  text-invert font-bold bg-primary rounded-full flex items-center justify-center'>{currentVoteIndex + 1}</div>
               <div className={`w-9 h-9 flex justify-center items-center ${((currentVoteIndex + 1) === (votesMap.size ? votesMap.size : 1)) ? 'opacity-50' : ''}`}>{currentVoteIndex + 2}</div>
-              <button className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex + 1)} disabled={(currentVoteIndex + 1) === (votesMap.size ? votesMap.size : 1)}><Chevron rotate={180}/></button>
+              <button aria-label={t('results.next')} className='w-8 h-8 flex justify-center items-center disabled:opacity-50 enabled:hover:scale-110 enabled:active:scale-110 duration-200' onClick={() => handleVoteIndexChange(currentVoteIndex + 1)} disabled={(currentVoteIndex + 1) === (votesMap.size ? votesMap.size : 1)}><Chevron rotate={180}/></button>
             </div>
           </div>
 
@@ -219,45 +219,44 @@ useEffect(() => {
 
 
           <div className='px-md lg:px-[66px]'>
-          <div className="flex h-[218px] px-sm lg:px-8 gap-5 items-end text-center">
-            <div className="flex-1 flex-col justify-start items-center inline-flex">
-              <div className={`flex flex-col gap-1 justify-center items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-[26px]'}`}>
-                {voteValue === -1 && <User />}
-                {voteTotal > 0 ? Math.round((voteFor / voteTotal) * 100) : 0} %
+            <div className="flex h-[218px] px-sm lg:px-8 gap-5 items-end text-center">
+
+              <div aria-describedby="agree_label" className="flex flex-1 flex-col justify-start items-center">
+                <div className={`flex flex-col items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-7 gap-2'}`}>
+                  <div className=''>{voteValue === -1 && <User />}</div>
+                  <div className=''>{voteTotal > 0 ? Math.round((voteFor / voteTotal) * 100) : 0} %</div>
                 </div>
-                <div className={`self-stretch ${voteValue === -1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteFor / voteTotal) * 188) : 0}px` }}>
+                <div className={`flex flex-col justify-start self-stretch ${voteValue === -1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] duration-200`} style={{ height: `${voteTotal > 0 ? Math.round((voteFor / voteTotal) * 188) : 0}px` }}></div>
               </div>
+
+              <div aria-describedby="disagree_label" className="flex flex-1 flex-col justify-start items-center">
+                <div className={`flex flex-col items-center duration-200 ${voteTotal < 0 || ((voteAgainst / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-7 gap-2'}`}>
+                  <div className=''>{voteValue === 1 && <User />}</div>
+                  <div className=''>{voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 100) : 0} %</div>
+                </div>
+                <div className={`flex flex-col justify-start self-stretch ${voteValue === 1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] duration-200`} style={{ height: `${voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 188) : 0}px` }}></div>
+              </div>
+
+              <div aria-describedby="pass_label" className="flex flex-1 flex-col justify-start items-center">
+                <div className={`flex flex-col items-center duration-200 ${voteTotal < 0 || ((voteSkip / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-7 gap-2'}`}>
+                  <div className=''>{voteValue === 0 && <User />}</div>
+                  <div className=''>{voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 100) : 0} %</div>
+                </div>
+                <div className={`flex flex-col justify-start self-stretch ${voteValue === 0 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] duration-200`} style={{ height: `${voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 188) : 0}px` }}></div>
+              </div>
+
             </div>
 
-            <div className="flex-1 flex-col justify-start items-center inline-flex">
-              <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteAgainst / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-[26px]'}`}>
-              {voteValue === 1 && <User />}
-              {voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 100) : 0} %
-              </div>
-              <div className={`self-stretch ${voteValue === 1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteAgainst / voteTotal) * 188) : 0}px` }}>
-              </div>
-            </div>
-
-            <div className="flex-1 flex-col justify-start items-center inline-flex">
-            <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteSkip / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-[26px]'}`}>
-            {voteValue === 0 && <User />}
-            {voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 100) : 0}%
-              </div>
-              <div className={`self-stretch ${voteValue === 0 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteSkip / voteTotal) * 188) : 0}px` }}>
-              </div>
-            </div>
-          </div>
-
-          <div className="h-[5px] bg-primary rounded-[3px]" />
+            <div className="h-[5px] bg-primary rounded-[3px]" />
 
             <div className="flex mt-xxs px-sm lg:px-8 gap-5 text-center font-light">
-              <div className="flex-1">
+              <div id="agree_label" className="flex-1">
                 {t('results.agree')}
               </div>
-              <div className="flex-1">
+              <div id="disagree_label" className="flex-1">
                 {t('results.disagree')}
               </div>
-              <div className="flex-1">
+              <div id="pass_label" className="flex-1">
                 {t('results.pass')}
               </div>
             </div>

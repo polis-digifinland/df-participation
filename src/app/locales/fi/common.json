@@ -9,12 +9,14 @@
       "desc": "Kokeile ladata sivu uudelleen."
     }
   },
+  "languageSwitch": "Kielivalinta",
   "readMore": "Lue lisää",
   "readLess": "Lue vähemmän",
   "suggestions": {
     "closed": "Uusien väittämien lisääminen on suljettu.",
     "title": "Puuttuuko kyselystä keskeinen väittämä?",
     "label": "Ehdota kyselyyn omaa väittämääsi",
+    "moreInfo": "Lisätietoja",
     "placeholder": "Kirjoita tähän",
     "submit": "Ehdota",
     "status": {
@@ -35,6 +37,7 @@
   },
   "voting": {
     "closed": "Keskustelu on sulkeutunut.",
+    "progress": "Edistymisen tilanne",
     "buttons": {
       "back": "Takaisin",
       "enableTranslate": "Käännä",
@@ -52,6 +55,8 @@
     "title": "Tutustu tuloksiin",
     "notYetVoted": "Et ole vielä äänestänyt",
     "your_vote": "Vastasit",
+    "previous": "Edellinen väite",
+    "next": "Seuraava väite",
     "agree": "Samaa mieltä",
     "disagree": "Eri mieltä",
     "pass": "Ohita"

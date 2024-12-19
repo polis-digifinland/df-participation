@@ -167,7 +167,7 @@ export default function Suggestions({ is_active, write_type, conversation_id, lo
         <h2 className="text-xl font-bold font-primary">{t('suggestions.title')}</h2>
         <div className="flex flex-row justify-between mt-md mb-0">
           <label htmlFor="suggest-textarea" className="">{t('suggestions.label')}</label>
-            <button ref={buttonRef} onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label="Lisätietoa"><InfoIcon fg="var(--text-primary)" /></button>
+            <button ref={buttonRef} onClick={toggleModal} className='rounded-md hover:lg:scale-110 active:scale-110' aria-label={t('suggestions.moreInfo')}><InfoIcon fg="var(--text-primary)" /></button>
           <Modal header={t('suggestions.modal.title')} open={showModal} onClose={handleCloseModal}>
             <div>
               <ul className='pl-6 list-disc '>
