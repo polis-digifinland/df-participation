@@ -218,26 +218,28 @@ useEffect(() => {
 
 
 
-
-          <div className="text-center h-[218px] px-4 justify-start items-end gap-6 inline-flex">
-            <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
-                <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
+          <div className='px-md lg:px-[66px]'>
+          <div className="flex h-[218px] px-sm lg:px-8 gap-5 items-end text-center">
+            <div className="flex-1 flex-col justify-start items-center inline-flex">
+              <div className={`flex flex-col gap-1 justify-center items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-[26px]'}`}>
                 {voteValue === -1 && <User />}
                 {voteTotal > 0 ? Math.round((voteFor / voteTotal) * 100) : 0} %
                 </div>
                 <div className={`self-stretch ${voteValue === -1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteFor / voteTotal) * 188) : 0}px` }}>
-                </div>
+              </div>
             </div>
-            <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
-            <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteAgainst / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
-            {voteValue === 1 && <User />}
-            {voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 100) : 0} %
+
+            <div className="flex-1 flex-col justify-start items-center inline-flex">
+              <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteAgainst / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-[26px]'}`}>
+              {voteValue === 1 && <User />}
+              {voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 100) : 0} %
               </div>
               <div className={`self-stretch ${voteValue === 1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] justify-center items-start gap-2.5 inline-flex duration-200`} style={{ height: `${voteTotal > 0 ? ((voteAgainst / voteTotal) * 188) : 0}px` }}>
               </div>
             </div>
-            <div className="grow shrink basis-0 flex-col justify-start items-center inline-flex">
-            <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteSkip / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-6'}`}>
+
+            <div className="flex-1 flex-col justify-start items-center inline-flex">
+            <div className={`flex flex-col justify-center items-center duration-200 ${voteTotal < 0 || ((voteSkip / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-[26px]'}`}>
             {voteValue === 0 && <User />}
             {voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 100) : 0}%
               </div>
@@ -248,15 +250,16 @@ useEffect(() => {
 
           <div className="h-[5px] bg-primary rounded-[3px]" />
 
-          <div className="px-4 justify-start items-start gap-6 inline-flex">
-            <div className="grow shrink basis-0 text-center font-light">
-              {t('results.agree')}: {voteFor}
-            </div>
-            <div className="grow shrink basis-0 text-center font-light">
-              {t('results.disagree')}: {voteAgainst}
-            </div>
-            <div className="grow shrink basis-0 text-center font-light">
-              {t('results.pass')}: {voteSkip}
+            <div className="flex mt-xxs px-4 gap-5 text-center font-light">
+              <div className="flex-1">
+                {t('results.agree')}
+              </div>
+              <div className="flex-1">
+                {t('results.disagree')}
+              </div>
+              <div className="flex-1">
+                {t('results.pass')}
+              </div>
             </div>
           </div>
         </div>
