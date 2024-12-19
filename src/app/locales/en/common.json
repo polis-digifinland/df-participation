@@ -13,8 +13,8 @@
   "readLess": "Read less",
   "suggestions": {
     "closed": "Adding new statements is closed.",
-    "title": "Is a key statement missing from the query?",
-    "label": "Suggest your own statement to the query",
+    "title": "Is a key statement missing from the discussion?",
+    "label": "Suggest your own statement to the discussion",
     "placeholder": "Write here",
     "submit": "Suggest",
     "status": {
