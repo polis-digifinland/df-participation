@@ -44,6 +44,7 @@ export default function Voting({
   const [currentLang, setCurrentLang] = useState<string>('und');
   const [currentBg, setCurrentBg] = useState<number>(1);
   const [previousBg, setPreviousBg] = useState<number>(1);
+  const [previousLang, setPreviousLang] = useState<string>('und');
   const [previousTxt, setPreviousTxt] = useState<string>(currentTxt);
   const [previousTxtTranslated, setPreviousTxtTranslated] = useState<string>(currentTxtTranslated);
   const [previousTid, setPreviousTid] = useState<number>(currentTid);
@@ -128,6 +129,7 @@ export default function Voting({
         setCardAnimateLeftToCenter(false);
         setCurrentBg(previousBg);
         setCurrentTxt(previousTxt);
+        setCurrentLang(previousLang);
         setCurrentTxtTranslated(previousTxtTranslated);
         setCurrentTid(previousTid);
         setProgressCompleted(false);
@@ -143,6 +145,7 @@ export default function Voting({
     cardAnimateLeftToCenter,
     previousBg,
     previousTid,
+    previousLang,
     previousTxt,
     previousTxtTranslated,
   ]);
@@ -179,6 +182,7 @@ export default function Voting({
       if (data.nextComment) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
+        setPreviousLang(currentLang);
         setPreviousTxtTranslated(currentTxtTranslated);
         setCurrentTid(data.nextComment.tid);
         setCurrentTxt(data.nextComment.txt || '');
@@ -201,6 +205,7 @@ export default function Voting({
       } else if (data.nextComment == null) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
+        setPreviousLang(currentLang);
         setCurrentTxt('');
         setCurrentTxtTranslated('');
         setProgressCurrent(progressTotal);
