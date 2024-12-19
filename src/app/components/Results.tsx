@@ -250,7 +250,7 @@ useEffect(() => {
 
           <div className="h-[5px] bg-primary rounded-[3px]" />
 
-            <div className="flex mt-xxs px-4 gap-5 text-center font-light">
+            <div className="flex mt-xxs px-sm lg:px-8 gap-5 text-center font-light">
               <div className="flex-1">
                 {t('results.agree')}
               </div>
