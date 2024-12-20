@@ -316,7 +316,7 @@ export default function Voting({
 
           `}
           >
-            <div className="flex justify-between w-full mt-md mx-md">
+            <div className="flex justify-between w-full mt-lg mx-md">
               <button
                 className="flex items-center justify-start gap-1 disabled:opacity-50"
                 disabled
@@ -405,7 +405,7 @@ export default function Voting({
             id="currentCard"
             className={`bg-theme-surface-card-${currentBg} relative text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
           >
-            <div className="flex justify-between w-full mt-md mx-md">
+            <div className="flex justify-between w-full mt-lg mx-md">
               <button
                 className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => {
@@ -447,7 +447,7 @@ export default function Voting({
               </div>
             )}
 
-              <div className="w-full my-md flex flex-wrap justify-around">
+              <div className="w-full mt-md mb-lg flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
                     className={`flex flex-col items-center text-center gap-3.5 rounded-md font-normal group disabled:cursor-not-allowed ${progressCompletedStatus ? 'disabled:opacity-50' : ''}`}

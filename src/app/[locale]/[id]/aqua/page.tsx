@@ -82,7 +82,7 @@ export default async function Page({ params }: { params: { locale: string, id: s
         locale={params.locale}
       />
       <Header />
-      <main className="mx-auto px-md max-w-screen-sm flex-1">
+      <main className="mx-auto px-md w-full max-w-screen-sm flex-1">
         <Conversation
           topic={data ? data.conversation.topic : t('status.loadError.topic')}
           description={data ? data.conversation.description : t('status.loadError.desc')}
