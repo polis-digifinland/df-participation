@@ -325,7 +325,7 @@ export default function Voting({
                 <span>{t('voting.buttons.back')}</span>
               </button>
               <button
-                  className="flex items-center justify-start gap-1 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center justify-start gap-1 rounded-md disabled:hidden"
                   disabled
                 >
                   <span>{enableTranslations ? t('voting.buttons.disableTranslate') : t('voting.buttons.enableTranslate') }</span>
@@ -336,7 +336,7 @@ export default function Voting({
               {enableTranslations ? previousTxtTranslated : previousTxt }
             </div>
 
-              <div className="w-full my-md flex flex-wrap justify-around">
+              <div className="w-full mt-md mb-lg flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
                     className="flex flex-col justify-start items-center text-center gap-3.5  font-normal"
@@ -418,14 +418,13 @@ export default function Voting({
                 <span>{t('voting.buttons.back')}</span>
               </button>
               <button
-                className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:hidden"
                 onClick={() => {
                   toggleTranslation(!enableTranslations);
                 }}
                 disabled={disableTranslationButton || locale == currentLang || currentLang === 'und'}
               >
                 <span>{enableTranslations ? t('voting.buttons.disableTranslate') : t('voting.buttons.enableTranslate') }</span>
-                {enableTranslations ? currentLang : locale}
                 <Google />
               </button>
             </div>
