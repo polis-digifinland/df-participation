@@ -219,14 +219,16 @@ useEffect(() => {
 
 
           <div className='px-md lg:px-[66px]'>
-            <div className="flex h-[218px] px-sm lg:px-8 gap-5 items-end text-center">
+            <div className="flex h-[279px] sm:h-[255px] px-sm lg:px-8 gap-5 items-end text-center">
 
-              <div aria-describedby="agree_label" className="flex flex-1 flex-col justify-start items-center">
+              <div className="flex flex-1 flex-col justify-end items-center">
                 <div className={`flex flex-col items-center duration-200 ${voteTotal < 0 || ((voteFor / voteTotal) * 100) < 20 ? 'translate-y-0' : 'translate-y-7 gap-2'}`}>
                   <div className=''>{voteValue === -1 && <User />}</div>
-                  <div className=''>{voteTotal > 0 ? Math.round((voteFor / voteTotal) * 100) : 0} %</div>
+                  <div className='' aria-describedby="agree_label">{voteTotal > 0 ? Math.round((voteFor / voteTotal) * 100) : 0} %</div>
                 </div>
                 <div className={`flex flex-col justify-start self-stretch ${voteValue === -1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] duration-200`} style={{ height: `${voteTotal > 0 ? Math.round((voteFor / voteTotal) * 188) : 0}px` }}></div>
+                <div className="w-[154%] h-[5px] bg-primary rounded-[3px]"></div>
+                <label id="agree_label" className="mt-xxs font-light min-h-12 sm:min-h-6">{t('results.agree')}</label>
               </div>
 
               <div aria-describedby="disagree_label" className="flex flex-1 flex-col justify-start items-center">
@@ -235,6 +237,8 @@ useEffect(() => {
                   <div className=''>{voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 100) : 0} %</div>
                 </div>
                 <div className={`flex flex-col justify-start self-stretch ${voteValue === 1 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] duration-200`} style={{ height: `${voteTotal > 0 ? Math.round((voteAgainst / voteTotal) * 188) : 0}px` }}></div>
+                <div className="w-[154%] h-[5px] bg-primary rounded-[3px]"></div>
+                <label id="disagree_label" className="mt-xxs font-light min-h-12 sm:min-h-6">{t('results.disagree')}</label>
               </div>
 
               <div aria-describedby="pass_label" className="flex flex-1 flex-col justify-start items-center">
@@ -243,22 +247,10 @@ useEffect(() => {
                   <div className=''>{voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 100) : 0} %</div>
                 </div>
                 <div className={`flex flex-col justify-start self-stretch ${voteValue === 0 ? 'bg-theme-surface-graph-secondary' : 'bg-theme-surface-graph-primary'} rounded-tl-[10px] rounded-tr-[10px] duration-200`} style={{ height: `${voteTotal > 0 ? Math.round((voteSkip / voteTotal) * 188) : 0}px` }}></div>
+                <div className="w-[154%] h-[5px] bg-primary rounded-[3px]"></div>
+                <label id="pass_label" className="mt-xxs font-light min-h-12 sm:min-h-6">{t('results.pass')}</label>
               </div>
 
-            </div>
-
-            <div className="h-[5px] bg-primary rounded-[3px]" />
-
-            <div className="flex mt-xxs px-sm lg:px-8 gap-5 text-center font-light">
-              <div id="agree_label" className="flex-1">
-                {t('results.agree')}
-              </div>
-              <div id="disagree_label" className="flex-1">
-                {t('results.disagree')}
-              </div>
-              <div id="pass_label" className="flex-1">
-                {t('results.pass')}
-              </div>
             </div>
           </div>
         </div>
