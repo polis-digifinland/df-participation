@@ -64,7 +64,7 @@
   "footer": {
     "title": "Polis",
     "desc": "DigiFinland and Sitra have brought to Finland the open source Polis online platform. The purpose of Polis is to enable large groups to participate in a constructive exchange of views around a chosen topic.",
-    "disclaimer": "The Polis online platform is in beta and does not yet meet all the requirements for accessibility and usability.",
+    "disclaimer": "",
     "links": {
       "title": "About the service",
       "privacy": "Privacy policy",

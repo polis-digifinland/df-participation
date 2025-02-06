@@ -64,7 +64,7 @@
   "footer": {
     "title": "Polis",
     "desc": "DigiFinland och Sitra har tagit till Finland Polis, en onlineplattform med öppen källkod. Syftet med Polis är att möjliggöra för stora grupper att delta i ett konstruktivt meningsutbyte kring ett valt ämne.",
-    "disclaimer": "Polis onlineplattform är i betafas och uppfyller ännu inte alla krav på tillgänglighet och användbarhet.",
+    "disclaimer": "",
     "links": {
       "title": "Information om tjänsten",
       "privacy": "Integritetspolicy",

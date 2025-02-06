@@ -63,8 +63,8 @@
   },
   "footer": {
     "title": "Polis",
-    "desc": "DigiFinland ja Sitra ovat tuoneet Suomeen avoimeen lähdekoodiin perustuvan Polis-verkkoalustan. Poliksen tarkoituksena on mahdollistaa suurien ryhmien osallistuminen rakentavaan mielipiteiden vaihtoon, valitun aihepiirin ympärillä.",
-    "disclaimer": "Polis-verkkoalusta on kokeiluvaiheessa eikä vielä täytä kaikkia vaatimuksia saavutettavuuden ja käytettävyyden osalta.",
+    "desc": "DigiFinland ja Sitra ovat tuoneet Suomeen avoimeen lähdekoodiin perustuvan Polis-osallistumisalustan. Poliksen tarkoituksena on mahdollistaa suurien ryhmien osallistuminen rakentavaan mielipiteiden vaihtoon, valitun aihepiirin ympärillä.",
+    "disclaimer": "",
     "links": {
       "title": "Tietoa palvelusta",
       "privacy": "Tietosuoja",
