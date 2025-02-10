@@ -51,6 +51,7 @@
 *.jpeg    -text diff
 *.jpg     -text diff
 *.otf     -text diff
+*.pdf     -text diff
 *.phar    -text diff
 *.png     -text diff
 *.svgz    -text diff
