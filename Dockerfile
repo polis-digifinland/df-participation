@@ -1,5 +1,19 @@
 FROM node:20-alpine AS base
 
+# Install npm and force cross-spawn version
+# Remove old version and install new one
+RUN npm install -g npm@10.9.0 && \
+    # Remove old version
+    npm uninstall -g cross-spawn && \
+    npm cache clean --force && \
+    # Find and remove any remaining old versions
+    find /usr/local/lib/node_modules -name "cross-spawn" -type d -exec rm -rf {} + && \
+    # Install new version
+    npm install -g cross-spawn@7.0.6 --force && \
+    # Configure npm
+    npm config set save-exact=true && \
+    npm config set legacy-peer-deps=true
+
 # Install dependencies only when needed
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
