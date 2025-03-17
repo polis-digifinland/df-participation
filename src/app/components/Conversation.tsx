@@ -66,7 +66,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                         <div className="font-secondary mt-sm">
                             <ReactMarkdown>{slicedDescription}</ReactMarkdown>
                         </div>
-                        <div className="accordion">
+                        <div className="accordion max-h-6">
                         <button
                                 className="font-secondary mt-xxs flex items-center cursor-pointer rounded-md"
                                 onClick={toggleAccordion}
