@@ -66,8 +66,8 @@ export default function Conversation({ topic, description }: ConversationProps) 
                         <div className="font-secondary mt-sm">
                             <ReactMarkdown>{slicedDescription}</ReactMarkdown>
                         </div>
-                        <div className="accordion max-h-6">
-                        <button
+                        <div className="accordion mb-2">
+                            <button
                                 className="font-secondary mt-xxs flex items-center cursor-pointer rounded-md"
                                 onClick={toggleAccordion}
                                 aria-expanded={isOpen}
@@ -83,7 +83,7 @@ export default function Conversation({ topic, description }: ConversationProps) 
                             <div
                                 id='accordion-content'
                                 ref={contentRef}
-                                className="font-secondary mt-2 overflow-hidden transition-height duration-300 ease-in-out"
+                                className="font-secondary overflow-hidden transition-height duration-300 ease-in-out"
                                 style={{ height: '0px' }}
                                 tabIndex={-1}
                                 aria-disabled={isOpen ? "false" : "true"}
