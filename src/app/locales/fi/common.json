@@ -38,6 +38,7 @@
   "voting": {
     "closed": "Keskustelu on sulkeutunut.",
     "progress": "Edistymisen tilanne",
+    "meta": "Taustaväite",
     "buttons": {
       "back": "Takaisin",
       "enableTranslate": "Käännä",
@@ -45,6 +46,12 @@
       "disagree": "Eri mieltä",
       "pass": "Ohita / neutraali",
       "agree": "Samaa mieltä"
+    },
+    "goals": {
+      "goal1": "Upeaa, olet vastannut jo 25 väittämään!",
+      "goal2": "Olet tehnyt upeaa työtä, jatka samaan malliin!",
+      "goal3": "Mahtavaa! Olet todella hyvässä vauhdissa!",
+      "goal4": "Jokainen vastaus vie meitä lähemmäs tavoitteita. Kiitos!"
     },
     "thanks": {
       "title": "Kiitos osallistumisestasi!",

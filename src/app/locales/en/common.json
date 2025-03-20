@@ -38,6 +38,7 @@
   "voting": {
     "closed": "The discussion is closed.",
     "progress": "Voting progress",
+    "meta": "Metadata",
     "buttons": {
       "back": "Back",
       "enableTranslate": "Translate",
@@ -45,6 +46,12 @@
       "disagree": "Disagree",
       "pass": "Skip / Neutral",
       "agree": "Agree"
+    },
+    "goals": {
+      "goal1": "Great, you've already answered 25 comments!",
+      "goal2": "You've done a great job, keep up the good work!",
+      "goal3": "Awesome! You're really on a roll!",
+      "goal4": "Every answer brings us closer to our goals. Thank you!"
     },
     "thanks": {
       "title": "Thank you for participating!",

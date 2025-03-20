@@ -38,6 +38,7 @@
   "voting": {
     "closed": "Diskussionen är avslutad.",
     "progress": "Framstegsstatus",
+    "meta": "Bakgrundsargument",
     "buttons": {
       "back": "Tillbaka",
       "enableTranslate": "Översätt",
@@ -45,6 +46,12 @@
       "disagree": "Instämmer inte",
       "pass": "Hoppa över / neutral",
       "agree": "Instämmer"
+    },
+    "goals": {
+      "goal1": "Fantastiskt, du har redan svarat på 25 påståenden!",
+      "goal2": "Du har gjort ett fantastiskt jobb, fortsätt så!",
+      "goal3": "Underbart! Du är verkligen på gång!",
+      "goal4": "Varje svar tar oss närmare våra mål. Tack!"
     },
     "thanks": {
       "title": "Tack för din medverkan!",

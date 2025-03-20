@@ -41,6 +41,7 @@ export default function Voting({
   const [currentTxt, setCurrentTxt] = useState<string>('');
   const [currentTxtTranslated, setCurrentTxtTranslated] = useState<string>('');
   const [currentTid, setCurrentTid] = useState<number>(-1);
+  const [currentMeta, setCurrentMeta] = useState<boolean>(false);
   const [currentLang, setCurrentLang] = useState<string>('und');
   const [currentBg, setCurrentBg] = useState<number>(1);
   const [previousBg, setPreviousBg] = useState<number>(1);
@@ -48,11 +49,13 @@ export default function Voting({
   const [previousTxt, setPreviousTxt] = useState<string>(currentTxt);
   const [previousTxtTranslated, setPreviousTxtTranslated] = useState<string>(currentTxtTranslated);
   const [previousTid, setPreviousTid] = useState<number>(currentTid);
+  const [previousMeta, setPreviousMeta] = useState<boolean>(false);
   const [disablePreviousButton, setDisablePreviousButton] = useState<boolean>(true);
   const [disableVotingButtons, setDisableVotingButtons] = useState<boolean>(false);
 
   const [progressTotal, setProgressTotal] = useState<number>(InitialTotal);
   const [progressCurrent, setProgressCurrent] = useState<number>(0);
+  const [progressFloor, setProgressFloor] = useState<number>(100);
   const [progressPercentage, setProgressPercentage] = useState<number>(0);
   const [progressCompletedStatus, setProgressCompleted] = useState<boolean>(false);
 
@@ -61,6 +64,11 @@ export default function Voting({
 
   const firstBarWidth = Math.min(progressPercentage * 2, 100);
   const secondBarWidth = Math.max(0,Math.min((progressPercentage - 50) * 2, 100));
+
+  const bar1Width = Math.min(progressPercentage * 4, 100);
+  const bar2Width = Math.max(0, Math.min((progressPercentage - 25) * 4, 100));
+  const bar3Width = Math.max(0, Math.min((progressPercentage - 50) * 4, 100));
+  const bar4Width = Math.max(0, Math.min((progressPercentage - 75) * 4, 100));
 
   const externalApiBaseUrl = `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}`;
 
@@ -75,6 +83,7 @@ export default function Voting({
     } else if (participationData) {
       setConversationActive(participationData.conversation.is_active);
       setCurrentTid(participationData.nextComment.tid);
+      setCurrentMeta(participationData.nextComment.is_meta);
       setCurrentLang(participationData.nextComment.lang || 'und');
       setCurrentTxt(participationData.nextComment.txt || '');
       setCurrentTxtTranslated(participationData.nextComment.translations?.find((translation: { lang: string; txt: string }) => translation.lang === locale)?.txt || participationData.nextComment.txt || '');
@@ -89,10 +98,8 @@ export default function Voting({
         setDisableTranslationButton(false);
       }
       setProgressTotal(participationData.nextComment.total || InitialTotal);
-      setProgressCurrent(
-        participationData.nextComment.total -
-          participationData.nextComment.remaining || 0
-      );
+      setProgressFloor(Math.floor((participationData.nextComment.total || InitialTotal) / 100) * 100);
+      setProgressCurrent(participationData.nextComment.total - participationData.nextComment.remaining || 0 );
       setProgressPercentage(
         ((participationData.nextComment.total -
           participationData.nextComment.remaining) /
@@ -132,6 +139,7 @@ export default function Voting({
         setCurrentLang(previousLang);
         setCurrentTxtTranslated(previousTxtTranslated);
         setCurrentTid(previousTid);
+        setCurrentMeta(previousMeta);
         setProgressCompleted(false);
         setDisableVotingButtons(false);
         setDisableTranslationButton(false);
@@ -145,6 +153,7 @@ export default function Voting({
     cardAnimateLeftToCenter,
     previousBg,
     previousTid,
+    previousMeta,
     previousLang,
     previousTxt,
     previousTxtTranslated,
@@ -182,15 +191,18 @@ export default function Voting({
       if (data.nextComment) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
+        setPreviousMeta(currentMeta);
         setPreviousLang(currentLang);
         setPreviousTxtTranslated(currentTxtTranslated);
         setCurrentTid(data.nextComment.tid);
+        setCurrentMeta(data.nextComment.is_meta || false);
         setCurrentTxt(data.nextComment.txt || '');
         setCurrentLang(data.nextComment.lang || 'und');
         setCurrentTxtTranslated(data.nextComment.translations.find((translation: { lang: string; txt: string }) => translation.lang === locale)?.txt || data.nextComment.txt || '');
 
 
         setProgressTotal(data.nextComment.total || InitialTotal);
+        setProgressFloor((Math.floor(data.nextComment.total || InitialTotal) / 100) * 100);
         setProgressCurrent(data.nextComment.total - data.nextComment.remaining);
         setProgressPercentage(
           ((data.nextComment.total - data.nextComment.remaining) /
@@ -206,9 +218,11 @@ export default function Voting({
       } else if (data.nextComment == null) {
         setPreviousTxt(currentTxt);
         setPreviousTid(currentTid);
+        setPreviousMeta(currentMeta);
         setPreviousLang(currentLang);
         setCurrentTxt('');
         setCurrentTxtTranslated('');
+        setCurrentMeta(false);
         setProgressCurrent(progressTotal);
         setProgressPercentage(100);
         setProgressCompleted(true);
@@ -265,9 +279,10 @@ export default function Voting({
   } else {
     return (
       <>
+      {progressTotal < 100 ? (
         <div
           id="ProgressBar"
-          className="flex text-primary font-primary mt-md select-none"
+          className="flex text-primary font-primary mt-md min-h-5 select-none"
           aria-label={t('voting.progress')}
         >
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
@@ -286,6 +301,46 @@ export default function Voting({
             />
           </div>
         </div>
+      ) : (
+        <div
+          id="ProgressBar"
+          className="text-primary font-primary mt-md min-h-5 select-none"
+          aria-label={t('voting.progress')}
+        >
+        <div className="text-base mx-5 text-center font-bold leading-tight">
+            <p className="mb-0">{`${progressCurrent}/${progressCurrent >= progressFloor ? progressTotal : `${progressFloor}+`}`}</p>
+          </div>
+        <div id="ProgressBars" className="flex gap-[6px] mt-xxs min-h-5">
+          <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
+            <div
+              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              style={{ width: `${bar1Width}%` }}
+            />
+          </div>
+          <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
+            <div
+              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              style={{ width: `${bar2Width}%` }}
+            />
+          </div>
+          <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
+            <div
+              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              style={{ width: `${bar3Width}%` }}
+            />
+          </div>
+          <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
+            <div
+              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              style={{ width: `${bar4Width}%` }}
+            />
+          </div>
+        </div>
+        </div>
+      )}
+
+
+
 
         <div id="css_variables_load" className="hidden" aria-disabled="true">
           <div className="bg-theme-surface-card-1"></div>
@@ -332,7 +387,8 @@ export default function Voting({
                   <Google />
               </button>
             </div>
-            <div className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
+            <div className='w-full flex items-center justify-start font-semibold min-h-6 lg:mt-md sm:mt-xs'>{previousMeta ? t('voting.meta') : ""}</div>
+            <div className="text-xl mt-xxs my-auto min-h-[150px] flex justify-center items-center">
               {enableTranslations ? previousTxtTranslated : previousTxt }
             </div>
 
@@ -428,8 +484,9 @@ export default function Voting({
                 <Google />
               </button>
             </div>
+            <div className='w-full flex items-center justify-start font-semibold min-h-6 lg:mt-md sm:mt-xs'>{currentMeta ? t('voting.meta') : ""}</div>
             {progressCompletedStatus && (
-              <div className="mt-lg min-h-[150px]">
+              <div className="mt-xxs min-h-[150px]">
                 <div className="text-xl font-primary font-semibold my-auto flex justify-center items-center">
                 {t('voting.thanks.title')}
                 </div>
@@ -441,7 +498,7 @@ export default function Voting({
             {!progressCompletedStatus && (
               <div
                 lang={enableTranslations ? locale : currentLang}
-                className="text-xl mt-lg my-auto min-h-[150px] flex justify-center items-center">
+                className="text-xl mt-xxs my-auto min-h-[150px] flex justify-center items-center">
                 {enableTranslations ? currentTxtTranslated : currentTxt}
               </div>
             )}
