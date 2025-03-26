@@ -48,6 +48,7 @@
       "agree": "Agree"
     },
     "goals": {
+      "continue": "Continue",
       "goal1": "Great, you've already answered 25 comments!",
       "goal2": "You've done a great job, keep up the good work!",
       "goal3": "Awesome! You're really on a roll!",

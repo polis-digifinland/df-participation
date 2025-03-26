@@ -48,6 +48,7 @@
       "agree": "Instämmer"
     },
     "goals": {
+      "continue": "Fortsätta",
       "goal1": "Fantastiskt, du har redan svarat på 25 påståenden!",
       "goal2": "Du har gjort ett fantastiskt jobb, fortsätt så!",
       "goal3": "Underbart! Du är verkligen på gång!",

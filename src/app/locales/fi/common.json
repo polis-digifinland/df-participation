@@ -48,6 +48,7 @@
       "agree": "Samaa mieltä"
     },
     "goals": {
+      "continue": "Jatka eteenpäin",
       "goal1": "Upeaa, olet vastannut jo 25 väittämään!",
       "goal2": "Olet tehnyt upeaa työtä, jatka samaan malliin!",
       "goal3": "Mahtavaa! Olet todella hyvässä vauhdissa!",
