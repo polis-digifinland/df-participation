@@ -101,7 +101,8 @@ a:hover {
 
 #previousCard{display:none;}
 
-#previousCard.card-animate-center-to-left {
+#previousCard.card-animate-center-to-left,
+#goalCard.card-animate-center-to-left {
   display: flex;
   animation: throwCenterToLeft 0.800s forwards;
   animation-timing-function: cubic-bezier(0.47, 0.01, 0.58, 1);

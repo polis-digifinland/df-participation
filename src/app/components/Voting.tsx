@@ -4,10 +4,15 @@ import { useState, useEffect } from 'react';
 import Thumb from '@/icons/Thumb';
 import Pass from '@/icons/Pass';
 import Chevron from '@/icons/Chevron';
+import Fireworks from '@/icons/Fireworks';
+import Bullseye from '@/icons/Bullseye';
+import Medal from '@/icons/Medal';
+import Stars from '@/icons/Stars';
 import InfoIcon from '@/icons/Info';
 import Google from '@/icons/Google';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
+
 
 const fetcher = (url: string) =>
   fetch(url, { credentials: 'include' }).then((res) => {
@@ -62,13 +67,16 @@ export default function Voting({
   const [cardAnimateCenterToLeft, setCardAnimateCenterToLeft] = useState(false);
   const [cardAnimateLeftToCenter, setCardAnimateLeftToCenter] = useState(false);
 
+  const [showGoal, setShowGoal] = useState<number>(0);
+  const [goalCardAnimateCenterToLeft, setGoalCardAnimateCenterToLeft] = useState(false);
+
   const firstBarWidth = Math.min(progressPercentage * 2, 100);
   const secondBarWidth = Math.max(0,Math.min((progressPercentage - 50) * 2, 100));
 
-  const bar1Width = Math.min(progressPercentage * 4, 100);
-  const bar2Width = Math.max(0, Math.min((progressPercentage - 25) * 4, 100));
-  const bar3Width = Math.max(0, Math.min((progressPercentage - 50) * 4, 100));
-  const bar4Width = Math.max(0, Math.min((progressPercentage - 75) * 4, 100));
+  const bar1Width = Math.min(progressCurrent * 4, 100);
+  const bar2Width = Math.max(0, Math.min((progressCurrent - 25) * 4, 100));
+  const bar3Width = Math.max(0, Math.min((progressCurrent - 50) * 4, 100));
+  const bar4Width = Math.max(0, Math.min((progressCurrent - 75) * 4, 100));
 
   const externalApiBaseUrl = `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}`;
 
@@ -98,7 +106,7 @@ export default function Voting({
         setDisableTranslationButton(false);
       }
       setProgressTotal(participationData.nextComment.total || InitialTotal);
-      setProgressFloor(Math.floor((participationData.nextComment.total || InitialTotal) / 100) * 100);
+      setProgressFloor((Math.floor((participationData.nextComment.total || InitialTotal) / 100)) * 100);
       setProgressCurrent(participationData.nextComment.total - participationData.nextComment.remaining || 0 );
       setProgressPercentage(
         ((participationData.nextComment.total -
@@ -143,7 +151,16 @@ export default function Voting({
         setProgressCompleted(false);
         setDisableVotingButtons(false);
         setDisableTranslationButton(false);
+        setShowGoal(0);
       }, 920);
+    } else if (goalCardAnimateCenterToLeft) {
+      resetTimeout = setTimeout(() => {
+        setGoalCardAnimateCenterToLeft(false);
+        setDisableVotingButtons(false);
+        setDisableTranslationButton(false);
+        setDisablePreviousButton(false);
+        setShowGoal(0);
+      }, 820);
     }
     return () => {
       if (resetTimeout) clearTimeout(resetTimeout);
@@ -151,6 +168,7 @@ export default function Voting({
   }, [
     cardAnimateCenterToLeft,
     cardAnimateLeftToCenter,
+    goalCardAnimateCenterToLeft,
     previousBg,
     previousTid,
     previousMeta,
@@ -202,13 +220,19 @@ export default function Voting({
 
 
         setProgressTotal(data.nextComment.total || InitialTotal);
-        setProgressFloor((Math.floor(data.nextComment.total || InitialTotal) / 100) * 100);
+        setProgressFloor((Math.floor((data.nextComment.total || InitialTotal) / 100)) * 100);
         setProgressCurrent(data.nextComment.total - data.nextComment.remaining);
         setProgressPercentage(
           ((data.nextComment.total - data.nextComment.remaining) /
             data.nextComment.total) *
             100
         );
+
+        if ((data.nextComment.total - data.nextComment.remaining) === 25)  { setShowGoal(1); }
+        if ((data.nextComment.total - data.nextComment.remaining) === 50)  { setShowGoal(2); }
+        if ((data.nextComment.total - data.nextComment.remaining) === 75)  { setShowGoal(3); }
+        if ((data.nextComment.total - data.nextComment.remaining) === 100) { setShowGoal(4); }
+
         animateCardThrowCenterToLeft();
         document.getElementById('ProgressBar')?.focus(); // For screen readers reset to context beginning
         console.log(
@@ -308,30 +332,30 @@ export default function Voting({
           aria-label={t('voting.progress')}
         >
         <div className="text-base mx-5 text-center font-bold leading-tight">
-            <p className="mb-0">{`${progressCurrent}/${progressCurrent >= progressFloor ? progressTotal : `${progressFloor}+`}`}</p>
-          </div>
+          <p className="mb-0">{`${progressCurrent}/${progressFloor <= progressCurrent ? progressTotal : `${progressFloor}+`}`}</p>
+        </div>
         <div id="ProgressBars" className="flex gap-[6px] mt-xxs min-h-5">
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
-              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              className="bg-theme-progress-bar h-1.5 rounded duration-400"
               style={{ width: `${bar1Width}%` }}
             />
           </div>
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
-              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              className="bg-theme-progress-bar h-1.5 rounded duration-400"
               style={{ width: `${bar2Width}%` }}
             />
           </div>
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
-              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              className="bg-theme-progress-bar h-1.5 rounded duration-400"
               style={{ width: `${bar3Width}%` }}
             />
           </div>
           <div className="bg-theme-progress-background my-auto w-full h-1.5 rounded">
             <div
-              className="bg-theme-progress-bar h-1.5 rounded duration-200"
+              className="bg-theme-progress-bar h-1.5 rounded duration-400"
               style={{ width: `${bar4Width}%` }}
             />
           </div>
@@ -364,7 +388,7 @@ export default function Voting({
             id="previousCard"
             aria-disabled="true"
             className={`
-          absolute z-10 text-primary font-secondary select-none pointer-events-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex
+          absolute z-20 text-primary font-secondary select-none pointer-events-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex
           bg-theme-surface-card-${previousBg}
           ${cardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''}
           ${cardAnimateLeftToCenter ? 'card-animate-left-to-center' : ''}
@@ -391,7 +415,6 @@ export default function Voting({
             <div className="text-xl mt-xxs my-auto min-h-[150px] flex justify-center items-center">
               {enableTranslations ? previousTxtTranslated : previousTxt }
             </div>
-
               <div className="w-full mt-md mb-lg flex flex-wrap justify-around">
                 <div className="w-[33%] flex justify-center">
                   <button
@@ -451,7 +474,53 @@ export default function Voting({
 
 
 
-
+            {showGoal > 0 && (
+            <div
+              id="goalCard"
+              className={`${goalCardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''} bg-theme-surface-card-${currentBg} absolute z-10 text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
+            >
+              <div className="flex justify-between w-full mt-lg mx-md">
+              <button
+                className="flex items-center justify-start gap-1 rounded-md lg:hover:underline active:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                animateCardThrowLeftToCenter();
+                setDisablePreviousButton(true);
+                }}
+                disabled={disablePreviousButton}
+              >
+                <Chevron />
+                <span>{t('voting.buttons.back')}</span>
+              </button>
+              </div>
+              <div className='w-full min-h-6 lg:mt-md sm:mt-xs'></div>
+              <div className="text-xl mt-xxs my-auto min-h-[150px] flex flex-col justify-between items-center">
+                {showGoal === 1 && <Fireworks color="var(--surface-brand)" />}
+                {showGoal === 2 && <Medal color="var(--surface-brand)" />}
+                {showGoal === 3 && <Stars color="var(--surface-brand)" />}
+                {showGoal === 4 && <Bullseye color="var(--surface-brand)" />}
+                {t(`voting.goals.goal${showGoal}`)}
+              </div>
+              <div className="flex flex-col justify-center w-full mt-md mb-lg lg:min-h-[104px] min-h-[128px]">
+              <div className="flex justify-center">
+                <button
+                  id='continue-button'
+                  className="px-5 py-3 bg-primary rounded-[22px] text-invert text-xl leading-none font-semibold transform transition-transform duration-200 ease-in-out lg:hover:scale-105 active:scale-105"
+                  type="submit"
+                  disabled={cardAnimateCenterToLeft || disableVotingButtons}
+                  onClick={() => {
+                    setGoalCardAnimateCenterToLeft(true);
+                    setDisableVotingButtons(true);
+                    setDisablePreviousButton(true);
+                    setDisableTranslationButton(true);
+                    console.log('Going forward from goal card');
+                  }}
+                >
+                  {t('voting.goals.continue')}
+                </button>
+              </div>
+              </div>
+            </div>
+            )}
 
 
 
