@@ -228,10 +228,12 @@ export default function Voting({
             100
         );
 
-        if ((data.nextComment.total - data.nextComment.remaining) === 25)  { setShowGoal(1); }
-        if ((data.nextComment.total - data.nextComment.remaining) === 50)  { setShowGoal(2); }
-        if ((data.nextComment.total - data.nextComment.remaining) === 75)  { setShowGoal(3); }
-        if ((data.nextComment.total - data.nextComment.remaining) === 100) { setShowGoal(4); }
+        if ((data.nextComment.total || InitialTotal) > 100) {
+          if ((data.nextComment.total - data.nextComment.remaining) === 25)  { setShowGoal(1); }
+          if ((data.nextComment.total - data.nextComment.remaining) === 50)  { setShowGoal(2); }
+          if ((data.nextComment.total - data.nextComment.remaining) === 75)  { setShowGoal(3); }
+          if ((data.nextComment.total - data.nextComment.remaining) === 100) { setShowGoal(4); }
+        }
 
         animateCardThrowCenterToLeft();
         document.getElementById('ProgressBar')?.focus(); // For screen readers reset to context beginning
@@ -477,7 +479,7 @@ export default function Voting({
             {showGoal > 0 && (
             <div
               id="goalCard"
-              className={`${goalCardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''} bg-theme-surface-card-${currentBg} absolute z-10 text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
+              className={`${goalCardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''} bg-theme-surface-card-${currentBg + 1} absolute z-10 text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
             >
               <div className="flex justify-between w-full mt-lg mx-md">
               <button
