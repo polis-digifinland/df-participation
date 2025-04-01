@@ -56,7 +56,8 @@
     },
     "thanks": {
       "title": "Thank you for participating!",
-      "desc": "These were all the statements for this time. However, the discussion continues, so please come back later to respond to new statements!"
+      "desc": "These were all the statements for this time.",
+      "continue": "However, the discussion continues, so please come back later to respond to new statements!"
     }
   },
   "results": {

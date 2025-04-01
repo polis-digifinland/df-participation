@@ -56,7 +56,8 @@
     },
     "thanks": {
       "title": "Tack för din medverkan!",
-      "desc": "Det här var alla påståenden för den här gången. Diskussionen fortsätter dock, så kom tillbaka senare för att svara på nya påståenden!"
+      "desc": "Det här var alla påståenden för den här gången.",
+      "continue": "Diskussionen fortsätter dock, så kom tillbaka senare för att svara på nya påståenden!"
     }
   },
   "results": {

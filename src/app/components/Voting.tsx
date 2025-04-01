@@ -25,6 +25,7 @@ const fetcher = (url: string) =>
 interface VotingProps {
   failed_to_load: boolean;
   is_active: boolean;
+  write_type: boolean;
   conversation_id: string;
   InitialTotal: number;
   locale: string;
@@ -33,6 +34,7 @@ interface VotingProps {
 export default function Voting({
   failed_to_load,
   is_active,
+  write_type,
   conversation_id,
   InitialTotal,
   locale,
@@ -64,6 +66,8 @@ export default function Voting({
   const [progressPercentage, setProgressPercentage] = useState<number>(0);
   const [progressCompletedStatus, setProgressCompleted] = useState<boolean>(false);
 
+  const [writeType, setWriteType] = useState<boolean>(write_type);
+
   const [cardAnimateCenterToLeft, setCardAnimateCenterToLeft] = useState(false);
   const [cardAnimateLeftToCenter, setCardAnimateLeftToCenter] = useState(false);
 
@@ -90,6 +94,7 @@ export default function Voting({
       console.error('Error fetching vote data:', participationError);
     } else if (participationData) {
       setConversationActive(participationData.conversation.is_active);
+      setWriteType(participationData.conversation.write_type);
       setCurrentTid(participationData.nextComment.tid);
       setCurrentMeta(participationData.nextComment.is_meta);
       setCurrentLang(participationData.nextComment.lang || 'und');
@@ -562,7 +567,7 @@ export default function Voting({
                 {t('voting.thanks.title')}
                 </div>
                 <div className="text-base font-secondary mt-sm my-auto flex justify-center items-center text-center">
-                {t('voting.thanks.desc')}
+                {t('voting.thanks.desc')} {writeType ? t('voting.thanks.continue') : null}
                 </div>
               </div>
             )}

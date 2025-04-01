@@ -1,6 +1,6 @@
 {
   "name": "df-participation",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "private": true,
   "scripts": {
     "copy": "./scripts/copy-pages.sh",

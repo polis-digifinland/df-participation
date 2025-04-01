@@ -56,7 +56,8 @@
     },
     "thanks": {
       "title": "Kiitos osallistumisestasi!",
-      "desc": "Tässä oli kaikki väittämät tällä kertaa. Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!"
+      "desc": "Tässä oli kaikki väittämät tällä kertaa.",
+      "continue": "Keskustelu kuitenkin jatkuu, joten palaathan vielä myöhemmin vastaamaan uusiin väitteisiin!"
     }
   },
   "results": {

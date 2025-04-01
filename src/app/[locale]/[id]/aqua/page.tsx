@@ -90,6 +90,7 @@ export default async function Page({ params }: { params: { locale: string, id: s
         <Voting
           failed_to_load={data ? false : true}
           is_active={data ? data.conversation.is_active : false}
+          write_type={data ? data.conversation.write_type : 0}
           conversation_id={params.id ? params.id : t('status.loadError.topic')}
           InitialTotal={data ? data.nextComment.total : 0}
           locale={params.locale}
