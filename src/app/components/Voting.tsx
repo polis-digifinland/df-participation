@@ -233,12 +233,10 @@ export default function Voting({
             100
         );
 
-        if ((data.nextComment.total || InitialTotal) > 100) {
-          if ((data.nextComment.total - data.nextComment.remaining) === 25)  { setShowGoal(1); }
-          if ((data.nextComment.total - data.nextComment.remaining) === 50)  { setShowGoal(2); }
-          if ((data.nextComment.total - data.nextComment.remaining) === 75)  { setShowGoal(3); }
-          if ((data.nextComment.total - data.nextComment.remaining) === 100) { setShowGoal(4); }
-        }
+        if ((data.nextComment.total - data.nextComment.remaining) === 25)  { setShowGoal(1); }
+        if ((data.nextComment.total - data.nextComment.remaining) === 50)  { setShowGoal(2); }
+        if ((data.nextComment.total - data.nextComment.remaining) === 75)  { setShowGoal(3); }
+        if ((data.nextComment.total - data.nextComment.remaining) === 100) { setShowGoal(4); }
 
         animateCardThrowCenterToLeft();
         document.getElementById('ProgressBar')?.focus(); // For screen readers reset to context beginning
