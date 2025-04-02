@@ -482,7 +482,7 @@ export default function Voting({
             {showGoal > 0 && (
             <div
               id="goalCard"
-              className={`${goalCardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''} bg-theme-surface-card-${currentBg + 1} absolute z-10 text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
+              className={`${goalCardAnimateCenterToLeft ? 'card-animate-center-to-left' : ''} bg-theme-surface-card-${10 - previousBg - currentBg - (currentBg === 4 ? 1 : currentBg + 1)} absolute z-10 text-primary font-secondary select-none min-w-full mt-sm px-lg rounded-[40px] flex-col justify-center items-center inline-flex`}
             >
               <div className="flex justify-between w-full mt-lg mx-md">
               <button
