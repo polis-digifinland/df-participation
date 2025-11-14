@@ -8,6 +8,7 @@
 --surface-primary: var(--dark_black);
 --surface-secondary: var(--dark_off_black);
 --surface-brand: var(--dark_white);
+--surface-button: var(--dark_white);
 --surface-card-1: var(--dark_green1);
 --surface-card-2: var(--dark_brown);
 --surface-card-3: var(--dark_blue);

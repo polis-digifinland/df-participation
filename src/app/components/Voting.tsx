@@ -428,7 +428,7 @@ export default function Voting({
                   >
                     <div className="h-[66px] w-[66px]">
                       <Thumb
-                        fg="var(--surface-brand)"
+                        fg="var(--surface-button)"
                         bg="var(--surface-primary)"
                         rotate={180}
                       />
@@ -444,7 +444,7 @@ export default function Voting({
                   >
                     <div className="h-[66px] w-[66px]">
                       <Pass
-                        fg="var(--surface-brand)"
+                        fg="var(--surface-button)"
                         bg="var(--surface-primary)"
                       />
                     </div>
@@ -461,7 +461,7 @@ export default function Voting({
                   >
                     <div className="h-[66px] w-[66px]">
                       <Thumb
-                        fg="var(--surface-brand)"
+                        fg="var(--surface-button)"
                         bg="var(--surface-primary)"
                       />
                     </div>
@@ -591,7 +591,7 @@ export default function Voting({
                   >
                     <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Thumb
-                        fg="var(--surface-brand)"
+                        fg="var(--surface-button)"
                         bg="var(--surface-primary)"
                         rotate={180}
                       />
@@ -615,7 +615,7 @@ export default function Voting({
                   >
                     <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Pass
-                        fg="var(--surface-brand)"
+                        fg="var(--surface-button)"
                         bg="var(--surface-primary)"
                       />
                     </div>
@@ -638,7 +638,7 @@ export default function Voting({
                     >
                     <div className={`h-[66px] w-[66px] transition-transform duration-300 ease-in-out transform ${!disableVotingButtons ? 'group-hover:lg:scale-110 group-active:scale-110' : ''}`}>
                       <Thumb
-                        fg="var(--surface-brand)"
+                        fg="var(--surface-button)"
                         bg="var(--surface-primary)"
                       />
                     </div>

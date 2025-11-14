@@ -8,6 +8,7 @@
 --surface-primary: var(--white);
 --surface-secondary: var(--aq_off_white);
 --surface-brand: var(--wl_black);
+--surface-button: var(--wl_black);
 --surface-card-1: var(--aq_1);
 --surface-card-2: var(--aq_2);
 --surface-card-3: var(--aq_3);
@@ -42,6 +43,7 @@ vertical-align: middle;
 --surface-primary: var(--dark_black);
 --surface-secondary: var(--dark_off_black);
 --surface-brand: var(--dark_white);
+--surface-button: var(--dark_white);
 --surface-card-1: var(--dark_green1);
 --surface-card-2: var(--dark_brown);
 --surface-card-3: var(--dark_blue);

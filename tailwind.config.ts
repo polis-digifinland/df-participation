@@ -36,6 +36,7 @@ const config: Config = {
         'theme-surface-primary': "var(--surface-primary)",
         'theme-surface-secondary': "var(--surface-secondary)",
         'theme-surface-brand': "var(--surface-brand)",
+        'theme-surface-button': "var(--surface-button)",
         'theme-surface-card-1': "var(--surface-card-1)",
         'theme-surface-card-2': "var(--surface-card-2)",
         'theme-surface-card-3': "var(--surface-card-3)",

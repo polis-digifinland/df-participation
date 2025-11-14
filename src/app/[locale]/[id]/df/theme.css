@@ -8,6 +8,7 @@
 --surface-primary: var(--white);
 --surface-secondary: var(--df_off_white);
 --surface-brand: var(--df_blue);
+--surface-button: var(--df_blue);
 --surface-card-1: var(--df_light_blue);
 --surface-card-2: var(--df_green);
 --surface-card-3: var(--df_pink);

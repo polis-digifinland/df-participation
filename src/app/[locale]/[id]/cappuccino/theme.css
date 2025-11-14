@@ -8,6 +8,7 @@
 --surface-primary: var(--white);
 --surface-secondary: var(--wl_off_white);
 --surface-brand: var(--wl_black);
+--surface-button: var(--wl_black);
 --surface-card-1: var(--cp_1);
 --surface-card-2: var(--cp_2);
 --surface-card-3: var(--cp_3);
