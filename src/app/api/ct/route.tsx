@@ -8,7 +8,7 @@ const allowedOrigins = [
     "https://beta.polis.digifinland.fi",
     "https://polis-test-gke.digifinland.dev",
     "https://polis.digifinland.fi",
-    "voxit.hel.fi",
+    "https://voxit.hel.fi",
 ];
 
 export async function GET(request: NextRequest) {
