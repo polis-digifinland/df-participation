@@ -1,5 +1,6 @@
 import Logo from '../icons/Logo';
 import LanguageChanger from '@/components/LanguageChanger';
+import Helsinki from '@/components/Helsinki';
 
 export default function Header() {
 	return (
@@ -8,6 +9,7 @@ export default function Header() {
         <Logo  fg="var(--logo-primary)" bg="var(--logo-secondary)" />
 				<LanguageChanger />
 			</div>
+			<Helsinki />
 		</>
 	)
 }

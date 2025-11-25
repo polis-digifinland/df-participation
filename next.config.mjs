@@ -10,6 +10,24 @@ const nextConfig = {
   // Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
   // skipTrailingSlashRedirect: true,
 
+  async headers() {
+    return [
+      {
+        // Apply security headers to Next.js optimized font files
+        source: '/_next/static/media/:path*.(woff|woff2|ttf|otf|eot)',
+        headers: [
+          {
+            key: 'Referrer-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

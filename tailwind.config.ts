@@ -17,6 +17,7 @@ const config: Config = {
         tthoves: ['var(--font-tt-hoves)'],
         dmserif: ['var(--font-dm-serif)'],
         raleway: ['var(--font-raleway)'],
+        helsinki: ['HelsinkiGrotesk', 'Arial', 'sans-serif'],
       },
       spacing: {
         xl: '40px',

@@ -2,10 +2,29 @@ import { DM_Serif_Text, Raleway } from 'next/font/google'
 import localFont from "next/font/local";
 import type { Metadata } from "next";
 import { Suspense } from 'react';
+import { headers } from 'next/headers';
 import i18nConfig from './../../../i18n-config';
+import { isDomainAllowedForFont } from '@/lib/font-licensing';
 
 import "@/globals.css";
 
+function getFontPermissions(): { allowTTHoves: boolean; allowGoogleFonts: boolean; allowHelsinkiGrotesk: boolean } {
+  try {
+    const headersList = headers();
+    const hostname = headersList.get('host') || '';
+
+    return {
+      allowTTHoves: isDomainAllowedForFont(hostname, 'tt-hoves'),
+      allowGoogleFonts: isDomainAllowedForFont(hostname, 'google-fonts'),
+      allowHelsinkiGrotesk: isDomainAllowedForFont(hostname, 'helsinki-grotesk'),
+    };
+  } catch {
+    // Fallback during build time - allow all fonts
+    return { allowTTHoves: true, allowGoogleFonts: true, allowHelsinkiGrotesk: true };
+  }
+}
+
+// Initialize Google Fonts (conditionally loaded in component)
 const dm_serif = DM_Serif_Text({
   subsets: ['latin'],
   weight: '400',
@@ -19,6 +38,7 @@ const raleway = Raleway({
   variable: '--font-raleway',
 })
 
+// Initialize TT Hoves font (conditionally loaded in component)
 const tt_hoves = localFont({
   src: [
     {
@@ -67,9 +87,17 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  const fontPermissions = getFontPermissions();
+
+  // Build font classes based on licensing permissions
+  const fontClasses = [
+    fontPermissions.allowTTHoves ? tt_hoves.variable : '',
+    fontPermissions.allowGoogleFonts ? dm_serif.variable : '',
+    fontPermissions.allowGoogleFonts ? raleway.variable : '',
+  ].filter(Boolean).join(' ');
   return (
     <html lang={params.locale}>
-      <body className={`${tt_hoves.variable} ${dm_serif.variable} ${raleway.variable} bg-theme-surface-primary antialiased text-left m-0 h-full min-h-screen flex flex-col`}>
+      <body className={`${fontClasses} bg-theme-surface-primary antialiased text-left m-0 h-full min-h-screen flex flex-col`}>
           <Suspense fallback={<h1 className="text-primary text-3xl font-primary font-bold mx-auto mt-xl">Ladataan sovellusta.</h1>}>
             {children}
           </Suspense>

@@ -5,6 +5,7 @@
 :root{
 /* General colors */
 --white: #ffffff;
+--black: #000000;
 --gray: #6E6E6E;
 --error: #A30F0F;
 --backdrop: #121212;
@@ -49,6 +50,24 @@
 --cp_1: #E2D2C4;
 --cp_2: #E8E8E8;
 --cp_3: #EDD4BF;
+
+
+/* Helsinki Vaakuna theme colors */
+--hel_blue: #0072C6;
+--hel_dark_blue: #005799;
+--hel_light_blue: #B5DAF7;
+--hel_very_light_blue: #E6F4FF;
+--hel_grey: #CCCCCC;
+--hel_light_grey: #F2F2F2;
+--hel_card_1: #E6F4FF;
+--hel_card_2: #FFF4D4; /* Summer */
+--hel_card_3: #FFF0F7; /* Suomenlinna */
+--hel_card_4: #DFF7EB; /* Spåra */
+
+/* Helsinki Ratikka theme colors */
+--hel_green: #008741;
+--hel_light_green: #A3E3C2;
+--hel_very_light_green: #DFF7EB;
 }
 
 /* Highlight parts without theme being applied to them */

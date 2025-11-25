@@ -1,0 +1,50 @@
+/* Helsinki Vaakuna Theme colors and fonts */
+
+@import "font.css";
+
+:root {
+  --text-primary: var(--black);
+  --text-placeholder: var(--gray);
+  --text-invert: var(--white);
+  --text-error: var(--error);
+  --text-footer: var(--white);
+  --surface-primary: var(--white);
+  --surface-secondary: var(--hel_light_grey);
+  --surface-brand: var(--hel_green);
+  --surface-button: var(--black);
+  --surface-card-1: var(--hel_very_light_green);
+  --surface-card-2: var(--hel_card_2);
+  --surface-card-3: var(--hel_card_3);
+  --surface-card-4: var(--hel_very_light_blue);
+  --surface-graph-primary: var(--hel_grey);
+  --surface-graph-secondary: var(--hel_light_green);
+  --border-primary: var(--black);
+  --border-error: var(--error);
+  --logo-primary: var(--black);
+  --logo-secondary: var(--df_light_blue);
+  --footer-background: var(--df_blue);
+  --progress-bar: var(--black);
+  --progress-background: var(--aq_3);
+  --modal-background: var(--white);
+  --modal-backdrop: var(--backdrop);
+}
+
+a::after {
+  content: url('./../../../icons/open_in_new_basic.svg');
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.font-primary {
+  font-family: 'HelsinkiGrotesk', 'Arial', 'sans-serif';
+}
+
+.font-secondary {
+  font-family: 'HelsinkiGrotesk', 'Arial', 'sans-serif';
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
