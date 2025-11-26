@@ -12,7 +12,7 @@ import InfoIcon from '@/icons/Info';
 import Google from '@/icons/Google';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
-
+import { getApiBaseUrl } from '@/lib/apiConfig'
 
 const fetcher = (url: string) =>
   fetch(url, { credentials: 'include' }).then((res) => {
@@ -82,7 +82,7 @@ export default function Voting({
   const bar3Width = Math.max(0, Math.min((progressCurrent - 50) * 4, 100));
   const bar4Width = Math.max(0, Math.min((progressCurrent - 75) * 4, 100));
 
-  const externalApiBaseUrl = `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}`;
+  const externalApiBaseUrl = getApiBaseUrl();
 
   const { data: participationData, error: participationError } = useSWR(
     `${externalApiBaseUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,

@@ -1,13 +1,14 @@
 import CookiesAndData from "@/lib/CookiesAndData"
+import { getApiBaseUrl } from '@/lib/apiConfig'
 import Header from "@/components/Header"
 import Conversation from "@/components/Conversation"
 import Voting from "@/components/Voting"
 import Suggestions from "@/components/Suggestions"
 import Results from "@/components/Results"
 import Footer from "@/components/Footer"
-import { notFound } from 'next/navigation';
-import initTranslations from '@/i18n';
-import TranslationsProvider from '@/components/TranslationsProvider';
+import { notFound } from 'next/navigation'
+import initTranslations from '@/i18n'
+import TranslationsProvider from '@/components/TranslationsProvider'
 
 // Import here the CSS file for the theme that is in the same folder as this file
 // This will allow Next.js to include the CSS file in the build and use SSR.
@@ -32,7 +33,7 @@ export default async function Page({ params }: { params: { locale: string, id: s
   const i18nNamespaces = ['common'];
   const { t, resources } = await initTranslations(params.locale, i18nNamespaces);
 
-  const baseUrl = process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL;
+  const baseUrl = getApiBaseUrl();
   let data = null;
 
   //if (params.id === undefined || params.id === null || params.id === 'sitemap.xml') {

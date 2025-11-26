@@ -2,7 +2,8 @@
 
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable'
-import { useEffect } from 'react';
+import { useEffect } from 'react'
+import { getApiBaseUrl } from '@/lib/apiConfig'
 
 interface CookieProps {
     conversation_id: string;
@@ -17,10 +18,7 @@ const fetcher = (url: string) => fetch(url, { credentials: 'include' }).then(res
 });
 
 export default function Cookies({ conversation_id, locale }: CookieProps) {
-    const apiUrl = process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL;
-    if (!apiUrl) {
-        throw new Error('NEXT_PUBLIC_EXTERNAL_API_BASE_URL is not defined');
-    }
+    const apiUrl = getApiBaseUrl();
 
     const { data: cookieTestData, error: cookieTestError } = useSWRImmutable('/api/ct', fetcher);
     const { data: participationData, error: participationError } = useSWR(

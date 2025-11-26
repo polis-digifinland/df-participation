@@ -5,6 +5,7 @@ import User from '../icons/User';
 import Chevron from '../icons/Chevron';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
+import { getApiBaseUrl } from '@/lib/apiConfig'
 
 const fetcher = (url: string) => fetch(url, { credentials: 'include' }).then(res => {
   if (!res.ok) {
@@ -23,11 +24,12 @@ interface ResultsProps {
 export default function Results({ is_active, vis_type, conversation_id, locale }: ResultsProps) {
 
   const { t } = useTranslation();
+  const baseUrl = getApiBaseUrl();
 
   const [conversationActive, setConversationActive] = useState<boolean>(is_active);
   const [visualizationActive, setVisualizationActive] = useState<boolean>(vis_type);
   const { data: participationData, error: participationError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
+    `${baseUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
     fetcher
   );
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function Results({ is_active, vis_type, conversation_id, locale }
 
 
   const { data: commentsData, error: commentsError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/comments?conversation_id=${conversation_id}&lang=${locale}&translate=true&moderation=true&mod_gt=0&include_voting_patterns=true`,
+    `${baseUrl}/api/v3/comments?conversation_id=${conversation_id}&lang=${locale}&translate=true&moderation=true&mod_gt=0&include_voting_patterns=true`,
     fetcher,
     {
       refreshInterval: 30000, // Refresh every 30 seconds
@@ -83,7 +85,7 @@ export default function Results({ is_active, vis_type, conversation_id, locale }
 
 
   const { data: votesData, error: votesError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/votes?conversation_id=${conversation_id}&pid=mypid`,
+    `${baseUrl}/api/v3/votes?conversation_id=${conversation_id}&pid=mypid`,
     fetcher,
     {
       refreshInterval: 10000, // Refresh every 10 seconds

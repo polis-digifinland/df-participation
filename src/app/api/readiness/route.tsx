@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
+import { getApiBaseUrl } from '@/lib/apiConfig'
 
 export async function GET() {
+  const baseUrl = getApiBaseUrl();
   const controller = new AbortController();
   const timeoutDuration = 10000; // Set timeout to 10000ms (10 seconds)
   const timeoutId = setTimeout(() => {
@@ -10,7 +12,7 @@ export async function GET() {
 
   try {
     //console.log(`Starting fetch with timeout set to ${timeoutDuration}ms`);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/testConnection`, {
+    const res = await fetch(`${baseUrl}/api/v3/testConnection`, {
       signal: controller.signal,
       cache: 'no-store', // Disable caching
     });

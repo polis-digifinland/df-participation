@@ -6,6 +6,7 @@ import InfoIcon from '@/icons/Info';
 import ErrorIcon from '@/icons/Error';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
+import { getApiBaseUrl } from '@/lib/apiConfig'
 
 const fetcher = (url: string) =>
   fetch(url, { credentials: 'include' }).then((res) => {
@@ -25,6 +26,7 @@ interface SuggestionsProps {
 export default function Suggestions({ is_active, write_type, conversation_id, locale }: SuggestionsProps) {
 
   const { t } = useTranslation();
+  const baseUrl = getApiBaseUrl();
 
   const [inputValue, setInputValue] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -40,7 +42,7 @@ export default function Suggestions({ is_active, write_type, conversation_id, lo
   const [writeType, setWriteType] = useState<boolean>(write_type);
 
   const { data: participationData, error: participationError } = useSWR(
-    `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
+    `${baseUrl}/api/v3/participationInit?conversation_id=${conversation_id}&pid=mypid&lang=${locale}`,
     fetcher
   );
 
@@ -109,7 +111,7 @@ export default function Suggestions({ is_active, write_type, conversation_id, lo
     }
 
     try {
-      const externalApiUrl = `${process.env.NEXT_PUBLIC_EXTERNAL_API_BASE_URL}/api/v3/comments`; //
+      const externalApiUrl = `${baseUrl}/api/v3/comments`; //
       const response = await fetch(externalApiUrl, {
         method: 'POST',
         credentials: 'include', // This will include cookies in the request
