@@ -14,8 +14,8 @@
   "readLess": "Läs mindre",
   "suggestions": {
     "closed": "Det är inte längre möjligt att lägga till nya påståenden.",
-    "title": "Saknas ett viktigt påstående i frågan?",
-    "label": "Föreslå ett eget påstående till frågan",
+    "title": "Saknas ett viktigt påstående i enkäten?",
+    "label": "Föreslå ett eget påstående till enkäten",
     "moreInfo": "Mer information",
     "placeholder": "Skriv här",
     "submit": "Föreslå",
