@@ -23,6 +23,7 @@ export default async function Footer({ locale }: FooterProps) {
               <li><h2 className="text-2xl font-bold m-0">{t('footer.links.title')}</h2></li>
               <li className="m-2.5"><a target="_blank" rel="noreferrer" className="border-0" href="https://digifinland.fi/tietosuoja/">{t('footer.links.privacy')}</a></li>
               <li className="m-2.5"><a target="_blank" rel="noreferrer" className="border-0" href="https://digifinland.fi/toimintamme/polis-kansalaiskeskustelualusta/">{t('footer.links.info')}</a></li>
+              <li className="m-2.5"><a target="_blank" rel="noreferrer" className="border-0" href="https://digifinland.fi/saavutettavuusseloste-voxit-digifinland/">{t('footer.links.accessibility')}</a></li>
               <li className="m-2.5"><a target="_blank" rel="noreferrer" className="border-0" href="https://compdemocracy.org/Welcome/">The Computational Democracy Project</a></li>
               <li className="m-2.5"><a target="_blank" rel="noreferrer" className="border-0" href="https://github.com/polis-digifinland/polis-digifinland">{t('footer.links.source')}</a></li>
             </ul>
